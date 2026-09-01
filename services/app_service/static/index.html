@@ -869,59 +869,97 @@ input[type="range"] {
 .md-rendered {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .md-h2 {
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  color: #34d399;
-  margin-top: 8px;
+  color: var(--emerald-500);
+  margin-top: 12px;
   margin-bottom: 4px;
+}
+
+[data-theme="light"] .md-h2 {
+  color: #047857;
 }
 
 .md-h3 {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: #f1f5f9;
-  margin-top: 6px;
-  margin-bottom: 2px;
+  color: var(--text-primary);
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+[data-theme="light"] .md-h3 {
+  color: #0f172a;
 }
 
 .md-h4 {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  color: #94a3b8;
+  color: var(--text-primary);
+  margin-top: 8px;
+  margin-bottom: 3px;
+}
+
+[data-theme="light"] .md-h4 {
+  color: #1e293b;
 }
 
 .md-p {
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.65;
+  font-size: 0.92rem;
+}
+
+[data-theme="light"] .md-p {
+  color: #1e293b;
 }
 
 .md-ul, .md-ol {
-  margin-left: 18px;
+  margin-left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .md-li, .md-oli {
-  color: var(--text-secondary);
-  line-height: 1.5;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
+[data-theme="light"] .md-li, [data-theme="light"] .md-oli {
+  color: #1e293b;
+}
+
+.md-li strong, .md-oli strong, .md-p strong {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+[data-theme="light"] .md-li strong, [data-theme="light"] .md-oli strong, [data-theme="light"] .md-p strong {
+  color: #0f172a;
 }
 
 .md-alert {
-  color: #f59e0b;
+  color: #d97706;
   font-weight: 700;
 }
 
+[data-theme="light"] .md-alert {
+  color: #b45309;
+}
+
 .md-check {
-  color: #10b981;
+  color: #059669;
   font-weight: 700;
 }
+
 
 .sources-box {
   margin-top: 14px;
@@ -2183,9 +2221,9 @@ $('decodeBtn').addEventListener('click', async () => {
 
     // Render Grounded RAG
     $('ragOutput').className = 'result-body';
-    $('ragOutput').innerHTML = renderMarkdown(ragData.explanation);
-    const ragTimeSec = (ragData.processing_time_ms / 1000).toFixed(2);
-    $('ragMetaInfo').textContent = `⏱ ${ragTimeSec}s · Model: ${ragData.model_used || 'default'} · ${ragData.retrieved_chunks_count} Knowledge Chunks`;
+    const chunkCount = (ragData.retrieved_chunks || []).length;
+    $('ragMetaInfo').textContent = `⏱ ${ragTimeSec}s · Model: ${ragData.model_used || 'default'} · ${chunkCount} Knowledge Chunks Grounded`;
+
 
     // Render Sources Chips
     const sourcesContainer = $('ragSourcesChips');

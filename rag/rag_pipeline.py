@@ -42,35 +42,39 @@ def build_rag_prompt(ingredient_list: str, context: str, unmatched_ingredients: 
     if unmatched_ingredients:
         unmatched_str = ", ".join(unmatched_ingredients)
         unmatched_block = f"""
-UNMATCHED ITEMS (Not in local knowledge base):
+UNMATCHED INGREDIENTS (No entry in local database):
 {unmatched_str}
-(For these unmatched items, briefly note that no specific Codex/FDA record is stored in the local knowledge base).
 """
 
-    return f"""SYSTEM INSTRUCTIONS:
-You are a senior food scientist and consumer label analyst.
-Provide a clear, factually grounded, and professional breakdown of the packaged food ingredients provided.
+    return f"""You are a senior food scientist and consumer label specialist.
+Analyze the user's food label by providing a factually grounded, beautifully structured breakdown.
 
-GROUNDING & FORMATTING GUIDELINES:
-1. Ground all claims strictly in the RETRIEVED KNOWLEDGE BASE EVIDENCE below.
-2. Structure your output with clean markdown headings and bullets:
-   - **🔬 Ingredient-by-Ingredient Breakdown**:
-     • **[Ingredient Name / E-number]**: What it is, functional role in food, allergen status, and health notes.
-   - **🚨 Allergen & Dietary Profile**:
-     • IF allergens (e.g. Milk, Wheat/Gluten, Soy, Egg, Peanuts) are present: List ONLY the verified allergens (e.g. "⚠️ Major Food Allergens Detected: Milk / Dairy"). Do NOT state "No major allergens" if allergens are present.
-     • IF NO major allergens are present: State "✅ No major recognized food allergens detected."
-     • NEVER list fruits, vegetables, or water as food allergens unless explicitly defined in regulatory context.
-     • State Vegan / Vegetarian suitability based on the ingredients.
-   - **💡 Health & Nutritional Takeaways**: 2 clear, consumer-friendly sentences summarizing moderation, processing, or dietary takeaways.
+STRICT INSTRUCTIONS:
+1. Base all facts, functions, and additive explanations STRICTLY on the RETRIEVED KNOWLEDGE BASE EVIDENCE.
+2. Structure your output with clean markdown headings and compact, informative bullet points:
+
+### 🔬 Ingredient-by-Ingredient Breakdown
+Explain each listed ingredient in order:
+- **[Ingredient / E-Number]**: [Concise definition & functional role]. [Allergen: Note if present, or "Not a recognized allergen"]. [Health note: Cautious scientific summary].
+
+(For any items in UNMATCHED, state: "- **[Item Name]**: No specific record in local Codex/FDA knowledge base.")
+
+### 🚨 Allergen & Dietary Warnings
+- **Allergens Detected**: Explicitly list all verified allergens (e.g. "⚠️ Wheat / Gluten", "⚠️ Peanuts / Groundnut", "⚠️ Milk / Dairy") or state "✅ No major recognized food allergens detected."
+- **Dietary Suitability**: Note suitability (Vegetarian, Vegan, Dairy-Free, Nut-Free) based strictly on the ingredients.
+
+### 💡 Nutrition & Health Takeaway
+Provide 1–2 crisp sentences summarizing the overall nature of the product (e.g., sodium level, refinement, or balance).
 
 RETRIEVED KNOWLEDGE BASE EVIDENCE:
 {context}
 {unmatched_block}
-USER FOOD LABEL INGREDIENT LIST:
+USER INGREDIENT LIST:
 {ingredient_list}
 
-Generate your decoded analysis now:
+Generate your structured analysis:
 """
+
 
 
 
