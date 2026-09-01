@@ -22,6 +22,8 @@ from rag.retriever import retrieve_for_ingredient_list
 from rag.rag_pipeline import format_context, build_rag_prompt, detect_allergens_and_dietary
 from eval.metrics import compute_grounding_accuracy, compute_allergen_recall, compute_hallucination_rate
 
+logger = logging.getLogger("food-label-decoder.model_comparator")
+
 def build_fast_compare_prompt(ingredient_list: str, context: str, unmatched: list[str]) -> str:
     unmatched_str = ", ".join(unmatched) if unmatched else "None"
     return f"""You are an expert food label decoder. Base your analysis STRICTLY on the retrieved context below.
