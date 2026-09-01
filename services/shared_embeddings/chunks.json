@@ -1,0 +1,558 @@
+[
+  {
+    "chunk_id": "ing_wheat_flour",
+    "text": "Name: Wheat flour\nAlso known as: wheat, flour, enriched wheat flour, whole wheat flour\nE-number: N/A\nCategory: grain / base ingredient\nFunction: Provides structure, texture and bulk in baked and processed foods.\nCommon uses: Bread, pasta, crackers, breading/coatings, thickeners in sauces.\nAllergen information: Contains gluten. Direct allergen: wheat. Also relevant to people with celiac disease or gluten sensitivity.\nHealth considerations: A source of carbohydrates and some protein. Refined wheat flour has less fiber than whole wheat flour.\nSource: Codex Alimentarius / FDA Food Labeling Guide (general food composition references)",
+    "metadata": {
+      "id": "ing_wheat_flour",
+      "name": "Wheat flour",
+      "synonyms": [
+        "wheat",
+        "flour",
+        "enriched wheat flour",
+        "whole wheat flour"
+      ],
+      "e_number": null,
+      "category": "grain / base ingredient",
+      "function": "Provides structure, texture and bulk in baked and processed foods.",
+      "common_uses": "Bread, pasta, crackers, breading/coatings, thickeners in sauces.",
+      "allergen_info": "Contains gluten. Direct allergen: wheat. Also relevant to people with celiac disease or gluten sensitivity.",
+      "health_considerations": "A source of carbohydrates and some protein. Refined wheat flour has less fiber than whole wheat flour.",
+      "source": "Codex Alimentarius / FDA Food Labeling Guide (general food composition references)"
+    }
+  },
+  {
+    "chunk_id": "ing_sugar",
+    "text": "Name: Sugar\nAlso known as: sucrose, cane sugar, white sugar, granulated sugar\nE-number: N/A\nCategory: sweetener\nFunction: Sweetens food and can act as a preservative and texture/browning agent.\nCommon uses: Virtually all sweetened processed foods, baked goods, beverages, sauces.\nAllergen information: Not a recognized allergen.\nHealth considerations: The retrieved information notes that health guidelines commonly recommend limiting added sugar intake as part of a balanced diet.\nSource: WHO guideline on sugars intake (general public guidance)",
+    "metadata": {
+      "id": "ing_sugar",
+      "name": "Sugar",
+      "synonyms": [
+        "sucrose",
+        "cane sugar",
+        "white sugar",
+        "granulated sugar"
+      ],
+      "e_number": null,
+      "category": "sweetener",
+      "function": "Sweetens food and can act as a preservative and texture/browning agent.",
+      "common_uses": "Virtually all sweetened processed foods, baked goods, beverages, sauces.",
+      "allergen_info": "Not a recognized allergen.",
+      "health_considerations": "The retrieved information notes that health guidelines commonly recommend limiting added sugar intake as part of a balanced diet.",
+      "source": "WHO guideline on sugars intake (general public guidance)"
+    }
+  },
+  {
+    "chunk_id": "ing_palm_oil",
+    "text": "Name: Palm oil\nAlso known as: palm kernel oil, vegetable oil (palm)\nE-number: N/A\nCategory: fat / oil\nFunction: Provides texture, mouthfeel, and shelf stability; used as a cooking/frying fat.\nCommon uses: Margarine, packaged snacks, baked goods, instant noodles.\nAllergen information: Not a recognized common allergen.\nHealth considerations: The retrieved information notes palm oil is high in saturated fat compared to many other vegetable oils; general dietary guidance suggests moderating saturated fat intake.\nSource: FAO/WHO food composition references (general public guidance)",
+    "metadata": {
+      "id": "ing_palm_oil",
+      "name": "Palm oil",
+      "synonyms": [
+        "palm kernel oil",
+        "vegetable oil (palm)"
+      ],
+      "e_number": null,
+      "category": "fat / oil",
+      "function": "Provides texture, mouthfeel, and shelf stability; used as a cooking/frying fat.",
+      "common_uses": "Margarine, packaged snacks, baked goods, instant noodles.",
+      "allergen_info": "Not a recognized common allergen.",
+      "health_considerations": "The retrieved information notes palm oil is high in saturated fat compared to many other vegetable oils; general dietary guidance suggests moderating saturated fat intake.",
+      "source": "FAO/WHO food composition references (general public guidance)"
+    }
+  },
+  {
+    "chunk_id": "ing_milk_solids",
+    "text": "Name: Milk solids\nAlso known as: milk powder, dried milk, nonfat milk solids\nE-number: N/A\nCategory: dairy ingredient\nFunction: Adds body, creaminess, and protein/nutritional content.\nCommon uses: Chocolate, baked goods, processed cheese, instant products.\nAllergen information: Contains milk. Direct allergen: milk. Relevant for lactose intolerance and milk protein allergy.\nHealth considerations: A source of protein and calcium; also contributes lactose and dairy fat.\nSource: FDA Food Allergen Labeling and Consumer Protection Act (FALCPA) reference list",
+    "metadata": {
+      "id": "ing_milk_solids",
+      "name": "Milk solids",
+      "synonyms": [
+        "milk powder",
+        "dried milk",
+        "nonfat milk solids"
+      ],
+      "e_number": null,
+      "category": "dairy ingredient",
+      "function": "Adds body, creaminess, and protein/nutritional content.",
+      "common_uses": "Chocolate, baked goods, processed cheese, instant products.",
+      "allergen_info": "Contains milk. Direct allergen: milk. Relevant for lactose intolerance and milk protein allergy.",
+      "health_considerations": "A source of protein and calcium; also contributes lactose and dairy fat.",
+      "source": "FDA Food Allergen Labeling and Consumer Protection Act (FALCPA) reference list"
+    }
+  },
+  {
+    "chunk_id": "ing_soy",
+    "text": "Name: Soy\nAlso known as: soybean, soy protein, soy flour, textured vegetable protein\nE-number: N/A\nCategory: protein / legume ingredient\nFunction: Provides protein, texture, and can act as a filler or meat extender.\nCommon uses: Processed meats, meat substitutes, sauces, baked goods.\nAllergen information: Direct allergen: soy. One of the major recognized food allergens.\nHealth considerations: A plant-based protein source; minimally processed soy also provides fiber and micronutrients.\nSource: FDA major food allergen list",
+    "metadata": {
+      "id": "ing_soy",
+      "name": "Soy",
+      "synonyms": [
+        "soybean",
+        "soy protein",
+        "soy flour",
+        "textured vegetable protein"
+      ],
+      "e_number": null,
+      "category": "protein / legume ingredient",
+      "function": "Provides protein, texture, and can act as a filler or meat extender.",
+      "common_uses": "Processed meats, meat substitutes, sauces, baked goods.",
+      "allergen_info": "Direct allergen: soy. One of the major recognized food allergens.",
+      "health_considerations": "A plant-based protein source; minimally processed soy also provides fiber and micronutrients.",
+      "source": "FDA major food allergen list"
+    }
+  },
+  {
+    "chunk_id": "ing_whey",
+    "text": "Name: Whey\nAlso known as: whey protein, whey powder, sweet whey\nE-number: N/A\nCategory: dairy ingredient\nFunction: Adds protein and can improve texture/moisture retention.\nCommon uses: Protein bars/powders, baked goods, processed cheese, infant formula.\nAllergen information: Derived from milk. Contains milk allergen.\nHealth considerations: A high-quality protein source derived from milk processing (cheese-making byproduct).\nSource: FDA Food Allergen Labeling and Consumer Protection Act (FALCPA) reference list",
+    "metadata": {
+      "id": "ing_whey",
+      "name": "Whey",
+      "synonyms": [
+        "whey protein",
+        "whey powder",
+        "sweet whey"
+      ],
+      "e_number": null,
+      "category": "dairy ingredient",
+      "function": "Adds protein and can improve texture/moisture retention.",
+      "common_uses": "Protein bars/powders, baked goods, processed cheese, infant formula.",
+      "allergen_info": "Derived from milk. Contains milk allergen.",
+      "health_considerations": "A high-quality protein source derived from milk processing (cheese-making byproduct).",
+      "source": "FDA Food Allergen Labeling and Consumer Protection Act (FALCPA) reference list"
+    }
+  },
+  {
+    "chunk_id": "ing_casein",
+    "text": "Name: Casein\nAlso known as: caseinate, sodium caseinate, calcium caseinate, milk protein\nE-number: N/A\nCategory: dairy ingredient\nFunction: Provides protein structure, emulsification, and creaminess.\nCommon uses: Processed cheese, coffee creamers, protein supplements.\nAllergen information: Derived from milk. Contains milk allergen.\nHealth considerations: The primary protein found in milk; a concentrated dairy protein source.\nSource: FDA Food Allergen Labeling and Consumer Protection Act (FALCPA) reference list",
+    "metadata": {
+      "id": "ing_casein",
+      "name": "Casein",
+      "synonyms": [
+        "caseinate",
+        "sodium caseinate",
+        "calcium caseinate",
+        "milk protein"
+      ],
+      "e_number": null,
+      "category": "dairy ingredient",
+      "function": "Provides protein structure, emulsification, and creaminess.",
+      "common_uses": "Processed cheese, coffee creamers, protein supplements.",
+      "allergen_info": "Derived from milk. Contains milk allergen.",
+      "health_considerations": "The primary protein found in milk; a concentrated dairy protein source.",
+      "source": "FDA Food Allergen Labeling and Consumer Protection Act (FALCPA) reference list"
+    }
+  },
+  {
+    "chunk_id": "add_e100",
+    "text": "Name: E100 - Curcumin\nAlso known as: curcumin, turmeric extract, E100\nE-number: E100\nCategory: food additive - colorant\nFunction: Natural yellow-orange food coloring derived from turmeric.\nCommon uses: Mustards, cheeses, snack foods, baked goods.\nAllergen information: Not a recognized common allergen; derived from turmeric (spice).\nHealth considerations: Approved food colorant in most jurisdictions within regulated limits.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e100",
+      "name": "E100 - Curcumin",
+      "synonyms": [
+        "curcumin",
+        "turmeric extract",
+        "E100"
+      ],
+      "e_number": "E100",
+      "category": "food additive - colorant",
+      "function": "Natural yellow-orange food coloring derived from turmeric.",
+      "common_uses": "Mustards, cheeses, snack foods, baked goods.",
+      "allergen_info": "Not a recognized common allergen; derived from turmeric (spice).",
+      "health_considerations": "Approved food colorant in most jurisdictions within regulated limits.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e202",
+    "text": "Name: E202 - Potassium sorbate\nAlso known as: potassium sorbate, E202\nE-number: E202\nCategory: food additive - preservative\nFunction: Inhibits mold and yeast growth, extending shelf life.\nCommon uses: Cheese, baked goods, wine, dried fruits, beverages.\nAllergen information: Not a recognized common allergen.\nHealth considerations: Widely used preservative considered safe within regulated levels by major food safety authorities.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e202",
+      "name": "E202 - Potassium sorbate",
+      "synonyms": [
+        "potassium sorbate",
+        "E202"
+      ],
+      "e_number": "E202",
+      "category": "food additive - preservative",
+      "function": "Inhibits mold and yeast growth, extending shelf life.",
+      "common_uses": "Cheese, baked goods, wine, dried fruits, beverages.",
+      "allergen_info": "Not a recognized common allergen.",
+      "health_considerations": "Widely used preservative considered safe within regulated levels by major food safety authorities.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e211",
+    "text": "Name: E211 - Sodium benzoate\nAlso known as: sodium benzoate, E211\nE-number: E211\nCategory: food additive - preservative\nFunction: Antimicrobial preservative, inhibits bacteria, yeast and mold.\nCommon uses: Carbonated drinks, fruit juices, pickles, sauces.\nAllergen information: Not a recognized common allergen.\nHealth considerations: The retrieved information notes some regulatory bodies have studied its interaction with ascorbic acid (vitamin C), which can form trace benzene; approved within regulated limits.\nSource: EU Food Additives Database / EFSA opinions",
+    "metadata": {
+      "id": "add_e211",
+      "name": "E211 - Sodium benzoate",
+      "synonyms": [
+        "sodium benzoate",
+        "E211"
+      ],
+      "e_number": "E211",
+      "category": "food additive - preservative",
+      "function": "Antimicrobial preservative, inhibits bacteria, yeast and mold.",
+      "common_uses": "Carbonated drinks, fruit juices, pickles, sauces.",
+      "allergen_info": "Not a recognized common allergen.",
+      "health_considerations": "The retrieved information notes some regulatory bodies have studied its interaction with ascorbic acid (vitamin C), which can form trace benzene; approved within regulated limits.",
+      "source": "EU Food Additives Database / EFSA opinions"
+    }
+  },
+  {
+    "chunk_id": "add_e220",
+    "text": "Name: E220 - Sulfur dioxide\nAlso known as: sulfur dioxide, sulphur dioxide, E220\nE-number: E220\nCategory: food additive - preservative\nFunction: Antioxidant and preservative; prevents browning and microbial spoilage.\nCommon uses: Dried fruits, wine, processed potatoes.\nAllergen information: Can trigger sensitivity reactions in sulfite-sensitive individuals, particularly those with asthma; commonly required to be labeled.\nHealth considerations: Regulatory bodies require labeling due to known sensitivity reactions in a subset of the population.\nSource: EU Food Additives Database / FDA sulfite labeling requirements",
+    "metadata": {
+      "id": "add_e220",
+      "name": "E220 - Sulfur dioxide",
+      "synonyms": [
+        "sulfur dioxide",
+        "sulphur dioxide",
+        "E220"
+      ],
+      "e_number": "E220",
+      "category": "food additive - preservative",
+      "function": "Antioxidant and preservative; prevents browning and microbial spoilage.",
+      "common_uses": "Dried fruits, wine, processed potatoes.",
+      "allergen_info": "Can trigger sensitivity reactions in sulfite-sensitive individuals, particularly those with asthma; commonly required to be labeled.",
+      "health_considerations": "Regulatory bodies require labeling due to known sensitivity reactions in a subset of the population.",
+      "source": "EU Food Additives Database / FDA sulfite labeling requirements"
+    }
+  },
+  {
+    "chunk_id": "add_e300",
+    "text": "Name: E300 - Ascorbic acid (Vitamin C)\nAlso known as: ascorbic acid, vitamin C, E300\nE-number: E300\nCategory: food additive - antioxidant\nFunction: Antioxidant that prevents oxidation/browning; also a nutrient (Vitamin C).\nCommon uses: Juices, cured meats, baked goods, fruit preparations.\nAllergen information: Not a recognized common allergen.\nHealth considerations: Also an essential vitamin; used both for nutritional fortification and as a processing aid.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e300",
+      "name": "E300 - Ascorbic acid (Vitamin C)",
+      "synonyms": [
+        "ascorbic acid",
+        "vitamin C",
+        "E300"
+      ],
+      "e_number": "E300",
+      "category": "food additive - antioxidant",
+      "function": "Antioxidant that prevents oxidation/browning; also a nutrient (Vitamin C).",
+      "common_uses": "Juices, cured meats, baked goods, fruit preparations.",
+      "allergen_info": "Not a recognized common allergen.",
+      "health_considerations": "Also an essential vitamin; used both for nutritional fortification and as a processing aid.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e322",
+    "text": "Name: E322 - Lecithin\nAlso known as: lecithin, soy lecithin, sunflower lecithin, E322\nE-number: E322\nCategory: food additive - emulsifier\nFunction: Emulsifier; helps blend ingredients that would otherwise separate (e.g. fat and water).\nCommon uses: Chocolate, margarine, baked goods, instant products.\nAllergen information: When derived from soy, may be relevant to soy allergy; sunflower-derived lecithin is not a soy allergen.\nHealth considerations: Generally recognized as safe by major food safety authorities within typical usage levels.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e322",
+      "name": "E322 - Lecithin",
+      "synonyms": [
+        "lecithin",
+        "soy lecithin",
+        "sunflower lecithin",
+        "E322"
+      ],
+      "e_number": "E322",
+      "category": "food additive - emulsifier",
+      "function": "Emulsifier; helps blend ingredients that would otherwise separate (e.g. fat and water).",
+      "common_uses": "Chocolate, margarine, baked goods, instant products.",
+      "allergen_info": "When derived from soy, may be relevant to soy allergy; sunflower-derived lecithin is not a soy allergen.",
+      "health_considerations": "Generally recognized as safe by major food safety authorities within typical usage levels.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e330",
+    "text": "Name: E330 - Citric acid\nAlso known as: citric acid, E330\nE-number: E330\nCategory: food additive - acidity regulator\nFunction: Acidity regulator and preservative; adds tartness and helps preserve freshness.\nCommon uses: Soft drinks, candies, canned foods, sauces.\nAllergen information: Not a recognized common allergen.\nHealth considerations: One of the most widely used food acids; considered safe within regulated levels.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e330",
+      "name": "E330 - Citric acid",
+      "synonyms": [
+        "citric acid",
+        "E330"
+      ],
+      "e_number": "E330",
+      "category": "food additive - acidity regulator",
+      "function": "Acidity regulator and preservative; adds tartness and helps preserve freshness.",
+      "common_uses": "Soft drinks, candies, canned foods, sauces.",
+      "allergen_info": "Not a recognized common allergen.",
+      "health_considerations": "One of the most widely used food acids; considered safe within regulated levels.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e407",
+    "text": "Name: E407 - Carrageenan\nAlso known as: carrageenan, E407\nE-number: E407\nCategory: food additive - thickener/stabilizer\nFunction: Thickening and gelling agent derived from red seaweed.\nCommon uses: Dairy products, plant-based milks, processed meats, desserts.\nAllergen information: Not a recognized common allergen.\nHealth considerations: The retrieved information notes ongoing scientific discussion regarding degraded carrageenan and digestive effects; food-grade carrageenan is regulated separately and approved within set limits.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e407",
+      "name": "E407 - Carrageenan",
+      "synonyms": [
+        "carrageenan",
+        "E407"
+      ],
+      "e_number": "E407",
+      "category": "food additive - thickener/stabilizer",
+      "function": "Thickening and gelling agent derived from red seaweed.",
+      "common_uses": "Dairy products, plant-based milks, processed meats, desserts.",
+      "allergen_info": "Not a recognized common allergen.",
+      "health_considerations": "The retrieved information notes ongoing scientific discussion regarding degraded carrageenan and digestive effects; food-grade carrageenan is regulated separately and approved within set limits.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e412",
+    "text": "Name: E412 - Guar gum\nAlso known as: guar gum, E412\nE-number: E412\nCategory: food additive - thickener/stabilizer\nFunction: Thickening agent derived from guar beans; improves texture and viscosity.\nCommon uses: Sauces, dairy products, gluten-free baked goods, ice cream.\nAllergen information: Not a recognized common allergen; derived from legumes (guar bean), a distinct plant family from peanuts.\nHealth considerations: A soluble dietary fiber; generally recognized as safe within regulated levels.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e412",
+      "name": "E412 - Guar gum",
+      "synonyms": [
+        "guar gum",
+        "E412"
+      ],
+      "e_number": "E412",
+      "category": "food additive - thickener/stabilizer",
+      "function": "Thickening agent derived from guar beans; improves texture and viscosity.",
+      "common_uses": "Sauces, dairy products, gluten-free baked goods, ice cream.",
+      "allergen_info": "Not a recognized common allergen; derived from legumes (guar bean), a distinct plant family from peanuts.",
+      "health_considerations": "A soluble dietary fiber; generally recognized as safe within regulated levels.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e415",
+    "text": "Name: E415 - Xanthan gum\nAlso known as: xanthan gum, E415\nE-number: E415\nCategory: food additive - thickener/stabilizer\nFunction: Thickening and stabilizing agent produced by bacterial fermentation of sugars.\nCommon uses: Salad dressings, gluten-free products, sauces.\nAllergen information: Not a recognized common allergen; may be produced using corn, soy, or wheat-based sugars in fermentation, though the final purified additive is not typically considered allergenic.\nHealth considerations: Widely used and considered safe within regulated levels by major food safety authorities.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e415",
+      "name": "E415 - Xanthan gum",
+      "synonyms": [
+        "xanthan gum",
+        "E415"
+      ],
+      "e_number": "E415",
+      "category": "food additive - thickener/stabilizer",
+      "function": "Thickening and stabilizing agent produced by bacterial fermentation of sugars.",
+      "common_uses": "Salad dressings, gluten-free products, sauces.",
+      "allergen_info": "Not a recognized common allergen; may be produced using corn, soy, or wheat-based sugars in fermentation, though the final purified additive is not typically considered allergenic.",
+      "health_considerations": "Widely used and considered safe within regulated levels by major food safety authorities.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e420",
+    "text": "Name: E420 - Sorbitol\nAlso known as: sorbitol, E420\nE-number: E420\nCategory: food additive - sweetener / humectant\nFunction: Sugar alcohol used as a low-calorie sweetener and moisture-retaining agent.\nCommon uses: Sugar-free gum, diet foods, candies.\nAllergen information: Not a recognized common allergen.\nHealth considerations: The retrieved information notes sugar alcohols can have a laxative effect in some individuals when consumed in large amounts.\nSource: EU Food Additives Database / Codex Alimentarius",
+    "metadata": {
+      "id": "add_e420",
+      "name": "E420 - Sorbitol",
+      "synonyms": [
+        "sorbitol",
+        "E420"
+      ],
+      "e_number": "E420",
+      "category": "food additive - sweetener / humectant",
+      "function": "Sugar alcohol used as a low-calorie sweetener and moisture-retaining agent.",
+      "common_uses": "Sugar-free gum, diet foods, candies.",
+      "allergen_info": "Not a recognized common allergen.",
+      "health_considerations": "The retrieved information notes sugar alcohols can have a laxative effect in some individuals when consumed in large amounts.",
+      "source": "EU Food Additives Database / Codex Alimentarius"
+    }
+  },
+  {
+    "chunk_id": "add_e621",
+    "text": "Name: E621 - Monosodium glutamate (MSG)\nAlso known as: monosodium glutamate, MSG, E621\nE-number: E621\nCategory: food additive - flavor enhancer\nFunction: Flavor enhancer that intensifies savory (umami) taste.\nCommon uses: Instant noodles, snack foods, seasonings, processed soups.\nAllergen information: Not classified as a major allergen; some individuals report sensitivity/reactions, a topic which has been studied by food safety authorities.\nHealth considerations: Major food safety authorities, including the FDA and EFSA, generally recognize MSG as safe within typical dietary levels.\nSource: FDA MSG information page / EFSA opinions",
+    "metadata": {
+      "id": "add_e621",
+      "name": "E621 - Monosodium glutamate (MSG)",
+      "synonyms": [
+        "monosodium glutamate",
+        "MSG",
+        "E621"
+      ],
+      "e_number": "E621",
+      "category": "food additive - flavor enhancer",
+      "function": "Flavor enhancer that intensifies savory (umami) taste.",
+      "common_uses": "Instant noodles, snack foods, seasonings, processed soups.",
+      "allergen_info": "Not classified as a major allergen; some individuals report sensitivity/reactions, a topic which has been studied by food safety authorities.",
+      "health_considerations": "Major food safety authorities, including the FDA and EFSA, generally recognize MSG as safe within typical dietary levels.",
+      "source": "FDA MSG information page / EFSA opinions"
+    }
+  },
+  {
+    "chunk_id": "allergen_milk",
+    "text": "Name: Milk (allergen group)\nAlso known as: milk powder, milk solids, whey, casein, caseinate, lactose, butter, cream, cheese\nE-number: N/A\nCategory: allergen group\nFunction: Allergen reference entry, not an ingredient function.\nCommon uses: N/A\nAllergen information: Milk is one of the major recognized food allergens. Common label synonyms include milk powder, milk solids, whey, casein/caseinate, and lactose (lactose itself is a sugar, not the allergenic protein, but often indicates dairy origin).\nHealth considerations: Relevant for individuals with milk allergy or lactose intolerance (two distinct conditions).\nSource: FDA major food allergen list (FALCPA)",
+    "metadata": {
+      "id": "allergen_milk",
+      "name": "Milk (allergen group)",
+      "synonyms": [
+        "milk powder",
+        "milk solids",
+        "whey",
+        "casein",
+        "caseinate",
+        "lactose",
+        "butter",
+        "cream",
+        "cheese"
+      ],
+      "e_number": null,
+      "category": "allergen group",
+      "function": "Allergen reference entry, not an ingredient function.",
+      "common_uses": "N/A",
+      "allergen_info": "Milk is one of the major recognized food allergens. Common label synonyms include milk powder, milk solids, whey, casein/caseinate, and lactose (lactose itself is a sugar, not the allergenic protein, but often indicates dairy origin).",
+      "health_considerations": "Relevant for individuals with milk allergy or lactose intolerance (two distinct conditions).",
+      "source": "FDA major food allergen list (FALCPA)"
+    }
+  },
+  {
+    "chunk_id": "allergen_wheat",
+    "text": "Name: Wheat/Gluten (allergen group)\nAlso known as: wheat flour, wheat starch, gluten, durum, semolina\nE-number: N/A\nCategory: allergen group\nFunction: Allergen reference entry, not an ingredient function.\nCommon uses: N/A\nAllergen information: Wheat is a major recognized food allergen. Gluten (found in wheat, barley, rye) is separately relevant to individuals with celiac disease or non-celiac gluten sensitivity.\nHealth considerations: Relevant for wheat allergy and celiac disease/gluten sensitivity (distinct conditions).\nSource: FDA major food allergen list (FALCPA)",
+    "metadata": {
+      "id": "allergen_wheat",
+      "name": "Wheat/Gluten (allergen group)",
+      "synonyms": [
+        "wheat flour",
+        "wheat starch",
+        "gluten",
+        "durum",
+        "semolina"
+      ],
+      "e_number": null,
+      "category": "allergen group",
+      "function": "Allergen reference entry, not an ingredient function.",
+      "common_uses": "N/A",
+      "allergen_info": "Wheat is a major recognized food allergen. Gluten (found in wheat, barley, rye) is separately relevant to individuals with celiac disease or non-celiac gluten sensitivity.",
+      "health_considerations": "Relevant for wheat allergy and celiac disease/gluten sensitivity (distinct conditions).",
+      "source": "FDA major food allergen list (FALCPA)"
+    }
+  },
+  {
+    "chunk_id": "allergen_soy",
+    "text": "Name: Soy (allergen group)\nAlso known as: soybean, soy lecithin, soy protein, soy flour, textured vegetable protein\nE-number: N/A\nCategory: allergen group\nFunction: Allergen reference entry, not an ingredient function.\nCommon uses: N/A\nAllergen information: Soy is one of the major recognized food allergens. Soy lecithin (E322) is a highly refined derivative that some allergy guidance treats as lower-risk, though sensitive individuals are still advised to check with a professional.\nHealth considerations: Relevant for individuals with soy allergy.\nSource: FDA major food allergen list (FALCPA)",
+    "metadata": {
+      "id": "allergen_soy",
+      "name": "Soy (allergen group)",
+      "synonyms": [
+        "soybean",
+        "soy lecithin",
+        "soy protein",
+        "soy flour",
+        "textured vegetable protein"
+      ],
+      "e_number": null,
+      "category": "allergen group",
+      "function": "Allergen reference entry, not an ingredient function.",
+      "common_uses": "N/A",
+      "allergen_info": "Soy is one of the major recognized food allergens. Soy lecithin (E322) is a highly refined derivative that some allergy guidance treats as lower-risk, though sensitive individuals are still advised to check with a professional.",
+      "health_considerations": "Relevant for individuals with soy allergy.",
+      "source": "FDA major food allergen list (FALCPA)"
+    }
+  },
+  {
+    "chunk_id": "allergen_peanuts",
+    "text": "Name: Peanuts (allergen group)\nAlso known as: peanut, groundnut, peanut oil, peanut flour\nE-number: N/A\nCategory: allergen group\nFunction: Allergen reference entry, not an ingredient function.\nCommon uses: N/A\nAllergen information: Peanuts are one of the major recognized food allergens and a common cause of severe allergic reactions.\nHealth considerations: Relevant for individuals with peanut allergy.\nSource: FDA major food allergen list (FALCPA)",
+    "metadata": {
+      "id": "allergen_peanuts",
+      "name": "Peanuts (allergen group)",
+      "synonyms": [
+        "peanut",
+        "groundnut",
+        "peanut oil",
+        "peanut flour"
+      ],
+      "e_number": null,
+      "category": "allergen group",
+      "function": "Allergen reference entry, not an ingredient function.",
+      "common_uses": "N/A",
+      "allergen_info": "Peanuts are one of the major recognized food allergens and a common cause of severe allergic reactions.",
+      "health_considerations": "Relevant for individuals with peanut allergy.",
+      "source": "FDA major food allergen list (FALCPA)"
+    }
+  },
+  {
+    "chunk_id": "allergen_tree_nuts",
+    "text": "Name: Tree nuts (allergen group)\nAlso known as: almond, walnut, cashew, pistachio, hazelnut, pecan\nE-number: N/A\nCategory: allergen group\nFunction: Allergen reference entry, not an ingredient function.\nCommon uses: N/A\nAllergen information: Tree nuts are among the major recognized food allergens; distinct from peanuts (which are a legume).\nHealth considerations: Relevant for individuals with tree nut allergy.\nSource: FDA major food allergen list (FALCPA)",
+    "metadata": {
+      "id": "allergen_tree_nuts",
+      "name": "Tree nuts (allergen group)",
+      "synonyms": [
+        "almond",
+        "walnut",
+        "cashew",
+        "pistachio",
+        "hazelnut",
+        "pecan"
+      ],
+      "e_number": null,
+      "category": "allergen group",
+      "function": "Allergen reference entry, not an ingredient function.",
+      "common_uses": "N/A",
+      "allergen_info": "Tree nuts are among the major recognized food allergens; distinct from peanuts (which are a legume).",
+      "health_considerations": "Relevant for individuals with tree nut allergy.",
+      "source": "FDA major food allergen list (FALCPA)"
+    }
+  },
+  {
+    "chunk_id": "allergen_eggs",
+    "text": "Name: Eggs (allergen group)\nAlso known as: egg, egg white, egg yolk, albumin, ovalbumin\nE-number: N/A\nCategory: allergen group\nFunction: Allergen reference entry, not an ingredient function.\nCommon uses: N/A\nAllergen information: Eggs are one of the major recognized food allergens.\nHealth considerations: Relevant for individuals with egg allergy.\nSource: FDA major food allergen list (FALCPA)",
+    "metadata": {
+      "id": "allergen_eggs",
+      "name": "Eggs (allergen group)",
+      "synonyms": [
+        "egg",
+        "egg white",
+        "egg yolk",
+        "albumin",
+        "ovalbumin"
+      ],
+      "e_number": null,
+      "category": "allergen group",
+      "function": "Allergen reference entry, not an ingredient function.",
+      "common_uses": "N/A",
+      "allergen_info": "Eggs are one of the major recognized food allergens.",
+      "health_considerations": "Relevant for individuals with egg allergy.",
+      "source": "FDA major food allergen list (FALCPA)"
+    }
+  },
+  {
+    "chunk_id": "allergen_fish_shellfish",
+    "text": "Name: Fish and Shellfish (allergen groups)\nAlso known as: fish, anchovy, shrimp, crab, lobster, shellfish\nE-number: N/A\nCategory: allergen group\nFunction: Allergen reference entry, not an ingredient function.\nCommon uses: N/A\nAllergen information: Fish and shellfish (crustacean shellfish) are separately recognized major allergens.\nHealth considerations: Relevant for individuals with fish or shellfish allergy.\nSource: FDA major food allergen list (FALCPA)",
+    "metadata": {
+      "id": "allergen_fish_shellfish",
+      "name": "Fish and Shellfish (allergen groups)",
+      "synonyms": [
+        "fish",
+        "anchovy",
+        "shrimp",
+        "crab",
+        "lobster",
+        "shellfish"
+      ],
+      "e_number": null,
+      "category": "allergen group",
+      "function": "Allergen reference entry, not an ingredient function.",
+      "common_uses": "N/A",
+      "allergen_info": "Fish and shellfish (crustacean shellfish) are separately recognized major allergens.",
+      "health_considerations": "Relevant for individuals with fish or shellfish allergy.",
+      "source": "FDA major food allergen list (FALCPA)"
+    }
+  },
+  {
+    "chunk_id": "allergen_sesame",
+    "text": "Name: Sesame (allergen group)\nAlso known as: sesame seed, sesame oil, tahini\nE-number: N/A\nCategory: allergen group\nFunction: Allergen reference entry, not an ingredient function.\nCommon uses: N/A\nAllergen information: Sesame was added as a major recognized food allergen in several jurisdictions in recent years (e.g. FASTER Act in the US, effective 2023).\nHealth considerations: Relevant for individuals with sesame allergy.\nSource: FDA FASTER Act allergen labeling update",
+    "metadata": {
+      "id": "allergen_sesame",
+      "name": "Sesame (allergen group)",
+      "synonyms": [
+        "sesame seed",
+        "sesame oil",
+        "tahini"
+      ],
+      "e_number": null,
+      "category": "allergen group",
+      "function": "Allergen reference entry, not an ingredient function.",
+      "common_uses": "N/A",
+      "allergen_info": "Sesame was added as a major recognized food allergen in several jurisdictions in recent years (e.g. FASTER Act in the US, effective 2023).",
+      "health_considerations": "Relevant for individuals with sesame allergy.",
+      "source": "FDA FASTER Act allergen labeling update"
+    }
+  }
+]

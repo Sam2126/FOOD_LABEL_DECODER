@@ -1,0 +1,252 @@
+[
+  {
+    "id": "q01_e322_function",
+    "category": "additive_explanation",
+    "ingredient_list": "Sugar, cocoa butter, whole milk powder, cocoa mass, soy lecithin (E322), natural vanilla flavor",
+    "query": "What is E322 (Soy lecithin) and why is it used in this chocolate?",
+    "target_ingredients": ["E322", "soy lecithin", "milk powder"],
+    "expected_allergens": ["Soy", "Milk"],
+    "ground_truth_context": "E322 (Soy lecithin) is an emulsifier that prevents separation of fats and water, improves smoothness, and contains soy allergens.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q02_e621_msg_safety",
+    "category": "additive_explanation",
+    "ingredient_list": "Noodle: wheat flour, palm oil, salt. Seasoning: monosodium glutamate (E621), disodium inosinate, sugar, garlic powder",
+    "query": "Explain what E621 is and its primary function in food.",
+    "target_ingredients": ["E621", "monosodium glutamate", "wheat flour"],
+    "expected_allergens": ["Wheat", "Gluten"],
+    "ground_truth_context": "E621 (Monosodium glutamate / MSG) is a flavor enhancer that imparts umami / savory taste.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q03_e102_tartrazine",
+    "category": "additive_explanation",
+    "ingredient_list": "Carbonated water, sugar, citric acid, natural flavors, sodium benzoate (E211), tartrazine (E102)",
+    "query": "What is tartrazine (E102) and what considerations are associated with it?",
+    "target_ingredients": ["E102", "tartrazine", "E211", "sodium benzoate"],
+    "expected_allergens": ["Tartrazine sensitivity"],
+    "ground_truth_context": "E102 (Tartrazine) is a synthetic yellow food coloring; certain individuals may experience sensitivities or intolerance.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q04_e211_sodium_benzoate",
+    "category": "additive_explanation",
+    "ingredient_list": "Water, high fructose corn syrup, citric acid, sodium benzoate (E211), potassium sorbate",
+    "query": "What is the function of sodium benzoate (E211) in beverages?",
+    "target_ingredients": ["E211", "sodium benzoate", "citric acid"],
+    "expected_allergens": [],
+    "ground_truth_context": "Sodium benzoate is an antimicrobial preservative used to inhibit yeast, bacteria, and mold growth in acidic foods and beverages.",
+    "test_no_rag": false
+  },
+  {
+    "id": "q05_e330_citric_acid",
+    "category": "additive_explanation",
+    "ingredient_list": "Fruit juice concentrate, water, citric acid (E330), pectin, ascorbic acid",
+    "query": "What is citric acid (E330) and what is its role here?",
+    "target_ingredients": ["E330", "citric acid", "pectin"],
+    "expected_allergens": [],
+    "ground_truth_context": "Citric acid (E330) is an acidulant, acidity regulator, and natural preservative providing a tart flavor.",
+    "test_no_rag": false
+  },
+  {
+    "id": "q06_allergen_gluten_dairy",
+    "category": "allergen_detection",
+    "ingredient_list": "Wheat flour, sugar, palm oil, skimmed milk powder, whey solids, salt, baking powder",
+    "query": "Does this snack contain gluten and dairy allergens?",
+    "target_ingredients": ["Wheat flour", "skimmed milk powder", "whey solids"],
+    "expected_allergens": ["Gluten", "Wheat", "Milk", "Dairy"],
+    "ground_truth_context": "Contains wheat flour (direct allergen: wheat, contains gluten) and milk powder/whey solids (direct allergen: milk, dairy).",
+    "test_no_rag": true
+  },
+  {
+    "id": "q07_allergen_soy_peanuts",
+    "category": "allergen_detection",
+    "ingredient_list": "Rolled oats, peanut butter, roasted peanuts, soy protein isolate, honey, soy lecithin",
+    "query": "Identify all major recognized food allergens in this energy bar.",
+    "target_ingredients": ["peanuts", "peanut butter", "soy protein isolate", "soy lecithin"],
+    "expected_allergens": ["Peanuts", "Soy"],
+    "ground_truth_context": "Peanuts (peanut butter, roasted peanuts) and Soy (soy protein isolate, soy lecithin) are major food allergens.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q08_allergen_sulphites",
+    "category": "allergen_detection",
+    "ingredient_list": "Dried apricots, sulphur dioxide (E220), potassium metabisulphite (E224), sugar",
+    "query": "What allergen warning is required for this dried fruit product?",
+    "target_ingredients": ["sulphur dioxide", "E220", "potassium metabisulphite", "E224"],
+    "expected_allergens": ["Sulphites", "Sulphur dioxide"],
+    "ground_truth_context": "Contains sulphites (E220, E224) which can trigger severe reactions or asthmatic symptoms in sensitive individuals.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q09_allergen_tree_nuts",
+    "category": "allergen_detection",
+    "ingredient_list": "Almond flour, sugar, egg whites, butter, natural almond extract",
+    "query": "What allergens are present in these macarons?",
+    "target_ingredients": ["Almond flour", "egg whites", "butter"],
+    "expected_allergens": ["Tree nuts", "Almonds", "Egg", "Milk", "Dairy"],
+    "ground_truth_context": "Contains almond flour/extract (tree nuts), egg whites (egg allergen), and butter (dairy/milk allergen).",
+    "test_no_rag": false
+  },
+  {
+    "id": "q10_allergen_hidden_celiac",
+    "category": "allergen_detection",
+    "ingredient_list": "Barley malt extract, wheat starch, modified food starch, corn syrup, salt",
+    "query": "Is this product safe for an individual with celiac disease?",
+    "target_ingredients": ["Barley malt extract", "wheat starch"],
+    "expected_allergens": ["Gluten", "Wheat", "Barley"],
+    "ground_truth_context": "Not safe for celiac disease; contains barley malt and wheat starch which are sources of gluten.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q11_palm_oil_saturated_fat",
+    "category": "nutrition_health",
+    "ingredient_list": "Refined palm oil, palm kernel olein, TBHQ (preservative)",
+    "query": "What are the health considerations regarding palm oil consumption?",
+    "target_ingredients": ["palm oil", "palm kernel olein"],
+    "expected_allergens": [],
+    "ground_truth_context": "Palm oil contains higher proportions of saturated fatty acids compared to many vegetable oils; dietary guidance suggests moderating intake.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q12_high_fructose_corn_syrup",
+    "category": "nutrition_health",
+    "ingredient_list": "Carbonated water, high fructose corn syrup, caramel color, phosphoric acid, natural flavors, caffeine",
+    "query": "What is high fructose corn syrup and what are the general dietary considerations?",
+    "target_ingredients": ["high fructose corn syrup", "caffeine", "caramel color"],
+    "expected_allergens": [],
+    "ground_truth_context": "High fructose corn syrup is a liquid sweetener; health guidelines recommend limiting excess free and added sugars.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q13_artificial_sweeteners_acesulfame",
+    "category": "nutrition_health",
+    "ingredient_list": "Water, citric acid, acesulfame potassium (E950), sucralose (E955), potassium sorbate",
+    "query": "Explain acesulfame potassium (E950) and sucralose.",
+    "target_ingredients": ["E950", "acesulfame potassium", "E955", "sucralose"],
+    "expected_allergens": [],
+    "ground_truth_context": "E950 and E955 are zero-calorie non-nutritive artificial intense sweeteners used to replace sugars.",
+    "test_no_rag": false
+  },
+  {
+    "id": "q14_sodium_nitrite_cured_meats",
+    "category": "nutrition_health",
+    "ingredient_list": "Pork, water, salt, sodium nitrite (E250), sodium erythorbate, spices",
+    "query": "Why is sodium nitrite (E250) added to cured meat products?",
+    "target_ingredients": ["sodium nitrite", "E250"],
+    "expected_allergens": [],
+    "ground_truth_context": "Sodium nitrite (E250) fixes pink color, adds cured flavor, and inhibits Clostridium botulinum spore germination.",
+    "test_no_rag": false
+  },
+  {
+    "id": "q15_vegan_suitability_gelatin",
+    "category": "dietary_suitability",
+    "ingredient_list": "Sugar, glucose syrup, gelatin, citric acid, fruit juice concentrates, carnauba wax",
+    "query": "Is this gummy candy suitable for a vegan diet?",
+    "target_ingredients": ["gelatin", "carnauba wax"],
+    "expected_allergens": [],
+    "ground_truth_context": "Not vegan; contains gelatin which is derived from animal collagen (porcine, bovine, or fish).",
+    "test_no_rag": true
+  },
+  {
+    "id": "q16_vegan_suitability_carmine",
+    "category": "dietary_suitability",
+    "ingredient_list": "Skim milk, strawberries, sugar, carmine (E120), modified corn starch",
+    "query": "Is E120 (carmine / cochineal extract) vegetarian/vegan?",
+    "target_ingredients": ["carmine", "E120", "skim milk"],
+    "expected_allergens": ["Milk", "Carmine sensitivity"],
+    "ground_truth_context": "Carmine (E120) is a natural red color derived from crushed cochineal insects; not vegetarian/vegan.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q17_gluten_free_oats",
+    "category": "dietary_suitability",
+    "ingredient_list": "Whole grain oat flour, cane sugar, canola oil, sea salt, rosemary extract",
+    "query": "Can oat products be automatically certified gluten-free?",
+    "target_ingredients": ["oat flour", "oats"],
+    "expected_allergens": ["Gluten cross-contact concern"],
+    "ground_truth_context": "Oats are naturally gluten-free but frequently cross-contact with wheat/barley during agricultural processing unless certified gluten-free.",
+    "test_no_rag": false
+  },
+  {
+    "id": "q18_unmatched_ingredient_guard",
+    "category": "hallucination_safeguard",
+    "ingredient_list": "Ashwagandha root extract KSM-66, organic baobab fruit pulp, monk fruit extract",
+    "query": "Explain these exotic botanical ingredients using your knowledge base.",
+    "target_ingredients": ["Ashwagandha root extract", "baobab fruit pulp", "monk fruit extract"],
+    "expected_allergens": [],
+    "ground_truth_context": "The local knowledge base does not contain verified records for these specific botanical items; system must not hallucinate specific Codex standards.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q19_synthetic_preservative_bha_bht",
+    "category": "additive_explanation",
+    "ingredient_list": "Vegetable oil, butylated hydroxyanisole (BHA / E320), BHT (E321), citric acid",
+    "query": "What are BHA (E320) and BHT (E321) and why are they added to oils?",
+    "target_ingredients": ["BHA", "E320", "BHT", "E321"],
+    "expected_allergens": [],
+    "ground_truth_context": "BHA and BHT are synthetic phenolic antioxidants used to prevent lipid oxidation, rancidity, and flavor degradation in fats and oils.",
+    "test_no_rag": false
+  },
+  {
+    "id": "q20_regulatory_codex_msg",
+    "category": "regulatory_grounding",
+    "ingredient_list": "Hydrolyzed vegetable protein, yeast extract, monosodium glutamate (E621), salt",
+    "query": "What does the Codex Alimentarius / FDA reference state about MSG (E621)?",
+    "target_ingredients": ["monosodium glutamate", "E621"],
+    "expected_allergens": [],
+    "ground_truth_context": "Recognized globally as a food additive with standard safe levels of usage, providing savory umami taste.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q21_regulatory_fda_falcpa",
+    "category": "regulatory_grounding",
+    "ingredient_list": "Whole wheat flour, soy protein isolate, pasteurized liquid egg, whey powder, sesame seeds",
+    "query": "Which of these ingredients fall under the FDA Major Food Allergen list?",
+    "target_ingredients": ["wheat flour", "soy protein", "egg", "whey powder", "sesame seeds"],
+    "expected_allergens": ["Wheat", "Soy", "Egg", "Milk", "Sesame"],
+    "ground_truth_context": "Wheat, Soy, Egg, Milk, and Sesame are all explicitly regulated major food allergens under FDA / FALCPA.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q22_comparative_spreads",
+    "category": "comparative_reasoning",
+    "ingredient_list": "Product A: Butter, water, salt. Product B: Vegetable oils (palm, soybean), water, salt, E471, E322, potassium sorbate, beta-carotene",
+    "query": "Compare Product A (traditional butter) with Product B (processed margarine).",
+    "target_ingredients": ["butter", "palm oil", "E471", "E322", "potassium sorbate"],
+    "expected_allergens": ["Milk", "Soy"],
+    "ground_truth_context": "Product A is dairy-based containing milk fat and dairy allergen; Product B is an emulsion of plant oils with emulsifiers (E471, E322), preservatives, and coloring.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q23_comparative_sweeteners",
+    "category": "comparative_reasoning",
+    "ingredient_list": "Drink 1: Carbonated water, cane sugar (32g). Drink 2: Carbonated water, aspartame (E951), acesulfame K (E950)",
+    "query": "Compare the sweetening agents in Drink 1 vs Drink 2.",
+    "target_ingredients": ["cane sugar", "sugar", "E951", "aspartame", "E950", "acesulfame potassium"],
+    "expected_allergens": ["Phenylketonuria / Phenylalanine warning"],
+    "ground_truth_context": "Drink 1 uses nutritive caloric carbohydrate sugar; Drink 2 uses non-nutritive intense sweeteners (E951 contains phenylalanine).",
+    "test_no_rag": true
+  },
+  {
+    "id": "q24_complex_instant_ramen",
+    "category": "complex_label",
+    "ingredient_list": "Enriched wheat flour, palm oil, salt, E621, soy sauce powder (wheat, soybean), guar gum, sodium carbonate, E319 (TBHQ), caramel color",
+    "query": "Perform a complete ingredient decode, additive function analysis, and allergen check.",
+    "target_ingredients": ["wheat flour", "palm oil", "E621", "soy sauce", "guar gum", "E319"],
+    "expected_allergens": ["Wheat", "Gluten", "Soy"],
+    "ground_truth_context": "Ultra-processed product containing refined grain, palm oil, flavor enhancer (E621), thickener (guar gum), antioxidant (TBHQ), with Wheat and Soy allergens.",
+    "test_no_rag": true
+  },
+  {
+    "id": "q25_baby_food_minimalist",
+    "category": "complex_label",
+    "ingredient_list": "Organic apple puree, organic oat flour, ascorbic acid (vitamin C)",
+    "query": "Analyze this infant food formulation for additives, preservatives, and allergens.",
+    "target_ingredients": ["apple puree", "oat flour", "ascorbic acid"],
+    "expected_allergens": ["Oat / Gluten potential"],
+    "ground_truth_context": "Minimalist formulation with natural fruit base, oat flour, and ascorbic acid acting as an antioxidant to prevent browning.",
+    "test_no_rag": true
+  }
+]
