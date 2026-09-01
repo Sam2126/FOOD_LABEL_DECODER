@@ -171,3 +171,46 @@ def retrieve_for_ingredient_list(
         return combined_results, unmatched_ingredients
     return combined_results
 
+
+def retrieve_mapped_ingredients(
+    ingredient_list: str,
+    min_similarity: float = 0.35,
+) -> tuple[list[dict], list[dict], list[str]]:
+    """
+    Precision 1-to-1 mapper:
+    Maps each parsed user ingredient to its single best matching knowledge chunk.
+    Returns:
+      - mapped_items: list of dicts with {query, best_match, score}
+      - unique_chunks: list of unique retrieved chunk dicts
+      - unmatched: list of unmatched ingredient strings
+    """
+    ingredients = parse_ingredients(ingredient_list)
+    mapped_items = []
+    unique_chunks = []
+    seen_chunk_ids = set()
+    unmatched = []
+
+    for ing in ingredients:
+        results = retrieve(ing, top_k=1, min_similarity=min_similarity)
+        if results:
+            best = results[0]
+            mapped_items.append({
+                "query": ing,
+                "best_match": best["chunk"],
+                "score": best["score"],
+            })
+            cid = best["chunk"]["chunk_id"]
+            if cid not in seen_chunk_ids:
+                seen_chunk_ids.add(cid)
+                unique_chunks.append(best)
+        else:
+            mapped_items.append({
+                "query": ing,
+                "best_match": None,
+                "score": 0.0,
+            })
+            unmatched.append(ing)
+
+    return mapped_items, unique_chunks, unmatched
+
+

@@ -18,30 +18,36 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import List, Dict, Any, Optional
 
 from app.ollama_client import ask_ollama, list_models
-from rag.retriever import retrieve_for_ingredient_list
-from rag.rag_pipeline import format_context, build_rag_prompt, detect_allergens_and_dietary
+from rag.retriever import retrieve_for_ingredient_list, retrieve_mapped_ingredients
+from rag.rag_pipeline import format_context, format_mapped_context, build_rag_prompt, detect_allergens_and_dietary
 from eval.metrics import compute_grounding_accuracy, compute_allergen_recall, compute_hallucination_rate
+
 
 logger = logging.getLogger("food-label-decoder.model_comparator")
 
 def build_fast_compare_prompt(ingredient_list: str, context: str, unmatched: list[str]) -> str:
     unmatched_str = ", ".join(unmatched) if unmatched else "None"
-    return f"""You are an expert food label decoder. Base your analysis STRICTLY on the retrieved context below.
+    return f"""[INST] <<SYS>>
+You are an expert food scientist and consumer label analyst.
+Explain ONLY the ingredients in the USER INGREDIENT LIST below.
+Base your explanations strictly on the VERIFIED EVIDENCE provided. Do NOT invent ingredients not in the list.
+<</SYS>>
 
-INGREDIENTS TO EXPLAIN:
+USER INGREDIENT LIST:
 {ingredient_list}
 
-RETRIEVED KNOWLEDGE BASE CONTEXT:
+VERIFIED KNOWLEDGE BASE EVIDENCE:
 {context}
 
-UNMATCHED ITEMS (No local KB entry):
+UNMATCHED ITEMS (No entry in database):
 {unmatched_str}
 
-INSTRUCTIONS:
-1. Provide a concise bullet point for each ingredient: What it is, its function, and any allergen warning.
-2. For unmatched items, state: "No local KB record."
-3. Do not invent ungrounded claims. Keep total response under 150 words.
+OUTPUT FORMAT:
+For each ingredient in the user list, write a concise, informative bullet point:
+• **[Ingredient Name]**: [Function in food]. [Allergen: Note if present or "None"]. [Health consideration].
+[/INST]
 """
+
 
 
 def evaluate_single_model(
@@ -52,13 +58,13 @@ def evaluate_single_model(
     retrieved: list[dict],
     expected_allergens: list[str],
     temperature: float = 0.20,
-    max_tokens: int = 220,
+    max_tokens: int = 400,
 ) -> dict:
     """
     Runs RAG decoding for one model and computes real-time evaluation metrics.
     """
     prompt = build_fast_compare_prompt(ingredient_list, context, unmatched)
-    eff_tokens = min(max_tokens if max_tokens else 220, 240)
+    eff_tokens = max(max_tokens if max_tokens else 350, 380)
     start_time = time.perf_counter()
 
     try:
@@ -68,6 +74,7 @@ def evaluate_single_model(
             max_tokens=eff_tokens,
             temperature=temperature,
         )
+
         elapsed_sec = max(0.01, time.perf_counter() - start_time)
         latency_ms = int(elapsed_sec * 1000)
 
@@ -247,14 +254,13 @@ def compare_all_models(
         if not models:
             models = available if available else ["codellama"]
 
-    # 2. Shared FAISS Retrieval (Run once for ground truth context)
-    retrieved, unmatched = retrieve_for_ingredient_list(
+    # 2. Shared FAISS Retrieval (Mapped 1:1 for ground truth context)
+    mapped_items, retrieved, unmatched = retrieve_mapped_ingredients(
         ingredient_list,
-        top_k_per_ingredient=top_k,
         min_similarity=min_similarity,
-        include_unmatched=True,
     )
-    context = format_context(retrieved)
+    context = format_mapped_context(mapped_items)
+
 
     # Format chunks
     formatted_chunks = [

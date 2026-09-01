@@ -920,5 +920,117 @@
       "health_considerations": "Natural source of anthocyanin antioxidants and micronutrients.",
       "source": "USDA FoodData Central / Codex Fruit Guidelines"
     }
+  },
+  {
+    "chunk_id": "ing_peanut_groundnut",
+    "text": "Name: Peanut / Groundnut (Hydrolysed Groundnut Protein)\nAlso known as: peanut, groundnut, peanuts, groundnuts, hydrolysed groundnut protein, hydrolyzed groundnut protein, peanut protein, groundnut protein, peanut flour, groundnut meal\nE-number: N/A\nCategory: legume / high-risk allergen\nFunction: Provides savory flavor enhancement, amino acid enrichment, and vegetable protein structure.\nCommon uses: Seasoning mixtures, noodle flavorings, processed snacks, sauces.\nAllergen information: CRITICAL ALLERGEN: Contains major legume allergen proteins from Peanuts / Groundnuts (Arachis hypogaea). Can trigger severe, life-threatening anaphylaxis in allergic individuals.\nHealth considerations: Rich source of plant protein; strictly unsafe for anyone with peanut allergy.\nSource: Codex General Standard for Labelling / FDA Allergen Guidance",
+    "metadata": {
+      "id": "ing_peanut_groundnut",
+      "name": "Peanut / Groundnut (Hydrolysed Groundnut Protein)",
+      "synonyms": [
+        "peanut",
+        "groundnut",
+        "peanuts",
+        "groundnuts",
+        "hydrolysed groundnut protein",
+        "hydrolyzed groundnut protein",
+        "peanut protein",
+        "groundnut protein",
+        "peanut flour",
+        "groundnut meal"
+      ],
+      "e_number": null,
+      "category": "legume / high-risk allergen",
+      "function": "Provides savory flavor enhancement, amino acid enrichment, and vegetable protein structure.",
+      "common_uses": "Seasoning mixtures, noodle flavorings, processed snacks, sauces.",
+      "allergen_info": "CRITICAL ALLERGEN: Contains major legume allergen proteins from Peanuts / Groundnuts (Arachis hypogaea). Can trigger severe, life-threatening anaphylaxis in allergic individuals.",
+      "health_considerations": "Rich source of plant protein; strictly unsafe for anyone with peanut allergy.",
+      "source": "Codex General Standard for Labelling / FDA Allergen Guidance"
+    }
+  },
+  {
+    "chunk_id": "ing_wheat_gluten",
+    "text": "Name: Wheat Gluten\nAlso known as: wheat gluten, vital wheat gluten, gluten flour, gluten\nE-number: N/A\nCategory: cereal protein / allergen\nFunction: Provides elasticity, dough strength, and chewy texture in noodles and bakery products.\nCommon uses: Instant noodles, bread, pasta, meat analogs (seitan).\nAllergen information: CRITICAL ALLERGEN: Concentrated wheat protein. Strictly unsafe for individuals with celiac disease or wheat/gluten allergy.\nHealth considerations: High vegetable protein content; not suitable for gluten-restricted diets.\nSource: Codex Standard 118-1979 / FDA Gluten Labeling",
+    "metadata": {
+      "id": "ing_wheat_gluten",
+      "name": "Wheat Gluten",
+      "synonyms": [
+        "wheat gluten",
+        "vital wheat gluten",
+        "gluten flour",
+        "gluten"
+      ],
+      "e_number": null,
+      "category": "cereal protein / allergen",
+      "function": "Provides elasticity, dough strength, and chewy texture in noodles and bakery products.",
+      "common_uses": "Instant noodles, bread, pasta, meat analogs (seitan).",
+      "allergen_info": "CRITICAL ALLERGEN: Concentrated wheat protein. Strictly unsafe for individuals with celiac disease or wheat/gluten allergy.",
+      "health_considerations": "High vegetable protein content; not suitable for gluten-restricted diets.",
+      "source": "Codex Standard 118-1979 / FDA Gluten Labeling"
+    }
+  },
+  {
+    "chunk_id": "ing_thickeners_general",
+    "text": "Name: Food Thickeners\nAlso known as: thickeners, thickener, thickening agents, permitted thickeners\nE-number: N/A\nCategory: functional additive class\nFunction: Increases food viscosity, stabilizes suspensions, and enhances sauce mouthfeel.\nCommon uses: Instant noodles, sauces, gravies, desserts.\nAllergen information: Generally non-allergenic hydrocolloids unless derived from specific allergen sources.\nHealth considerations: Plant gums or modified starches generally recognized as safe (GRAS).\nSource: Codex Class Names / JECFA",
+    "metadata": {
+      "id": "ing_thickeners_general",
+      "name": "Food Thickeners",
+      "synonyms": [
+        "thickeners",
+        "thickener",
+        "thickening agents",
+        "permitted thickeners"
+      ],
+      "e_number": null,
+      "category": "functional additive class",
+      "function": "Increases food viscosity, stabilizes suspensions, and enhances sauce mouthfeel.",
+      "common_uses": "Instant noodles, sauces, gravies, desserts.",
+      "allergen_info": "Generally non-allergenic hydrocolloids unless derived from specific allergen sources.",
+      "health_considerations": "Plant gums or modified starches generally recognized as safe (GRAS).",
+      "source": "Codex Class Names / JECFA"
+    }
+  },
+  {
+    "chunk_id": "ing_acidity_regulators_general",
+    "text": "Name: Acidity Regulators\nAlso known as: acidity regulators, acidity regulator, pH control agents\nE-number: N/A\nCategory: functional additive class\nFunction: Controls or maintains the pH and tartness of food products for microbial safety and flavor stability.\nCommon uses: Instant noodles, snacks, beverages, canned foods.\nAllergen information: Not recognized as food allergens.\nHealth considerations: Organic acids and safe mineral salts metabolized through normal cellular pathways.\nSource: Codex STAN 192-1995 / FDA 21 CFR 184",
+    "metadata": {
+      "id": "ing_acidity_regulators_general",
+      "name": "Acidity Regulators",
+      "synonyms": [
+        "acidity regulators",
+        "acidity regulator",
+        "pH control agents"
+      ],
+      "e_number": null,
+      "category": "functional additive class",
+      "function": "Controls or maintains the pH and tartness of food products for microbial safety and flavor stability.",
+      "common_uses": "Instant noodles, snacks, beverages, canned foods.",
+      "allergen_info": "Not recognized as food allergens.",
+      "health_considerations": "Organic acids and safe mineral salts metabolized through normal cellular pathways.",
+      "source": "Codex STAN 192-1995 / FDA 21 CFR 184"
+    }
+  },
+  {
+    "chunk_id": "ing_enhancers_colours_general",
+    "text": "Name: Permitted Enhancers and Colours\nAlso known as: permitted enhancers/colours, permitted enhancers and colours, flavour enhancers and colours, taste enhancers and colours, permitted enhancers, permitted colours\nE-number: N/A\nCategory: functional additive class\nFunction: Enhances savory umami perception and standardizes appealing visual appearance.\nCommon uses: Snack seasonings, instant noodle tastemakers, savory sauces.\nAllergen information: Not protein allergens; specific sensitivities may exist for certain synthetic dyes.\nHealth considerations: Approved for food use within specified regulatory acceptable daily intakes.\nSource: Codex General Standard for Food Additives",
+    "metadata": {
+      "id": "ing_enhancers_colours_general",
+      "name": "Permitted Enhancers and Colours",
+      "synonyms": [
+        "permitted enhancers/colours",
+        "permitted enhancers and colours",
+        "flavour enhancers and colours",
+        "taste enhancers and colours",
+        "permitted enhancers",
+        "permitted colours"
+      ],
+      "e_number": null,
+      "category": "functional additive class",
+      "function": "Enhances savory umami perception and standardizes appealing visual appearance.",
+      "common_uses": "Snack seasonings, instant noodle tastemakers, savory sauces.",
+      "allergen_info": "Not protein allergens; specific sensitivities may exist for certain synthetic dyes.",
+      "health_considerations": "Approved for food use within specified regulatory acceptable daily intakes.",
+      "source": "Codex General Standard for Food Additives"
+    }
   }
 ]

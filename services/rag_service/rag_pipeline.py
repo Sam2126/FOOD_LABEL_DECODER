@@ -12,7 +12,7 @@ import time
 from typing import Optional
 
 from app.ollama_client import ask_ollama
-from rag.retriever import retrieve_for_ingredient_list
+from rag.retriever import retrieve_for_ingredient_list, retrieve_mapped_ingredients
 
 
 def format_context(retrieved: list[dict]) -> str:
@@ -34,6 +34,32 @@ def format_context(retrieved: list[dict]) -> str:
     return "\n\n".join(blocks)
 
 
+def format_mapped_context(mapped_items: list[dict]) -> str:
+    """
+    Builds a precise 1-to-1 evidence mapping for each ingredient in the user's label.
+    """
+    lines = []
+    for item in mapped_items:
+        query = item["query"]
+        match = item["best_match"]
+        if match:
+            meta = match.get("metadata", {})
+            name = meta.get("name", query)
+            func = meta.get("function", "")
+            allergen = meta.get("allergen_info", "Not recognized as a major allergen.")
+            health = meta.get("health_considerations", "")
+            lines.append(
+                f"• USER INGREDIENT: \"{query}\"\n"
+                f"  - Verified Knowledge Base Match: {name} (Similarity: {item['score']:.2f})\n"
+                f"  - Functional Role: {func}\n"
+                f"  - Allergen Status: {allergen}\n"
+                f"  - Health Note: {health}"
+            )
+        else:
+            lines.append(f"• USER INGREDIENT: \"{query}\" -> No specific record in local Codex/FDA database.")
+    return "\n\n".join(lines)
+
+
 def build_rag_prompt(ingredient_list: str, context: str, unmatched_ingredients: Optional[list[str]] = None) -> str:
     """
     Constructs a high-precision grounded prompt commanding a structured, consumer-grade report.
@@ -47,33 +73,23 @@ UNMATCHED INGREDIENTS (No entry in local database):
 """
 
     return f"""You are a senior food scientist and consumer label specialist.
-Analyze the user's food label by providing a factually grounded, beautifully structured breakdown.
+Explain ONLY the ingredients present in the USER INGREDIENT LIST below. Base all facts strictly on the VERIFIED KNOWLEDGE BASE EVIDENCE.
 
-STRICT INSTRUCTIONS:
-1. Base all facts, functions, and additive explanations STRICTLY on the RETRIEVED KNOWLEDGE BASE EVIDENCE.
-2. Structure your output with clean markdown headings and compact, informative bullet points:
-
-### 🔬 Ingredient-by-Ingredient Breakdown
-Explain each listed ingredient in order:
-- **[Ingredient / E-Number]**: [Concise definition & functional role]. [Allergen: Note if present, or "Not a recognized allergen"]. [Health note: Cautious scientific summary].
-
-(For any items in UNMATCHED, state: "- **[Item Name]**: No specific record in local Codex/FDA knowledge base.")
-
-### 🚨 Allergen & Dietary Warnings
-- **Allergens Detected**: Explicitly list all verified allergens (e.g. "⚠️ Wheat / Gluten", "⚠️ Peanuts / Groundnut", "⚠️ Milk / Dairy") or state "✅ No major recognized food allergens detected."
-- **Dietary Suitability**: Note suitability (Vegetarian, Vegan, Dairy-Free, Nut-Free) based strictly on the ingredients.
-
-### 💡 Nutrition & Health Takeaway
-Provide 1–2 crisp sentences summarizing the overall nature of the product (e.g., sodium level, refinement, or balance).
-
-RETRIEVED KNOWLEDGE BASE EVIDENCE:
+VERIFIED KNOWLEDGE BASE EVIDENCE (Mapped per ingredient):
 {context}
-{unmatched_block}
+
 USER INGREDIENT LIST:
 {ingredient_list}
 
-Generate your structured analysis:
+INSTRUCTIONS:
+1. Explain EACH listed ingredient in order:
+   - **[Ingredient Name]**: [What it is and its function in food]. [Allergen: Note allergen status]. [Health note: Scientific summary].
+2. For items with no local record, state: "- **[Item Name]**: No specific entry in local Codex/FDA knowledge base."
+3. Do NOT discuss or invent ingredients not present in the user's list.
+
+### 🔬 Ingredient-by-Ingredient Breakdown
 """
+
 
 
 
@@ -234,14 +250,12 @@ def run_rag(
     """
     start_time = time.perf_counter()
 
-    retrieved, unmatched = retrieve_for_ingredient_list(
+    mapped_items, retrieved, unmatched = retrieve_mapped_ingredients(
         ingredient_list,
-        top_k_per_ingredient=top_k,
         min_similarity=min_similarity,
-        include_unmatched=True,
     )
 
-    context = format_context(retrieved)
+    context = format_mapped_context(mapped_items)
     prompt = build_rag_prompt(ingredient_list, context, unmatched)
 
     # Determine mode
@@ -258,6 +272,7 @@ def run_rag(
         max_tokens=max_tokens,
         temperature=temperature,
     )
+
 
     elapsed_ms = int((time.perf_counter() - start_time) * 1000)
 
