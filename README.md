@@ -2,21 +2,52 @@
 
 An end-to-end **Retrieval-Augmented Generation (RAG)** platform that analyzes packaged food ingredient lists, E-numbers, additives, and allergens with strict local knowledge grounding.
 
-Built with **Ollama** + **Llama 3.2 / Llama 3 / Code Llama / Mistral** + **FastAPI** + **FAISS** + **Sentence-Transformers (MiniLM-L6-v2)** + **Docker**.
+Built with **Ollama** + **Llama 3.2 / Llama 3 / Code Llama** + **FastAPI** + **FAISS** + **Sentence-Transformers (`all-MiniLM-L6-v2`)** + **Docker**.
 
 ---
 
 ## 🌟 Key Highlights & Platform Capabilities
 
-- ⚔️ **Multi-Model Comparison Arena & AI Referee:** Dynamically benchmarks all locally installed Ollama models (`llama3.2:1b`, `llama3:latest`, `codellama:latest`) on the same food label query. Calculates real-time telemetry (Latency, Throughput, Grounding %, Allergen Recall %, Hallucination Rate, Composite Score) and synthesizes an intelligent AI Referee evaluation crowning the optimal model.
-- 🚨 **Ingredient-to-Allergen Breakdown Mapping:** Maps each raw label ingredient directly to its allergen group, clinical severity level (`CRITICAL`, `SEVERE`, `MODERATE-HIGH`, `SAFE`), and clinical/dietary guidance.
+- ⚔️ **Side-by-Side Multi-Model Evaluation & AI Referee:** Benchmarks all locally installed Ollama models (`llama3.2:1b`, `llama3:latest`, `codellama:latest`) on the exact same ingredient label. Displays their decoded answers side-by-side in equal columns and crowns the top winner with a golden border.
+- 🏆 **Dynamic Best Model Winner Bar:** Automatically calculates real-time telemetry (Latency, Throughput, Grounding %, Allergen Recall %, Hallucination Rate, Composite Score) and writes an AI Referee explanation of *why* the winning model gave the best answer.
+- 🚨 **Clinical Allergen & Sensitivity Mapping:** Detects food allergens (Gluten, Dairy, Soy, Peanuts, Tree Nuts, Eggs, Sulphites, Tartrazine, Sesame, Fish/Shellfish) and maps them to severity grades (`Critical`, `Severe`, `Moderate-High`, `Sensitivity`) with dietary guidance.
 - 🌿 **Grounded RAG Intelligence:** Prevents LLM hallucinations by retrieving exact Codex Alimentarius and FDA food additive records.
-- 📦 **Curated 44-Record Knowledge Base:** Features comprehensive data on emulsifiers, acidity regulators, stabilizers (INS 407, 412, 415, 466), thickeners (INS 440), colorants (INS 102, 127, 160c), oils, and allergen classes.
-- ⚖️ **Side-by-Side Evaluation:** Direct comparison of **RAG Grounded Response** vs **Baseline (Without RAG)** to demonstrate grounding efficacy.
-- 🔬 **Query & Vector Inspector:** Interactive ingredient pills with 384-dimensional vector activation charts and FAISS cosine similarity scoring.
-- 🧮 **2D Vector Embedding Matrix Heatmap:** High-performance HTML5 Canvas matrix visualization of the dense vector embedding space.
-- 🛡️ **Prompt & Grounding Transparency:** Inspect the exact system instructions, constraints, and retrieved context injected into the LLM.
-- 🌓 **Modern Glassmorphism UI:** Rich dark mode interface with rendered markdown typography, high-contrast badges, fluid animations, and responsive layout.
+- 📦 **Curated 44-Record Knowledge Base:** Comprehensive data on emulsifiers, acidity regulators, stabilizers (INS 407, 412, 415, 466), thickeners (INS 440), colorants (INS 102, 127, 160c), oils, and allergen classes.
+- ⚖️ **Single-Model Evaluation:** Direct comparison of **RAG Grounded Response** vs **Baseline (Without RAG)** to demonstrate grounding efficacy.
+- 🌓 **Modern Glassmorphism UI:** Clean dark-mode interface with rendered markdown typography, live RAG pipeline tracker, high-contrast badges, fluid animations, and responsive layout.
+
+---
+
+## 📂 Data Storage & Schema Format
+
+The platform persists knowledge and vector representations across three structured layers:
+
+### 1. Raw Knowledge Base (`knowledge_base/data.json`)
+* **Format:** JSON Array of 44 curated food records.
+* **Fields:** `id`, `name`, `synonyms`, `e_number`, `category`, `function`, `common_uses`, `allergen_info`, `health_considerations`, `source`.
+
+```json
+{
+  "id": "ing_wheat_flour",
+  "name": "Wheat flour",
+  "synonyms": ["wheat", "flour", "enriched wheat flour", "whole wheat flour"],
+  "e_number": null,
+  "category": "grain / base ingredient",
+  "function": "Provides structure, texture and bulk in baked and processed foods.",
+  "common_uses": "Bread, pasta, crackers, breading/coatings, thickeners in sauces.",
+  "allergen_info": "Contains gluten. Direct allergen: wheat. Also relevant to people with celiac disease or gluten sensitivity.",
+  "health_considerations": "A source of carbohydrates and some protein.",
+  "source": "Codex Alimentarius / FDA Food Labeling Guide"
+}
+```
+
+### 2. RAG Chunk Store (`embeddings/chunks.json`)
+* **Format:** JSON Array of chunk objects prepared for neural search.
+* **Fields:** `chunk_id`, `text` (formatted text block for MiniLM embedding), `metadata` (structured copy of the record).
+
+### 3. Dense Vector Matrix (`embeddings/vectors.npy`)
+* **Format:** NumPy Binary Array (`.npy`)
+* **Shape:** `(44, 384)` — 44 vectors with 384 dimensions each, generated by `all-MiniLM-L6-v2` and L2-normalized for FAISS Inner Product (`IndexFlatIP`) cosine similarity search.
 
 ---
 
@@ -60,7 +91,6 @@ food-label-decoder/
 │
 ├── docker-compose.yml                   # Multi-container orchestration specification
 ├── requirements.txt                     # Dependencies for local development
-├── SUBMISSION_GUIDE.md                  # Project submission documentation & exercise mapping
 └── README.md                            # Main project documentation
 ```
 
@@ -68,22 +98,21 @@ food-label-decoder/
 
 ## 🚀 How to Run the Project
 
-### Option 1: Local Development Server (Recommended for Fast Local Testing)
+### Option 1: Local Development Server (Recommended)
 
-1. **Activate your Python environment & install dependencies:**
+1. **Install dependencies:**
    ```powershell
    pip install -r requirements.txt
    ```
 
-2. **Ensure Ollama is running locally:**
+2. **Ensure Ollama is running:**
    ```powershell
    ollama serve
    ```
 
-3. **Verify installed models:**
+3. **Check available models (pull lightweight 1B model for high-speed multi-model evaluation):**
    ```powershell
    ollama list
-   # To pull lightweight 1B model for ultra-fast multi-model comparison:
    ollama pull llama3.2:1b
    ```
 
@@ -92,7 +121,7 @@ food-label-decoder/
    python -m ingestion.embedder
    ```
 
-5. **Start the FastAPI backend with live reloading:**
+5. **Start the FastAPI backend:**
    ```powershell
    uvicorn app.main:app --reload --port 8000
    ```
@@ -104,20 +133,13 @@ food-label-decoder/
 
 ### Option 2: Full Docker Microservices Stack
 
-Runs the complete 5-container architecture (App, RAG, Data, LLM services + Ollama) in isolated containers connected over an internal Docker network.
+Runs the complete 5-container architecture (App, RAG, Data, LLM services + Ollama) in isolated containers:
 
-1. **Build and start the services:**
-   ```powershell
-   docker compose up --build -d
-   ```
+```powershell
+docker compose up --build -d
+```
 
-2. **Download the default LLM model (First time only):**
-   ```powershell
-   docker compose run --rm ollama-pull
-   ```
-
-3. **Open the App:**  
-   Navigate to **[http://localhost:8000](http://localhost:8000)**.
+Open **[http://localhost:8000](http://localhost:8000)**.
 
 ---
 
@@ -126,20 +148,18 @@ Runs the complete 5-container architecture (App, RAG, Data, LLM services + Ollam
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
 | `GET` | `/` | Serves the interactive RAG AI Studio Web UI |
-| `GET` | `/api/health` | System health, Ollama connection status & discovered models |
+| `GET` | `/api/health` | System health, vector index status & discovered Ollama models |
 | `GET` | `/api/models` | List of installed Ollama models |
 | `GET` | `/api/chunks` | Returns all 44 knowledge base chunks and metadata |
 | `GET` | `/api/vectors` | Returns vector dimensions and index information |
-| `POST` | `/api/query-embed` | Embeds an ingredient text query and computes similarity scores |
+| `POST` | `/api/query-embed` | Embeds an ingredient query and computes similarity scores |
 | `POST` | `/api/decode` | **RAG Grounded Decode:** Retrieves context, detects allergens, and generates grounded report |
 | `POST` | `/api/decode_no_rag` | **Baseline Decode:** Generates analysis from LLM parametric memory without retrieval |
 | `POST` | `/api/compare_models` | **Multi-Model Arena:** Benchmarks all models, measures telemetry & generates AI Referee verdict |
 
 ---
 
-## ⚔️ Multi-Model Comparison Arena Example
-
-When evaluating a packaged food label (e.g. `Wheat flour, sugar, palm oil, E322, E621, milk solids`):
+## ⚔️ Multi-Model Arena Example Response
 
 ```json
 {
