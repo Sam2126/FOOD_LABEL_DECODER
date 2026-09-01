@@ -1790,6 +1790,7 @@ function updateButtonForModel() {
   const chosen = $('modelSelect').value;
   const decodeBtn = $('decodeBtn');
   const customInput = $('customModelInput');
+  const isCompare = $('compareToggle').checked;
   
   if (chosen === '__custom__') {
     customInput.style.display = 'block';
@@ -1797,19 +1798,30 @@ function updateButtonForModel() {
     customInput.style.display = 'none';
   }
 
+  $('compareToggle').disabled = false;
+
   if (chosen === '__all_compare__') {
     decodeBtn.innerHTML = '<span>⚔️ Evaluate All Models</span>';
-    $('compareToggle').checked = false;
-    $('compareToggle').disabled = true;
-    $('compareToggleText').textContent = 'Evaluating all models in parallel with RAG';
+    $('compareToggleText').textContent = 'Include Baseline (Non-RAG) in Benchmark';
   } else {
     decodeBtn.innerHTML = '<span>⚡ Decode Ingredients</span>';
-    $('compareToggle').disabled = false;
     $('compareToggleText').textContent = 'Compare with Non-RAG Baseline';
+    $('baseCard').style.display = isCompare ? 'flex' : 'none';
+    $('resultsGrid').style.gridTemplateColumns = isCompare ? '1fr 1fr' : '1fr';
   }
 }
 
 $('modelSelect').addEventListener('change', updateButtonForModel);
+
+$('compareToggle').addEventListener('change', () => {
+  const isCompare = $('compareToggle').checked;
+  const chosen = $('modelSelect').value;
+  if (chosen !== '__all_compare__') {
+    $('baseCard').style.display = isCompare ? 'flex' : 'none';
+    $('resultsGrid').style.gridTemplateColumns = isCompare ? '1fr 1fr' : '1fr';
+  }
+});
+
 
 // Sliders Live Update
 $('tempSlider').addEventListener('input', e => $('tempVal').textContent = parseFloat(e.target.value).toFixed(2));
@@ -2031,6 +2043,48 @@ function renderArena(arenaData, rawInput) {
     grid.appendChild(colCard);
   });
 
+  // Optional: Append Baseline card if requested
+  if (baseData && baseData.explanation) {
+    const baseCol = document.createElement('div');
+    baseCol.className = 'model-col-card base-compare-card';
+    baseCol.style.borderStyle = 'dashed';
+    baseCol.style.borderColor = 'rgba(148, 163, 184, 0.4)';
+
+    baseCol.innerHTML = `
+      <div class="model-col-card-head" style="background:rgba(148, 163, 184, 0.08);">
+        <div class="model-col-title-wrap">
+          <span style="font-size:1.2rem;">🧠</span>
+          <div>
+            <div class="model-col-name">Baseline (Without RAG)</div>
+            <span class="model-col-rank" style="background:rgba(148,163,184,0.15);color:var(--text-secondary);">Unconstrained Parametric Memory</span>
+          </div>
+        </div>
+        <div>
+          <button class="icon-btn copy-model-btn" id="copyArenaBaseBtn">📋 Copy</button>
+        </div>
+      </div>
+
+      <div class="model-col-stats">
+        <span>⏱ <b>${((baseData.processing_time_ms || 0) / 1000).toFixed(2)}s</b></span>
+        <span>🎯 Grounding: <b>0.0% (Zero citations)</b></span>
+        <span style="color:var(--rose-400);">⚠️ Unverified outputs</span>
+      </div>
+
+      <div class="model-col-body">
+        ${renderMarkdown(baseData.explanation)}
+      </div>
+    `;
+
+    const copyBtn = baseCol.querySelector('#copyArenaBaseBtn');
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(baseData.explanation || '');
+      copyBtn.textContent = '✅ Copied!';
+      setTimeout(() => copyBtn.textContent = '📋 Copy', 2000);
+    });
+
+    grid.appendChild(baseCol);
+  }
+
   // 3. Leaderboard Matrix Table
   const timeSecTotal = (arenaData.total_evaluation_time_ms / 1000).toFixed(2);
   $('matrixCountPill').textContent = `${leaderboard.length} Models Benchmarked (${timeSecTotal}s total)`;
@@ -2111,16 +2165,28 @@ $('decodeBtn').addEventListener('click', async () => {
       await new Promise(r => setTimeout(r, 80));
       setStepActive(2);
 
-      const arenaResp = await fetch('/api/compare_models', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ingredient_list: rawInput,
-          temperature: temperature,
-          max_tokens: maxTokens,
-          min_similarity: minSimilarity,
+      const [arenaResp, baseData] = await Promise.all([
+        fetch('/api/compare_models', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ingredient_list: rawInput,
+            temperature: temperature,
+            max_tokens: maxTokens,
+            min_similarity: minSimilarity,
+          }),
         }),
-      });
+        compare ? fetch('/api/decode_no_rag', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ingredient_list: rawInput,
+            model: null,
+            temperature: temperature,
+            max_tokens: 180,
+          }),
+        }).then(r => r.ok ? r.json() : null).catch(() => null) : Promise.resolve(null),
+      ]);
 
       const arenaData = await arenaResp.json();
       if (!arenaResp.ok) {
@@ -2134,7 +2200,7 @@ $('decodeBtn').addEventListener('click', async () => {
       setStepActive(5);
       setStepsDone();
 
-      renderArena(arenaData, rawInput);
+      renderArena(arenaData, rawInput, baseData);
 
     } catch (err) {
       alert(`Multi-model evaluation failed: ${err.message}`);
@@ -2145,6 +2211,7 @@ $('decodeBtn').addEventListener('click', async () => {
     }
     return;
   }
+
 
   // 🌿 SINGLE-MODEL (GROUNDED VS BASELINE) VIEW
   decodeBtn.innerHTML = '<span class="spinner"></span> <span>Decoding...</span>';
