@@ -22,7 +22,24 @@ from rag.retriever import retrieve_for_ingredient_list
 from rag.rag_pipeline import format_context, build_rag_prompt, detect_allergens_and_dietary
 from eval.metrics import compute_grounding_accuracy, compute_allergen_recall, compute_hallucination_rate
 
-logger = logging.getLogger("food-label-decoder.comparator")
+def build_fast_compare_prompt(ingredient_list: str, context: str, unmatched: list[str]) -> str:
+    unmatched_str = ", ".join(unmatched) if unmatched else "None"
+    return f"""You are an expert food label decoder. Base your analysis STRICTLY on the retrieved context below.
+
+INGREDIENTS TO EXPLAIN:
+{ingredient_list}
+
+RETRIEVED KNOWLEDGE BASE CONTEXT:
+{context}
+
+UNMATCHED ITEMS (No local KB entry):
+{unmatched_str}
+
+INSTRUCTIONS:
+1. Provide a concise bullet point for each ingredient: What it is, its function, and any allergen warning.
+2. For unmatched items, state: "No local KB record."
+3. Do not invent ungrounded claims. Keep total response under 150 words.
+"""
 
 
 def evaluate_single_model(
@@ -33,23 +50,25 @@ def evaluate_single_model(
     retrieved: list[dict],
     expected_allergens: list[str],
     temperature: float = 0.20,
-    max_tokens: int = 450,
+    max_tokens: int = 220,
 ) -> dict:
     """
     Runs RAG decoding for one model and computes real-time evaluation metrics.
     """
-    prompt = build_rag_prompt(ingredient_list, context, unmatched)
+    prompt = build_fast_compare_prompt(ingredient_list, context, unmatched)
+    eff_tokens = min(max_tokens if max_tokens else 220, 240)
     start_time = time.perf_counter()
 
     try:
         explanation = ask_ollama(
             prompt=prompt,
             model=model_name,
-            max_tokens=max_tokens,
+            max_tokens=eff_tokens,
             temperature=temperature,
         )
         elapsed_sec = max(0.01, time.perf_counter() - start_time)
         latency_ms = int(elapsed_sec * 1000)
+
 
         # Approximate token count (words * 1.33)
         words = len(explanation.split())

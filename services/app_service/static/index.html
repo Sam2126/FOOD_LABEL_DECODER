@@ -22,7 +22,7 @@
   --bg-base: #0a0f0d;
   --bg-surface: #111a16;
   --bg-surface-elevated: #16241f;
-  --bg-surface-card: rgba(22, 36, 31, 0.75);
+  --bg-surface-card: rgba(22, 36, 31, 0.85);
   --bg-glass: rgba(17, 26, 22, 0.85);
 
   --border-subtle: #1e332b;
@@ -76,8 +76,8 @@
   --bg-base: #f4f7f4;
   --bg-surface: #ffffff;
   --bg-surface-elevated: #e8f0eb;
-  --bg-surface-card: rgba(255, 255, 255, 0.9);
-  --bg-glass: rgba(255, 255, 255, 0.9);
+  --bg-surface-card: rgba(255, 255, 255, 0.95);
+  --bg-glass: rgba(255, 255, 255, 0.95);
 
   --border-subtle: #dbe4dc;
   --border-medium: #cbd8cd;
@@ -125,8 +125,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
-  padding-bottom: 20px;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
   border-bottom: 1px solid var(--border-subtle);
   flex-wrap: wrap;
   gap: 16px;
@@ -236,7 +236,7 @@ body {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 24px;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 @media (max-width: 1024px) {
@@ -249,7 +249,7 @@ body {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 26px;
+  padding: 24px;
   box-shadow: var(--shadow-md);
   transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
 }
@@ -262,7 +262,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .card-title {
@@ -276,7 +276,7 @@ body {
 }
 
 .card-desc {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: var(--text-secondary);
   margin-top: 2px;
 }
@@ -299,7 +299,7 @@ body {
 
 textarea#ingredientInput {
   width: 100%;
-  min-height: 120px;
+  min-height: 110px;
   padding: 14px 16px;
   font-family: var(--font-sans);
   font-size: 0.95rem;
@@ -329,7 +329,7 @@ textarea#ingredientInput:focus {
 
 /* Presets */
 .presets-section {
-  margin: 18px 0;
+  margin: 16px 0;
 }
 
 .presets-label {
@@ -372,10 +372,10 @@ textarea#ingredientInput:focus {
 /* Configuration Grid */
 .params-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 16px;
-  margin-top: 20px;
-  padding-top: 18px;
+  margin-top: 18px;
+  padding-top: 16px;
   border-top: 1px solid var(--border-subtle);
 }
 
@@ -442,8 +442,8 @@ input[type="range"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 24px;
-  padding-top: 18px;
+  margin-top: 20px;
+  padding-top: 16px;
   border-top: 1px solid var(--border-subtle);
   flex-wrap: wrap;
   gap: 14px;
@@ -468,7 +468,7 @@ input[type="range"] {
 }
 
 .primary-btn {
-  padding: 12px 28px;
+  padding: 12px 26px;
   background: linear-gradient(135deg, var(--emerald-500), var(--emerald-700));
   color: #ffffff;
   border: none;
@@ -496,7 +496,7 @@ input[type="range"] {
 }
 
 .secondary-btn {
-  padding: 12px 20px;
+  padding: 12px 18px;
   background: var(--bg-surface);
   color: var(--text-secondary);
   border: 1px solid var(--border-subtle);
@@ -524,15 +524,15 @@ input[type="range"] {
 .steps-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-top: 12px;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .step-item {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 10px 14px;
+  gap: 12px;
+  padding: 9px 12px;
   border-radius: var(--radius-md);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
@@ -550,13 +550,13 @@ input[type="range"] {
 }
 
 .step-num {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   background: var(--bg-surface-card);
   border: 1px solid var(--border-medium);
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   display: grid;
   place-items: center;
@@ -580,29 +580,29 @@ input[type="range"] {
 }
 
 .step-title {
-  font-size: 0.85rem;
+  font-size: 0.83rem;
   font-weight: 600;
   color: var(--text-primary);
   display: block;
 }
 
 .step-sub {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
   display: block;
 }
 
 .step-icon {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .architecture-banner {
-  margin-top: 20px;
-  padding: 12px 14px;
+  margin-top: 16px;
+  padding: 10px 12px;
   border-radius: var(--radius-md);
   background: rgba(16, 185, 129, 0.08);
   border: 1px solid rgba(16, 185, 129, 0.2);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--emerald-400);
 }
 
@@ -613,8 +613,8 @@ input[type="range"] {
   background: var(--rose-bg);
   border: 1.5px solid var(--rose-500);
   border-radius: var(--radius-lg);
-  padding: 20px 24px;
-  margin-bottom: 28px;
+  padding: 18px 22px;
+  margin-bottom: 24px;
   display: none;
   animation: fadeIn var(--transition-fast);
 }
@@ -629,10 +629,10 @@ input[type="range"] {
   align-items: center;
   gap: 10px;
   font-family: var(--font-display);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--rose-400);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .allergen-banner.safe .allergen-banner-head {
@@ -651,7 +651,7 @@ input[type="range"] {
   color: #ffffff;
   padding: 4px 12px;
   border-radius: var(--radius-full);
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
@@ -662,31 +662,31 @@ input[type="range"] {
 }
 
 .allergen-details-box {
-  margin-top: 14px;
+  margin-top: 12px;
   background: rgba(0, 0, 0, 0.3);
   border-radius: var(--radius-md);
-  padding: 12px;
+  padding: 10px;
   overflow-x: auto;
 }
 
 .allergen-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   text-align: left;
 }
 
 .allergen-table th {
-  padding: 8px 12px;
+  padding: 8px 10px;
   color: var(--text-secondary);
   font-weight: 700;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   text-transform: uppercase;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
 }
 
 .allergen-table td {
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   vertical-align: top;
 }
@@ -695,7 +695,7 @@ input[type="range"] {
   display: inline-block;
   padding: 2px 8px;
   border-radius: var(--radius-sm);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -747,8 +747,8 @@ input[type="range"] {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -814,34 +814,31 @@ input[type="range"] {
 .md-rendered {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .md-h2 {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 800;
   color: #34d399;
-  margin-top: 12px;
+  margin-top: 8px;
   margin-bottom: 4px;
-  border-bottom: 1px solid rgba(52, 211, 153, 0.2);
-  padding-bottom: 4px;
 }
 
 .md-h3 {
   font-family: var(--font-display);
-  font-size: 1.02rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #f1f5f9;
-  margin-top: 10px;
+  margin-top: 6px;
   margin-bottom: 2px;
 }
 
 .md-h4 {
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: #94a3b8;
-  margin-top: 8px;
 }
 
 .md-p {
@@ -850,7 +847,7 @@ input[type="range"] {
 }
 
 .md-ul, .md-ol {
-  margin-left: 20px;
+  margin-left: 18px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -872,8 +869,8 @@ input[type="range"] {
 }
 
 .sources-box {
-  margin-top: 16px;
-  padding-top: 12px;
+  margin-top: 14px;
+  padding-top: 10px;
   border-top: 1px solid var(--border-subtle);
 }
 
@@ -937,24 +934,24 @@ input[type="range"] {
 }
 
 /* ══════════════════════════════════════════════════════
-   ⚔️ MULTI-MODEL SIDE-BY-SIDE ARENA VIEW
+   ⚔️ DEDICATED MULTI-MODEL SIDE-BY-SIDE CARD SECTION
 ══════════════════════════════════════════════════════ */
 .arena-section {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   margin-bottom: 32px;
   animation: fadeIn var(--transition-fast);
 }
 
 /* 🏆 Best Model Winner Bar */
 .winner-bar {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(16, 185, 129, 0.08));
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(16, 185, 129, 0.08));
   border: 1.5px solid #f59e0b;
   border-radius: var(--radius-lg);
-  padding: 20px 26px;
+  padding: 20px 24px;
   display: flex;
-  gap: 20px;
+  gap: 18px;
   align-items: flex-start;
   box-shadow: 0 8px 32px rgba(245, 158, 11, 0.14);
 }
@@ -1125,8 +1122,8 @@ input[type="range"] {
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text-primary);
-  min-height: 220px;
-  max-height: 520px;
+  min-height: 200px;
+  max-height: 480px;
   overflow-y: auto;
 }
 
@@ -1136,7 +1133,7 @@ input[type="range"] {
   backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 20px 24px;
   box-shadow: var(--shadow-md);
 }
 
@@ -1144,7 +1141,7 @@ input[type="range"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -1212,303 +1209,6 @@ input[type="range"] {
   border-radius: 3px;
 }
 
-/* ══════════════════════════════════════════════════════
-   TRANSPARENCY TABS SUITE
-══════════════════════════════════════════════════════ */
-.tabs-wrapper {
-  background: var(--bg-surface-card);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-
-.tab-nav {
-  display: flex;
-  gap: 4px;
-  padding: 10px 12px;
-  background: var(--bg-surface);
-  border-bottom: 1px solid var(--border-subtle);
-  overflow-x: auto;
-}
-
-.tab-btn {
-  padding: 10px 20px;
-  border: none;
-  background: transparent;
-  color: var(--text-secondary);
-  font-family: var(--font-sans);
-  font-size: 0.84rem;
-  font-weight: 600;
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  transition: all var(--transition-fast);
-}
-
-.tab-btn:hover {
-  background: var(--bg-surface-elevated);
-  color: var(--text-primary);
-}
-
-.tab-btn.active {
-  background: var(--emerald-500);
-  color: #ffffff;
-  box-shadow: 0 2px 10px var(--emerald-glow);
-}
-
-.tab-content {
-  display: none;
-  padding: 28px;
-  animation: fadeIn var(--transition-normal);
-}
-
-.tab-content.active {
-  display: block;
-}
-
-.inspector-desc {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  margin-bottom: 20px;
-  max-width: 800px;
-}
-
-.pills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 24px;
-}
-
-.ingredient-pill {
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  background: var(--bg-surface);
-  border: 1.5px solid var(--border-subtle);
-  color: var(--text-primary);
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: all var(--transition-fast);
-}
-
-.ingredient-pill:hover {
-  border-color: var(--emerald-500);
-  transform: translateY(-1px);
-}
-
-.ingredient-pill.active {
-  background: var(--emerald-glow);
-  border-color: var(--emerald-500);
-  color: var(--emerald-400);
-}
-
-.inspector-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-@media (max-width: 850px) {
-  .inspector-split { grid-template-columns: 1fr; }
-}
-
-.vector-bars-wrap {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 16px;
-}
-
-.bars-container {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 90px;
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.v-bar {
-  flex: 1;
-  border-radius: 2px 2px 0 0;
-  transition: height 0.4s ease;
-  position: relative;
-  cursor: pointer;
-}
-
-.v-bar:hover::after {
-  content: attr(data-val);
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--bg-base);
-  color: #ffffff;
-  border: 1px solid var(--border-subtle);
-  padding: 2px 6px;
-  font-size: 0.68rem;
-  font-family: var(--font-mono);
-  border-radius: 4px;
-  white-space: nowrap;
-  z-index: 10;
-}
-
-.matches-list {
-  display: grid;
-  gap: 10px;
-  max-height: 400px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.match-item {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 12px 14px;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  align-items: center;
-  transition: border-color var(--transition-fast);
-}
-
-.match-item:hover {
-  border-color: var(--emerald-500);
-}
-
-.match-name {
-  font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--text-primary);
-}
-
-.match-score-badge {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 700;
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-  background: rgba(16, 185, 129, 0.15);
-  color: var(--emerald-400);
-}
-
-/* Chunk Explorer */
-.chunk-search-bar {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.chunk-search-input {
-  flex: 1;
-  min-width: 260px;
-  padding: 10px 16px;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-}
-
-.chunk-search-input:focus {
-  outline: none;
-  border-color: var(--emerald-500);
-}
-
-.chunks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-  max-height: 580px;
-  overflow-y: auto;
-  padding-right: 4px;
-}
-
-.chunk-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  padding: 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: all var(--transition-fast);
-}
-
-.chunk-card:hover {
-  border-color: var(--emerald-500);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.chunk-card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.chunk-card-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.chunk-card-category {
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  background: var(--bg-surface-elevated);
-  color: var(--text-secondary);
-}
-
-.chunk-card-text {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  line-height: 1.55;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.chunk-card-source {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  font-style: italic;
-  margin-top: auto;
-  padding-top: 8px;
-  border-top: 1px solid var(--border-subtle);
-}
-
-/* Heatmap */
-.heatmap-canvas-wrap {
-  width: 100%;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  position: relative;
-  background: var(--bg-surface);
-}
-
-canvas#heatmapCanvas {
-  display: block;
-  width: 100%;
-  height: 380px;
-  cursor: crosshair;
-}
-
 .spinner {
   display: inline-block;
   width: 16px;
@@ -1542,7 +1242,7 @@ canvas#heatmapCanvas {
           Food Label Decoder
           <span class="brand-badge">RAG AI Studio</span>
         </div>
-        <div class="brand-subtitle">Grounded Food Additives, E-Numbers, Allergens &amp; Multi-Model Benchmarking</div>
+        <div class="brand-subtitle">Grounded Food Additives, E-Numbers, Allergens &amp; Multi-Model Evaluation</div>
       </div>
     </div>
 
@@ -1616,9 +1316,9 @@ canvas#heatmapCanvas {
         <div class="param-group">
           <div class="param-label">
             <span>Max Tokens</span>
-            <span class="param-val" id="tokensVal">400</span>
+            <span class="param-val" id="tokensVal">250</span>
           </div>
-          <input type="range" id="tokensSlider" min="100" max="1000" step="50" value="400"/>
+          <input type="range" id="tokensSlider" min="100" max="800" step="50" value="250"/>
         </div>
 
         <div class="param-group">
@@ -1687,7 +1387,7 @@ canvas#heatmapCanvas {
           <div class="step-item" id="step4">
             <div class="step-num">4</div>
             <div class="step-content">
-              <span class="step-title">Context Assembly &amp; Hallucination Filter</span>
+              <span class="step-title">Context Assembly &amp; Grounding</span>
               <span class="step-sub">Threshold filtering (&gt;= 0.30) &amp; unmatched tracking</span>
             </div>
             <span class="step-icon">🛡️</span>
@@ -1696,8 +1396,8 @@ canvas#heatmapCanvas {
           <div class="step-item" id="step5">
             <div class="step-num">5</div>
             <div class="step-content">
-              <span class="step-title">Prompt Synthesis &amp; Model Dispatch</span>
-              <span class="step-sub">Grounded prompt sent to Ollama instance</span>
+              <span class="step-title">Model Dispatch &amp; Benchmark</span>
+              <span class="step-sub">Evaluates local models with shared RAG context</span>
             </div>
             <span class="step-icon">🤖</span>
           </div>
@@ -1705,8 +1405,8 @@ canvas#heatmapCanvas {
           <div class="step-item" id="step6">
             <div class="step-num">6</div>
             <div class="step-content">
-              <span class="step-title">Grounded Explanation Generation</span>
-              <span class="step-sub">Consumer-friendly, allergen-highlighted output</span>
+              <span class="step-title">Grounded Result &amp; Winner Synthesis</span>
+              <span class="step-sub">Consumer explanation + performance scores</span>
             </div>
             <span class="step-icon">✨</span>
           </div>
@@ -1714,7 +1414,7 @@ canvas#heatmapCanvas {
       </div>
 
       <div class="architecture-banner">
-        💡 <b>Multi-Model Arena Active:</b> Benchmarks all local models side by side with shared FAISS vector grounding.
+        💡 <b>Side-by-Side Model Evaluator:</b> Compare all installed models on the exact same ingredient label.
       </div>
     </div>
 
@@ -1804,7 +1504,7 @@ canvas#heatmapCanvas {
   </div>
 
 
-  <!-- ════ MODE B: ALL-MODELS SIDE-BY-SIDE ARENA SECTION ════ -->
+  <!-- ════ MODE B: DEDICATED ALL-MODELS SIDE-BY-SIDE CARD SECTION ════ -->
   <div class="arena-section" id="arenaSection" style="display:none;">
 
     <!-- 🏆 Best Model Winner Bar -->
@@ -1853,100 +1553,6 @@ canvas#heatmapCanvas {
 
   </div>
 
-
-  <!-- ════ TRANSPARENCY TABS ════ -->
-  <div class="tabs-wrapper">
-    <div class="tab-nav">
-      <button class="tab-btn active" data-tab="inspector">🔬 Query &amp; Vector Inspector</button>
-      <button class="tab-btn" data-tab="chunks">📦 Knowledge Base Explorer</button>
-      <button class="tab-btn" data-tab="heatmap">🧮 Vector Embedding Heatmap</button>
-      <button class="tab-btn" data-tab="grounding">🛡️ Prompt &amp; Grounding Inspector</button>
-      <button class="tab-btn" data-tab="guide">📖 Architecture Guide</button>
-    </div>
-
-    <!-- Tab 1: Query Inspector -->
-    <div class="tab-content active" id="tab-inspector">
-      <p class="inspector-desc">
-        Click on any ingredient pill below to inspect its live 384-dimensional vector embedding and examine exact FAISS cosine similarity scores against every stored knowledge-base chunk.
-      </p>
-
-      <div class="pills-grid" id="inspectorPills">
-        <div style="color:var(--text-muted);font-size:0.85rem;">Run a decode above to populate ingredient pills for inspection.</div>
-      </div>
-
-      <div class="inspector-split" id="inspectorSplit" style="display:none;">
-        <div class="vector-bars-wrap">
-          <div class="input-label">
-            <span>384-D Embedding Vector Sample</span>
-            <span id="activePillLabel">Ingredient</span>
-          </div>
-          <div class="bars-container" id="vectorBarsContainer"></div>
-          <div style="display:flex;justify-content:space-between;margin-top:8px;font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);">
-            <span>Dim 0</span>
-            <span>Dim 16</span>
-            <span>Dim 32</span>
-          </div>
-        </div>
-
-        <div>
-          <div class="input-label">
-            <span>FAISS Similarity Search Ranking</span>
-            <span id="matchStats">Top Matches</span>
-          </div>
-          <div class="matches-list" id="matchesListContainer"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tab 2: Chunk Explorer -->
-    <div class="tab-content" id="tab-chunks">
-      <div class="chunk-search-bar">
-        <input type="search" id="chunkSearchInput" class="chunk-search-input" placeholder="🔍 Search knowledge base by name, E-number, allergen, or function..."/>
-        <span class="status-pill" id="chunkCountBadge">0 Chunks</span>
-      </div>
-      <div class="chunks-grid" id="chunksGrid">
-        <div style="color:var(--text-muted);padding:20px;">Loading knowledge base chunks...</div>
-      </div>
-    </div>
-
-    <!-- Tab 3: Heatmap -->
-    <div class="tab-content" id="tab-heatmap">
-      <p class="inspector-desc">
-        Interactive 2D Matrix of chunk embeddings. Rows represent food additives/ingredients, columns represent vector dimensions. Color indicates positive (emerald) or negative (blue/slate) neural activation.
-      </p>
-      <div class="heatmap-canvas-wrap">
-        <canvas id="heatmapCanvas"></canvas>
-      </div>
-    </div>
-
-    <!-- Tab 4: Grounding Inspector -->
-    <div class="tab-content" id="tab-grounding">
-      <p class="inspector-desc">
-        Inspect the exact prompt structure, grounding constraints, and retrieved context injected into the LLM during the last RAG query.
-      </p>
-      <div class="textarea-container">
-        <div class="input-label"><span>Injected Context Block</span></div>
-        <textarea id="rawContextViewer" readonly style="min-height:160px;font-family:var(--font-mono);font-size:0.8rem;background:var(--bg-surface);color:var(--text-secondary);"></textarea>
-      </div>
-    </div>
-
-    <!-- Tab 5: Architecture Guide -->
-    <div class="tab-content" id="tab-guide">
-      <h3 style="font-family:var(--font-display);font-size:1.15rem;margin-bottom:12px;">Food Label Decoder Pipeline Workflow</h3>
-      <p style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;">
-        This application implements a complete end-to-end Retrieval-Augmented Generation system. Food labels are split into constituent ingredients, embedded into 384-dimensional dense vectors using MiniLM, and matched against curated Codex Alimentarius and FDA records via FAISS cosine similarity search.
-      </p>
-      <div class="architecture-banner" style="font-size:0.85rem;line-height:1.7;">
-        <b>Microservices Architecture Overview:</b><br/>
-        • <b>Application Service (Port 8000):</b> Public orchestrator, Multi-Model Arena &amp; UI server.<br/>
-        • <b>RAG Service (Port 8001):</b> FAISS vector database queries, context formatting &amp; AI Referee comparator.<br/>
-        • <b>LLM Service (Port 8002):</b> High-performance Ollama gateway with model customization.<br/>
-        • <b>Data Service (Port 8003):</b> Ingestion, chunking, and persistent embedding generation.
-      </div>
-    </div>
-
-  </div>
-
 </div>
 
 <!-- ════ JAVASCRIPT LOGIC ════ -->
@@ -1956,9 +1562,6 @@ const $ = id => document.getElementById(id);
 
 // State
 let availableModels = [];
-let allChunks = [];
-let vectorMatrix = null;
-let currentIngredientsList = [];
 
 // Markdown Typography Parser
 function renderMarkdown(md) {
@@ -2030,7 +1633,6 @@ async function initSystem() {
     customOpt.textContent = '✏️ Custom Ollama Model...';
     modelSelect.appendChild(customOpt);
 
-    // Initial check for button text
     updateButtonForModel();
 
   } catch (err) {
@@ -2043,7 +1645,6 @@ function updateButtonForModel() {
   const chosen = $('modelSelect').value;
   const decodeBtn = $('decodeBtn');
   const customInput = $('customModelInput');
-  const compareToggleLabel = $('compareToggleLabel');
   
   if (chosen === '__custom__') {
     customInput.style.display = 'block';
@@ -2101,19 +1702,6 @@ $('clearBtn').addEventListener('click', () => {
   resetSteps();
 });
 
-// Tabs Switching
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    btn.classList.add('active');
-    $(`tab-${btn.dataset.tab}`).classList.add('active');
-
-    if (btn.dataset.tab === 'chunks') loadChunksTab();
-    if (btn.dataset.tab === 'heatmap') loadHeatmapTab();
-  });
-});
-
 // Pipeline Step Animation Helpers
 const steps = [1, 2, 3, 4, 5, 6].map(n => $(`step${n}`));
 function resetSteps() {
@@ -2144,7 +1732,6 @@ function checkAndRenderAllergens(ragData, rawInput) {
   let dietary = (ragData && Array.isArray(ragData.dietary_flags)) ? ragData.dietary_flags : [];
   let breakdown = (ragData && Array.isArray(ragData.allergen_breakdown)) ? ragData.allergen_breakdown : [];
 
-  // Fallback extraction strictly from rawInput if empty
   if (!allergens.length && !dietary.length && rawInput) {
     const detected = new Set();
     const rules = [
@@ -2226,7 +1813,7 @@ function checkAndRenderAllergens(ragData, rawInput) {
 }
 
 // ══════════════════════════════════════════════════════
-// RENDER ALL-MODELS SIDE-BY-SIDE ARENA
+// RENDER ALL-MODELS SIDE-BY-SIDE ARENA CARD
 // ══════════════════════════════════════════════════════
 function renderArena(arenaData, rawInput) {
   $('resultsGrid').style.display = 'none';
@@ -2288,7 +1875,6 @@ function renderArena(arenaData, rawInput) {
       </div>
     `;
 
-    // Copy Handler
     const copyBtn = colCard.querySelector('.copy-model-btn');
     copyBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(modelRes.explanation || '');
@@ -2343,9 +1929,7 @@ function renderArena(arenaData, rawInput) {
     tbody.appendChild(tr);
   });
 
-  // Allergens & Inspector
   checkAndRenderAllergens(arenaData, rawInput);
-  populateInspectorPills(rawInput);
 }
 
 // ══════════════════════════════════════════════════════
@@ -2378,7 +1962,7 @@ $('decodeBtn').addEventListener('click', async () => {
     decodeBtn.innerHTML = '<span class="spinner"></span> <span>Evaluating All Models...</span>';
     try {
       setStepActive(1);
-      await new Promise(r => setTimeout(r, 120));
+      await new Promise(r => setTimeout(r, 80));
       setStepActive(2);
 
       const arenaResp = await fetch('/api/compare_models', {
@@ -2398,9 +1982,9 @@ $('decodeBtn').addEventListener('click', async () => {
       }
 
       setStepActive(3);
-      await new Promise(r => setTimeout(r, 100));
+      await new Promise(r => setTimeout(r, 60));
       setStepActive(4);
-      await new Promise(r => setTimeout(r, 100));
+      await new Promise(r => setTimeout(r, 60));
       setStepActive(5);
       setStepsDone();
 
@@ -2428,7 +2012,7 @@ $('decodeBtn').addEventListener('click', async () => {
 
   try {
     setStepActive(1);
-    await new Promise(r => setTimeout(r, 150));
+    await new Promise(r => setTimeout(r, 100));
     setStepActive(2);
 
     // 1. Run Grounded RAG
@@ -2485,7 +2069,7 @@ $('decodeBtn').addEventListener('click', async () => {
     }
 
     setStepActive(4);
-    await new Promise(r => setTimeout(r, 150));
+    await new Promise(r => setTimeout(r, 100));
     setStepActive(5);
     setStepsDone();
 
@@ -2524,12 +2108,6 @@ $('decodeBtn').addEventListener('click', async () => {
     // Allergens & Dietary Profile
     checkAndRenderAllergens(ragData, rawInput);
 
-    // Grounding Context Raw Viewer
-    $('rawContextViewer').value = ragData.context_sent_to_llm || 'No context injected.';
-
-    // Populate Inspector Pills
-    populateInspectorPills(rawInput);
-
   } catch (err) {
     $('ragOutput').className = 'result-body empty';
     $('ragOutput').textContent = `❌ Error: ${err.message}`;
@@ -2539,171 +2117,6 @@ $('decodeBtn').addEventListener('click', async () => {
     decodeBtn.innerHTML = '<span>⚡ Decode Ingredients</span>';
   }
 });
-
-// Inspector Pills Logic
-function populateInspectorPills(rawInput) {
-  const container = $('inspectorPills');
-  container.innerHTML = '';
-  const items = rawInput.split(/[,;\n•]+/).map(s => s.trim()).filter(Boolean);
-  currentIngredientsList = items;
-
-  if (items.length === 0) return;
-
-  items.forEach((item, idx) => {
-    const pill = document.createElement('button');
-    pill.className = 'ingredient-pill' + (idx === 0 ? ' active' : '');
-    pill.textContent = item;
-    pill.addEventListener('click', () => {
-      document.querySelectorAll('.ingredient-pill').forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      inspectIngredient(item);
-    });
-    container.appendChild(pill);
-  });
-
-  $('inspectorSplit').style.display = 'grid';
-  inspectIngredient(items[0]);
-}
-
-async function inspectIngredient(ingredient) {
-  $('activePillLabel').textContent = ingredient;
-  const barsContainer = $('vectorBarsContainer');
-  const matchesContainer = $('matchesListContainer');
-
-  barsContainer.innerHTML = '<span style="font-size:0.7rem;color:var(--text-muted);">Embedding vector...</span>';
-  matchesContainer.innerHTML = '<span style="font-size:0.7rem;color:var(--text-muted);">Running FAISS search...</span>';
-
-  try {
-    const res = await fetch('/api/query-embed', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: ingredient, top_k: 5 }),
-    });
-    const data = await res.json();
-
-    // Render Vector Bars
-    barsContainer.innerHTML = '';
-    const preview = data.embedding_preview || [];
-    const maxVal = Math.max(...preview.map(Math.abs), 0.05);
-
-    preview.forEach((val) => {
-      const bar = document.createElement('div');
-      bar.className = 'v-bar';
-      const heightPct = (Math.abs(val) / maxVal) * 100;
-      bar.style.height = `${Math.max(heightPct, 4)}%`;
-      bar.style.background = val >= 0 ? 'var(--emerald-500)' : 'var(--blue-500)';
-      bar.dataset.val = val.toFixed(4);
-      barsContainer.appendChild(bar);
-    });
-
-    // Render Matches
-    matchesContainer.innerHTML = '';
-    if (data.matches && data.matches.length > 0) {
-      data.matches.forEach(m => {
-        const item = document.createElement('div');
-        item.className = 'match-item';
-        item.innerHTML = `
-          <div>
-            <div class="match-name">${m.name}</div>
-            <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:2px;">${m.text_preview.slice(0, 100)}...</div>
-          </div>
-          <div class="match-score-badge">${(m.score).toFixed(4)}</div>
-        `;
-        matchesContainer.appendChild(item);
-      });
-      $('matchStats').textContent = `${data.matches.length} matches found`;
-    } else {
-      matchesContainer.innerHTML = '<div style="color:var(--text-muted);font-size:0.8rem;">No matches above threshold.</div>';
-      $('matchStats').textContent = '0 matches';
-    }
-
-  } catch (err) {
-    barsContainer.innerHTML = `<span style="color:var(--rose-400);font-size:0.75rem;">Error: ${err.message}</span>`;
-  }
-}
-
-// Chunk Explorer Tab
-async function loadChunksTab() {
-  if (allChunks.length > 0) return;
-  const grid = $('chunksGrid');
-  grid.innerHTML = '<div style="color:var(--text-muted);padding:20px;">Fetching chunks...</div>';
-
-  try {
-    const res = await fetch('/api/chunks');
-    const data = await res.json();
-    allChunks = data.chunks || [];
-    $('chunkCountBadge').textContent = `${allChunks.length} Chunks Loaded`;
-    renderChunks(allChunks);
-  } catch (err) {
-    grid.innerHTML = `<div style="color:var(--rose-400);padding:20px;">Error loading chunks: ${err.message}</div>`;
-  }
-}
-
-function renderChunks(chunks) {
-  const grid = $('chunksGrid');
-  grid.innerHTML = '';
-
-  chunks.forEach(c => {
-    const card = document.createElement('div');
-    card.className = 'chunk-card';
-    card.innerHTML = `
-      <div class="chunk-card-head">
-        <h4 class="chunk-card-title">${c.name}</h4>
-        <span class="chunk-card-category">${c.category || 'Additive'}</span>
-      </div>
-      <div class="chunk-card-text">${c.text}</div>
-      <div class="chunk-card-source">Citation: ${c.source || 'Curated Reference'}</div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-$('chunkSearchInput').addEventListener('input', e => {
-  const q = e.target.value.toLowerCase();
-  const filtered = allChunks.filter(c => 
-    c.name.toLowerCase().includes(q) || 
-    c.text.toLowerCase().includes(q) || 
-    (c.category && c.category.toLowerCase().includes(q))
-  );
-  renderChunks(filtered);
-});
-
-// Heatmap Tab
-async function loadHeatmapTab() {
-  if (vectorMatrix) return;
-  const canvas = $('heatmapCanvas');
-  const ctx = canvas.getContext('2d');
-
-  try {
-    const res = await fetch('/api/vectors');
-    vectorMatrix = await res.json();
-
-    const matrix = vectorMatrix.matrix || [];
-    if (matrix.length === 0) return;
-
-    canvas.width = canvas.parentElement.clientWidth;
-    canvas.height = Math.max(matrix.length * 14, 300);
-
-    const rows = matrix.length;
-    const cols = matrix[0].length;
-    const cellW = canvas.width / cols;
-    const cellH = canvas.height / rows;
-
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < cols; c++) {
-        const val = matrix[r][c];
-        const norm = Math.min(Math.max((val + 0.2) / 0.4, 0), 1);
-        const rColor = Math.floor(16 + norm * 20);
-        const gColor = Math.floor(100 + norm * 155);
-        const bColor = Math.floor(80 + norm * 100);
-        ctx.fillStyle = `rgb(${rColor}, ${gColor}, ${bColor})`;
-        ctx.fillRect(c * cellW, r * cellH, cellW - 0.5, cellH - 0.5);
-      }
-    }
-  } catch (err) {
-    console.error('Heatmap error:', err);
-  }
-}
 
 // Copy Buttons
 $('copyRagBtn').addEventListener('click', () => {
