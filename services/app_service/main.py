@@ -154,7 +154,14 @@ def health():
             downstream[name] = r.json()
         except requests.exceptions.RequestException as exc:
             downstream[name] = {"status": "unreachable", "error": str(exc)}
-    return {"status": "ok", "service": "app_service", "downstream": downstream}
+            
+    models = get_models().get("models", [])
+    return {
+        "status": "ok",
+        "service": "app_service",
+        "downstream": downstream,
+        "available_models": models,
+    }
 
 
 @app.get("/api/models")
@@ -166,7 +173,31 @@ def get_models():
         return resp.json()
     except requests.exceptions.RequestException as exc:
         logger.warning("Could not fetch models from LLM service: %s", exc)
-        return {"models": ["codellama"]}
+        try:
+            from app.ollama_client import list_models
+            return {"models": list_models()}
+        except Exception:
+            return {"models": ["codellama:latest"]}
+
+
+@app.post("/api/compare_models")
+def compare_models_proxy(request: dict):
+    """
+    Evaluates and benchmarks all available models with shared RAG context.
+    """
+    try:
+        from rag.model_comparator import compare_all_models
+        return compare_all_models(
+            ingredient_list=request.get("ingredient_list", ""),
+            models=request.get("models"),
+            temperature=request.get("temperature", 0.20),
+            max_tokens=request.get("max_tokens", 350),
+            min_similarity=request.get("min_similarity", 0.30),
+        )
+    except Exception as exc:
+        logger.error("compare_models failed: %s", exc)
+        raise HTTPException(status_code=500, detail=str(exc))
+
 
 
 @app.get("/api/chunks")

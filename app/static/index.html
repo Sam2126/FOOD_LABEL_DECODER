@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Food Label Decoder · Professional RAG AI Studio</title>
-<meta name="description" content="State-of-the-art RAG-powered food ingredient, additive, and allergen decoder using Ollama, Code Llama, FAISS vector search, and FastAPI."/>
+<meta name="description" content="State-of-the-art RAG-powered food ingredient, additive, and allergen decoder with dynamic multi-model evaluation, FAISS vector search, and FastAPI."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
@@ -113,7 +113,7 @@ body {
 }
 
 .container {
-  width: min(1320px, calc(100% - 40px));
+  width: min(1360px, calc(100% - 40px));
   margin: 0 auto;
   padding: 32px 0 80px;
 }
@@ -299,17 +299,17 @@ body {
 
 textarea#ingredientInput {
   width: 100%;
-  min-height: 130px;
+  min-height: 120px;
   padding: 14px 16px;
   font-family: var(--font-sans);
   font-size: 0.95rem;
-  line-height: 1.6;
   color: var(--text-primary);
   background: var(--bg-surface);
   border: 1.5px solid var(--border-subtle);
   border-radius: var(--radius-md);
   resize: vertical;
   transition: all var(--transition-fast);
+  line-height: 1.5;
 }
 
 textarea#ingredientInput:focus {
@@ -321,46 +321,45 @@ textarea#ingredientInput:focus {
 .char-counter {
   position: absolute;
   bottom: 10px;
-  right: 12px;
+  right: 14px;
+  font-size: 0.72rem;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
   color: var(--text-muted);
-  pointer-events: none;
 }
 
-/* Category Quick Chips */
+/* Presets */
 .presets-section {
-  margin-top: 14px;
+  margin: 18px 0;
 }
 
 .presets-label {
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--text-muted);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
   margin-bottom: 8px;
 }
 
 .presets-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 8px;
 }
 
 .preset-chip {
   padding: 6px 12px;
-  border-radius: var(--radius-full);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
   color: var(--text-secondary);
-  font-size: 0.76rem;
-  font-weight: 600;
   cursor: pointer;
+  transition: all var(--transition-fast);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  transition: all var(--transition-fast);
+  gap: 6px;
 }
 
 .preset-chip:hover {
@@ -370,16 +369,14 @@ textarea#ingredientInput:focus {
   transform: translateY(-1px);
 }
 
-/* Parameter Grid */
+/* Configuration Grid */
 .params-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 14px;
-  margin-top: 18px;
-  padding: 16px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
 }
 
 .param-group {
@@ -391,92 +388,76 @@ textarea#ingredientInput:focus {
 .param-label {
   display: flex;
   justify-content: space-between;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: var(--text-secondary);
 }
 
 .param-val {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
   color: var(--emerald-400);
-  font-weight: 700;
 }
 
-.select-wrapper {
-  position: relative;
-}
-
-select {
+.select-wrapper select {
   width: 100%;
-  padding: 8px 30px 8px 10px;
+  padding: 8px 12px;
   font-family: var(--font-sans);
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
-  background: var(--bg-surface-elevated);
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  appearance: none;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2334d399' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
+  outline: none;
   transition: border-color var(--transition-fast);
 }
 
-select:focus {
-  outline: none;
+.select-wrapper select:focus {
   border-color: var(--emerald-500);
+}
+
+.custom-model-input {
+  width: 100%;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  margin-top: 6px;
+  display: none;
 }
 
 input[type="range"] {
   width: 100%;
-  height: 5px;
-  border-radius: 3px;
-  background: var(--border-medium);
   accent-color: var(--emerald-500);
   cursor: pointer;
-  margin-top: 4px;
 }
 
-.custom-model-input {
-  display: none;
-  margin-top: 6px;
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  font-family: var(--font-mono);
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-}
-
-.custom-model-input:focus {
-  outline: none;
-  border-color: var(--emerald-500);
-}
-
-/* Action Section */
+/* Actions Row */
 .actions-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-top: 20px;
+  align-items: center;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-subtle);
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 14px;
 }
 
 .checkbox-label {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.84rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
   cursor: pointer;
+  user-select: none;
 }
 
 .checkbox-label input {
@@ -487,64 +468,53 @@ input[type="range"] {
 }
 
 .primary-btn {
-  padding: 13px 28px;
-  background: linear-gradient(135deg, var(--emerald-600), var(--emerald-500));
+  padding: 12px 28px;
+  background: linear-gradient(135deg, var(--emerald-500), var(--emerald-700));
   color: #ffffff;
   border: none;
   border-radius: var(--radius-md);
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 700;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  box-shadow: 0 4px 20px var(--emerald-glow);
+  gap: 8px;
+  box-shadow: 0 4px 16px var(--emerald-glow);
   transition: all var(--transition-fast);
 }
 
 .primary-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px var(--emerald-glow-lg);
-  background: linear-gradient(135deg, var(--emerald-500), var(--emerald-400));
-}
-
-.primary-btn:active {
-  transform: translateY(0);
+  box-shadow: 0 6px 22px var(--emerald-glow-lg);
 }
 
 .primary-btn:disabled {
-  background: var(--border-medium);
-  color: var(--text-muted);
+  opacity: 0.6;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
 }
 
 .secondary-btn {
-  padding: 10px 18px;
+  padding: 12px 20px;
   background: var(--bg-surface);
+  color: var(--text-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
   font-weight: 600;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
   transition: all var(--transition-fast);
 }
 
 .secondary-btn:hover {
   background: var(--bg-surface-elevated);
-  border-color: var(--border-medium);
   color: var(--text-primary);
+  border-color: var(--border-medium);
 }
 
-/* ══════════════════════════════════════════════════════
-   LIVE PIPELINE VISUALIZER (Right Column)
-══════════════════════════════════════════════════════ */
+/* Pipeline Tracker Panel */
 .pipeline-panel {
   display: flex;
   flex-direction: column;
@@ -552,130 +522,117 @@ input[type="range"] {
 }
 
 .steps-list {
-  display: grid;
-  gap: 10px;
-  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
 }
 
 .step-item {
-  display: grid;
-  grid-template-columns: 30px 1fr auto;
+  display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   padding: 10px 14px;
+  border-radius: var(--radius-md);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
   transition: all var(--transition-fast);
+}
+
+.step-item.active {
+  border-color: var(--emerald-500);
+  background: var(--bg-surface-elevated);
+  box-shadow: 0 0 12px var(--emerald-glow);
+}
+
+.step-item.done {
+  border-color: rgba(16, 185, 129, 0.4);
 }
 
 .step-num {
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: var(--bg-surface-elevated);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-muted);
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-medium);
   font-family: var(--font-mono);
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   font-weight: 700;
   display: grid;
   place-items: center;
-  transition: all var(--transition-fast);
-}
-
-.step-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.step-title {
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-.step-sub {
-  font-size: 0.7rem;
   color: var(--text-muted);
-}
-
-.step-icon {
-  font-size: 0.9rem;
-  opacity: 0.5;
-  transition: opacity var(--transition-fast);
-}
-
-.step-item.active {
-  border-color: var(--emerald-500);
-  background: var(--bg-surface-elevated);
-  box-shadow: 0 0 16px var(--emerald-glow);
 }
 
 .step-item.active .step-num {
   background: var(--emerald-500);
   color: #ffffff;
-  border-color: var(--emerald-500);
-}
-
-.step-item.active .step-title {
-  color: var(--text-primary);
-}
-
-.step-item.active .step-icon {
-  opacity: 1;
-}
-
-.step-item.done {
-  border-color: var(--border-subtle);
+  border-color: var(--emerald-400);
 }
 
 .step-item.done .step-num {
-  background: rgba(16, 185, 129, 0.15);
+  background: rgba(16, 185, 129, 0.2);
   color: var(--emerald-400);
   border-color: var(--emerald-500);
 }
 
-.step-item.done .step-title {
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-primary);
+  display: block;
+}
+
+.step-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.step-icon {
+  font-size: 1.1rem;
 }
 
 .architecture-banner {
-  padding: 12px 16px;
-  background: var(--bg-surface);
-  border: 1px dashed var(--border-medium);
+  margin-top: 20px;
+  padding: 12px 14px;
   border-radius: var(--radius-md);
-  font-size: 0.76rem;
-  color: var(--text-secondary);
-  line-height: 1.45;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  font-size: 0.78rem;
+  color: var(--emerald-400);
 }
 
 /* ══════════════════════════════════════════════════════
-   ALLERGEN ALERT & SUMMARY BANNER
+   ALLERGEN WARNING BANNER & TABLE
 ══════════════════════════════════════════════════════ */
 .allergen-banner {
-  display: none;
   background: var(--rose-bg);
-  border: 1px solid var(--rose-border);
+  border: 1.5px solid var(--rose-500);
   border-radius: var(--radius-lg);
-  padding: 16px 20px;
-  margin-bottom: 24px;
-  animation: fadeIn var(--transition-normal);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  display: none;
+  animation: fadeIn var(--transition-fast);
 }
 
 .allergen-banner.safe {
-  background: var(--emerald-glow);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--emerald-500);
 }
 
 .allergen-banner-head {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.92rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--rose-400);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .allergen-banner.safe .allergen-banner-head {
@@ -689,32 +646,27 @@ input[type="range"] {
 }
 
 .allergen-tag {
-  background: var(--rose-500);
+  background: rgba(244, 63, 94, 0.2);
+  border: 1px solid var(--rose-500);
   color: #ffffff;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: var(--radius-full);
-  font-size: 0.74rem;
+  font-size: 0.8rem;
   font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
 }
 
 .allergen-tag.safe-tag {
-  background: var(--emerald-600);
-  color: #ffffff;
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--emerald-500);
+  color: var(--emerald-400);
 }
 
 .allergen-details-box {
   margin-top: 14px;
-  overflow-x: auto;
+  background: rgba(0, 0, 0, 0.3);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(244, 63, 94, 0.25);
-  background: rgba(15, 23, 42, 0.6);
-}
-
-.allergen-banner.safe .allergen-details-box {
-  border-color: rgba(16, 185, 129, 0.25);
+  padding: 12px;
+  overflow-x: auto;
 }
 
 .allergen-table {
@@ -725,78 +677,47 @@ input[type="range"] {
 }
 
 .allergen-table th {
-  background: rgba(30, 41, 59, 0.7);
-  color: var(--text-secondary);
-  font-weight: 600;
   padding: 8px 12px;
-  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-weight: 700;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   text-transform: uppercase;
-  font-size: 0.70rem;
-  letter-spacing: 0.05em;
+  font-size: 0.72rem;
 }
 
 .allergen-table td {
-  padding: 10px 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  color: #f8fafc;
-  vertical-align: middle;
-}
-
-.allergen-guidance-cell {
-  color: #f1f5f9;
-  font-size: 0.82rem;
-  line-height: 1.45;
-  font-weight: 450;
-}
-
-.allergen-table tr:last-child td {
-  border-bottom: none;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: top;
 }
 
 .sev-badge {
   display: inline-block;
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  font-size: 0.70rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
-.sev-critical {
-  background: rgba(244, 63, 94, 0.25);
-  color: #fda4af;
-  border: 1px solid rgba(244, 63, 94, 0.5);
+.sev-critical { background: rgba(244, 63, 94, 0.3); color: #fda4af; border: 1px solid #f43f5e; }
+.sev-severe { background: rgba(245, 158, 11, 0.3); color: #fde047; border: 1px solid #f59e0b; }
+.sev-mod { background: rgba(59, 130, 246, 0.3); color: #93c5fd; border: 1px solid #3b82f6; }
+.sev-safe { background: rgba(16, 185, 129, 0.3); color: #86efac; border: 1px solid #10b981; }
+
+.allergen-guidance-cell {
+  color: #f1f5f9;
+  line-height: 1.45;
 }
-
-.sev-severe {
-  background: rgba(249, 115, 22, 0.25);
-  color: #fed7aa;
-  border: 1px solid rgba(249, 115, 22, 0.5);
-}
-
-.sev-mod {
-  background: rgba(234, 179, 8, 0.25);
-  color: #fef08a;
-  border: 1px solid rgba(234, 179, 8, 0.5);
-}
-
-.sev-safe {
-  background: rgba(16, 185, 129, 0.2);
-  color: var(--emerald-400);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-
 
 /* ══════════════════════════════════════════════════════
-   RESULTS SECTION (SIDE BY SIDE / SPLIT)
+   SINGLE-MODEL RESULTS VIEW (GROUNDED VS BASELINE)
 ══════════════════════════════════════════════════════ */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
 }
 
 @media (max-width: 900px) {
@@ -806,32 +727,29 @@ input[type="range"] {
 .result-card {
   background: var(--bg-surface-card);
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 24px;
-  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  position: relative;
-  transition: all var(--transition-normal);
+  box-shadow: var(--shadow-md);
 }
 
 .result-card.rag-card {
-  border-top: 3px solid var(--emerald-500);
+  border-color: rgba(16, 185, 129, 0.4);
 }
 
 .result-card.base-card {
-  border-top: 3px solid var(--amber-500);
+  border-color: rgba(148, 163, 184, 0.25);
 }
 
 .result-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border-subtle);
   margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .result-title-group h3 {
@@ -839,63 +757,123 @@ input[type="range"] {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .result-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   color: var(--text-secondary);
+  display: block;
   margin-top: 2px;
 }
 
 .badge {
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
   font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .badge-rag {
   background: var(--emerald-glow);
   color: var(--emerald-400);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  border: 1px solid rgba(16, 185, 129, 0.4);
 }
 
 .badge-base {
-  background: var(--amber-bg);
-  color: var(--amber-400);
-  border: 1px solid var(--amber-border);
-}
-
-.badge-warn {
-  background: var(--rose-bg);
-  color: var(--rose-400);
-  border: 1px solid var(--rose-border);
+  background: rgba(148, 163, 184, 0.15);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
 }
 
 .result-body {
+  flex: 1;
   font-size: 0.92rem;
-  line-height: 1.7;
+  line-height: 1.65;
   color: var(--text-primary);
-  white-space: pre-wrap;
-  word-break: break-word;
   min-height: 140px;
-  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 4px;
 }
 
 .result-body.empty {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   color: var(--text-muted);
   font-style: italic;
-  font-size: 0.88rem;
+  text-align: center;
+  padding: 30px;
+}
+
+/* Markdown typography rendering */
+.md-rendered {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.md-h2 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #34d399;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid rgba(52, 211, 153, 0.2);
+  padding-bottom: 4px;
+}
+
+.md-h3 {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+
+.md-h4 {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+.md-p {
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+.md-ul, .md-ol {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.md-li, .md-oli {
+  color: #cbd5e1;
+  line-height: 1.5;
+}
+
+.md-alert {
+  color: #fbbf24;
+  font-weight: 700;
+}
+
+.md-check {
+  color: #34d399;
+  font-weight: 700;
 }
 
 .sources-box {
-  margin-top: 18px;
-  padding-top: 14px;
+  margin-top: 16px;
+  padding-top: 12px;
   border-top: 1px solid var(--border-subtle);
 }
 
@@ -903,9 +881,9 @@ input[type="range"] {
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--text-muted);
   letter-spacing: 0.05em;
-  margin-bottom: 8px;
+  color: var(--text-muted);
+  margin-bottom: 6px;
 }
 
 .sources-chips {
@@ -915,26 +893,23 @@ input[type="range"] {
 }
 
 .source-chip {
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: var(--radius-sm);
-  background: var(--bg-surface);
+  background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   font-size: 0.72rem;
   font-family: var(--font-mono);
-  color: var(--emerald-400);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  color: var(--text-secondary);
 }
 
 .result-meta {
-  margin-top: 14px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.74rem;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
   color: var(--text-muted);
   font-family: var(--font-mono);
 }
@@ -946,140 +921,223 @@ input[type="range"] {
 
 .icon-btn {
   background: transparent;
-  border: none;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 0.85rem;
-  padding: 4px;
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .icon-btn:hover {
-  color: var(--text-primary);
   background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
 }
 
 /* ══════════════════════════════════════════════════════
-   MULTI-MODEL COMPARISON ARENA STYLING
+   ⚔️ MULTI-MODEL SIDE-BY-SIDE ARENA VIEW
 ══════════════════════════════════════════════════════ */
 .arena-section {
-  margin-bottom: 36px;
-  animation: fadeIn var(--transition-normal);
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin-bottom: 32px;
+  animation: fadeIn var(--transition-fast);
 }
 
-.arena-referee-card {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
-  border: 2px solid #f59e0b;
-  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.15);
+/* 🏆 Best Model Winner Bar */
+.winner-bar {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(16, 185, 129, 0.08));
+  border: 1.5px solid #f59e0b;
   border-radius: var(--radius-lg);
-  padding: 24px;
-  position: relative;
-  overflow: hidden;
+  padding: 20px 26px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.14);
 }
 
-.arena-referee-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #f59e0b, #10b981, #38bdf8);
+.winner-bar-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+  padding: 10px;
+  background: rgba(245, 158, 11, 0.18);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  display: grid;
+  place-items: center;
 }
 
-.referee-header {
+.winner-bar-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.winner-bar-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 14px;
+  align-items: center;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
-.referee-badge {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #fbbf24;
-  background: rgba(245, 158, 11, 0.18);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  padding: 3px 10px;
-  border-radius: var(--radius-full);
-  margin-bottom: 6px;
-}
-
-.referee-champion-title {
+.winner-bar-title {
   font-family: var(--font-display);
   font-size: 1.3rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #fbbf24;
+  letter-spacing: -0.02em;
 }
 
-.referee-score-pill {
-  background: rgba(16, 185, 129, 0.2);
-  color: var(--emerald-400);
-  border: 1px solid rgba(16, 185, 129, 0.4);
-  padding: 6px 14px;
+.winner-bar-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 12px;
   border-radius: var(--radius-full);
+  background: #f59e0b;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.winner-bar-metrics {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+.winner-metric-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.winner-metric-val {
+  color: #34d399;
   font-weight: 700;
-  font-size: 0.85rem;
 }
 
-.referee-body {
-  font-size: 0.94rem;
-  color: #e2e8f0;
-  line-height: 1.65;
-  margin-bottom: 18px;
-}
-
-.referee-proscons-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 14px;
-  margin-top: 14px;
-}
-
-.model-proscons-box {
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid var(--border-subtle);
+.winner-bar-reason {
+  font-size: 0.9rem;
+  color: #f1f5f9;
+  line-height: 1.55;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 12px 16px;
   border-radius: var(--radius-md);
-  padding: 14px;
+  border-left: 3px solid #f59e0b;
+  margin-top: 4px;
 }
 
-.model-proscons-title {
-  font-weight: 700;
-  font-size: 0.88rem;
-  margin-bottom: 8px;
+/* Side-by-Side Model Columns Grid */
+.multi-models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.model-col-card {
+  background: var(--bg-surface-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+}
+
+.model-col-card.is-winner {
+  border-color: #f59e0b;
+  box-shadow: 0 0 28px rgba(245, 158, 11, 0.2);
+}
+
+.model-col-card-head {
+  padding: 16px 20px;
+  background: var(--bg-surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.model-col-card.is-winner .model-col-card-head {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.08));
+  border-bottom-color: rgba(245, 158, 11, 0.3);
+}
+
+.model-col-title-wrap {
   display: flex;
   align-items: center;
-  gap: 6px;
-  color: #ffffff;
+  gap: 8px;
 }
 
-.pro-item {
-  color: #34d399;
-  font-size: 0.78rem;
-  margin-bottom: 4px;
+.model-col-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
-.con-item {
-  color: #fb7185;
-  font-size: 0.78rem;
-  margin-bottom: 4px;
+.model-col-rank {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
 }
 
+.model-col-card.is-winner .model-col-rank {
+  background: #f59e0b;
+  color: #000000;
+  border-color: #f59e0b;
+}
+
+.model-col-stats {
+  padding: 8px 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+.model-col-body {
+  padding: 20px;
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  min-height: 220px;
+  max-height: 520px;
+  overflow-y: auto;
+}
+
+/* Leaderboard Matrix Card */
 .arena-matrix-card {
   background: var(--bg-surface-card);
   backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   padding: 24px;
+  box-shadow: var(--shadow-md);
 }
 
 .matrix-header {
@@ -1087,10 +1145,13 @@ input[type="range"] {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .matrix-title {
-  font-size: 1.05rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
 }
@@ -1102,41 +1163,34 @@ input[type="range"] {
 .arena-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   text-align: left;
 }
 
 .arena-table th {
-  background: rgba(30, 41, 59, 0.75);
-  color: var(--text-secondary);
-  font-weight: 600;
   padding: 10px 14px;
-  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+  color: var(--text-secondary);
+  font-weight: 700;
   text-transform: uppercase;
-  font-size: 0.70rem;
+  font-size: 0.72rem;
   letter-spacing: 0.05em;
-  white-space: nowrap;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .arena-table td {
   padding: 12px 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-subtle);
   vertical-align: middle;
 }
 
-.arena-table tr:hover td {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.arena-table tr.winner-row td {
+.arena-table tr.winner-row {
   background: rgba(245, 158, 11, 0.06);
-  border-left: 3px solid #f59e0b;
 }
 
 .rank-badge {
-  font-size: 1.1rem;
   font-weight: 800;
+  font-size: 1rem;
 }
 
 .score-bar-wrap {
@@ -1146,7 +1200,7 @@ input[type="range"] {
 }
 
 .score-bar-bg {
-  width: 60px;
+  width: 70px;
   height: 6px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
@@ -1158,77 +1212,12 @@ input[type="range"] {
   border-radius: 3px;
 }
 
-.arena-outputs-card {
-  background: var(--bg-surface-card);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 24px;
-}
-
-.arena-tabs-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 18px;
-  border-bottom: 1px solid var(--border-subtle);
-  padding-bottom: 12px;
-  flex-wrap: wrap;
-}
-
-.arena-tabs-title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.arena-tabs-list {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.arena-tab-btn {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-secondary);
-  padding: 6px 14px;
-  border-radius: var(--radius-md);
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.arena-tab-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-primary);
-}
-
-.arena-tab-btn.active {
-  background: var(--emerald-glow);
-  color: var(--emerald-400);
-  border-color: rgba(16, 185, 129, 0.4);
-}
-
-.arena-tab-pane {
-  display: none;
-  animation: fadeIn var(--transition-fast);
-}
-
-.arena-tab-pane.active {
-  display: block;
-}
-
 /* ══════════════════════════════════════════════════════
    TRANSPARENCY TABS SUITE
-
 ══════════════════════════════════════════════════════ */
 .tabs-wrapper {
   background: var(--bg-surface-card);
   backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xl);
   overflow: hidden;
@@ -1282,7 +1271,6 @@ input[type="range"] {
   display: block;
 }
 
-/* Tab 1: Query Inspector */
 .inspector-desc {
   font-size: 0.88rem;
   color: var(--text-secondary);
@@ -1321,16 +1309,6 @@ input[type="range"] {
   background: var(--emerald-glow);
   border-color: var(--emerald-500);
   color: var(--emerald-400);
-}
-
-.ingredient-pill.matched {
-  border-color: var(--emerald-500);
-}
-
-.ingredient-pill.unmatched {
-  border-color: var(--rose-500);
-  background: var(--rose-bg);
-  color: var(--rose-400);
 }
 
 .inspector-split {
@@ -1424,7 +1402,7 @@ input[type="range"] {
   color: var(--emerald-400);
 }
 
-/* Tab 2: Chunk Explorer */
+/* Chunk Explorer */
 .chunk-search-bar {
   display: flex;
   gap: 12px;
@@ -1514,7 +1492,7 @@ input[type="range"] {
   border-top: 1px solid var(--border-subtle);
 }
 
-/* Tab 3: Heatmap */
+/* Heatmap */
 .heatmap-canvas-wrap {
   width: 100%;
   border: 1px solid var(--border-subtle);
@@ -1531,39 +1509,23 @@ canvas#heatmapCanvas {
   cursor: crosshair;
 }
 
-.heatmap-tooltip {
-  position: fixed;
-  pointer-events: none;
-  background: var(--bg-base);
-  border: 1px solid var(--emerald-500);
-  color: var(--text-primary);
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-  box-shadow: var(--shadow-md);
-  display: none;
-  z-index: 1000;
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 .spinner {
   display: inline-block;
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
+  border-top-color: #ffffff;
   animation: spin 0.6s linear infinite;
 }
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -1578,22 +1540,22 @@ canvas#heatmapCanvas {
       <div>
         <div class="brand-title">
           Food Label Decoder
-          <span class="brand-badge">RAG Studio</span>
+          <span class="brand-badge">RAG AI Studio</span>
         </div>
-        <div class="brand-subtitle">Grounded Ingredient, Additive &amp; Allergen Intelligence</div>
+        <div class="brand-subtitle">Grounded Food Additives, E-Numbers, Allergens &amp; Multi-Model Benchmarking</div>
       </div>
     </div>
 
     <div class="nav-actions">
       <div class="status-pill">
-        <span class="status-dot" id="systemStatusDot"></span>
-        <span id="systemStatusText">Connecting…</span>
+        <div class="status-dot" id="systemStatusDot"></div>
+        <span id="systemStatusText">Connecting to Ollama &amp; FAISS...</span>
       </div>
-      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode">🌙</button>
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Theme">🌙</button>
     </div>
   </nav>
 
-  <!-- ════ WORKBENCH ════ -->
+  <!-- ════ WORKBENCH GRID ════ -->
   <div class="workbench-grid">
 
     <!-- Left Column: Input Studio -->
@@ -1610,7 +1572,7 @@ canvas#heatmapCanvas {
           <span>Packaged Food Ingredients</span>
           <span id="ingredientCount">0 items detected</span>
         </div>
-        <textarea id="ingredientInput" placeholder="e.g. Wheat flour, sugar, palm oil, E322, E621, milk solids, sodium benzoate"></textarea>
+        <textarea id="ingredientInput" placeholder="e.g. Potato, Edible Vegetable Oil (Palmolein, Rice Bran Oil), Seasoning (~Spices and Condiments, Iodized Salt, Maltodextrin, Black Salt, Sugar, Tomato Powder, Acidity Regulators (330, 296, 334), Flavour (Natural and Nature Identical Flavouring Substances), Anticaking Agent (551), Color (160c)), Contains Onion and Garlic"></textarea>
         <span class="char-counter" id="charCounter">0 / 4000</span>
       </div>
 
@@ -1618,11 +1580,11 @@ canvas#heatmapCanvas {
       <div class="presets-section">
         <div class="presets-label">⚡ Quick Product Presets:</div>
         <div class="presets-chips">
+          <button class="preset-chip" data-ex="Potato, Edible Vegetable Oil (Palmolein, Rice Bran Oil), Seasoning (~Spices and Condiments, Iodized Salt, Maltodextrin, Black Salt, Sugar, Tomato Powder, Acidity Regulators (330, 296, 334), Flavour (Natural and Nature Identical Flavouring Substances), Anticaking Agent (551), Color (160c)), Contains Onion and Garlic">🥔 Chips &amp; Seasoning</button>
           <button class="preset-chip" data-ex="Wheat flour, sugar, palm oil, E322, E621, milk solids">🍪 Biscuit / Snack</button>
           <button class="preset-chip" data-ex="Water, sugar, citric acid, sodium benzoate, tartrazine (E102)">🥤 Soft Drink</button>
           <button class="preset-chip" data-ex="Oats, honey, soy lecithin, peanuts, almonds">🌾 Cereal Bar</button>
           <button class="preset-chip" data-ex="Skim milk, sugar, cocoa butter, soy lecithin, vanillin">🍫 Milk Chocolate</button>
-          <button class="preset-chip" data-ex="E102, E211, E322, E330, E621, E950, E951">🧪 Pure Additives / E-Numbers</button>
           <button class="preset-chip" data-ex="Wheat flour, soy protein, milk solids, peanuts, sulphur dioxide">⚠️ High-Allergen Blend</button>
         </div>
       </div>
@@ -1631,11 +1593,13 @@ canvas#heatmapCanvas {
       <div class="params-grid">
         <div class="param-group">
           <div class="param-label">
-            <span>LLM Model</span>
+            <span>Model Selection</span>
           </div>
           <div class="select-wrapper">
             <select id="modelSelect">
-              <option value="">codellama (default)</option>
+              <option value="__all_compare__">⚡ 📊 Evaluate All Models (Side-by-Side)</option>
+              <option value="llama3.2:1b">llama3.2:1b ⚡ (Fast / 1B)</option>
+              <option value="codellama:latest" selected>codellama:latest</option>
             </select>
           </div>
           <input type="text" id="customModelInput" class="custom-model-input" placeholder="Type model tag (e.g. llama3)"/>
@@ -1652,9 +1616,9 @@ canvas#heatmapCanvas {
         <div class="param-group">
           <div class="param-label">
             <span>Max Tokens</span>
-            <span class="param-val" id="tokensVal">450</span>
+            <span class="param-val" id="tokensVal">400</span>
           </div>
-          <input type="range" id="tokensSlider" min="100" max="1000" step="50" value="450"/>
+          <input type="range" id="tokensSlider" min="100" max="1000" step="50" value="400"/>
         </div>
 
         <div class="param-group">
@@ -1668,9 +1632,9 @@ canvas#heatmapCanvas {
 
       <!-- Actions -->
       <div class="actions-row">
-        <label class="checkbox-label">
+        <label class="checkbox-label" id="compareToggleLabel">
           <input type="checkbox" id="compareToggle" checked/>
-          <span>Compare with Non-RAG Baseline</span>
+          <span id="compareToggleText">Compare with Non-RAG Baseline</span>
         </label>
 
         <div style="display: flex; gap: 10px;">
@@ -1724,7 +1688,7 @@ canvas#heatmapCanvas {
             <div class="step-num">4</div>
             <div class="step-content">
               <span class="step-title">Context Assembly &amp; Hallucination Filter</span>
-              <span class="step-sub">Threshold filtering (>= 0.30) &amp; unmatched tracking</span>
+              <span class="step-sub">Threshold filtering (&gt;= 0.30) &amp; unmatched tracking</span>
             </div>
             <span class="step-icon">🛡️</span>
           </div>
@@ -1750,7 +1714,7 @@ canvas#heatmapCanvas {
       </div>
 
       <div class="architecture-banner">
-        💡 <b>Architecture Note:</b> Exercise 5 runs App Service (8000), RAG Service (8001), LLM Service (8002), Data Service (8003) and Ollama (11434) as isolated microservices.
+        💡 <b>Multi-Model Arena Active:</b> Benchmarks all local models side by side with shared FAISS vector grounding.
       </div>
     </div>
 
@@ -1779,7 +1743,7 @@ canvas#heatmapCanvas {
   </div>
 
 
-  <!-- ════ RESULTS SECTION ════ -->
+  <!-- ════ MODE A: SINGLE-MODEL RESULTS SECTION (GROUNDED VS BASELINE) ════ -->
   <div class="results-grid" id="resultsGrid">
 
     <!-- Grounded RAG Result -->
@@ -1839,29 +1803,33 @@ canvas#heatmapCanvas {
     </div>
   </div>
 
-  <!-- ════ MULTI-MODEL COMPARISON ARENA SECTION ════ -->
+
+  <!-- ════ MODE B: ALL-MODELS SIDE-BY-SIDE ARENA SECTION ════ -->
   <div class="arena-section" id="arenaSection" style="display:none;">
 
-    <!-- 1. AI Referee Banner -->
-    <div class="arena-referee-card">
-      <div class="referee-header">
-        <div class="referee-title-group">
-          <span class="referee-badge">⚖️ AI EVALUATOR &amp; REFEREE VERDICT</span>
-          <h3 class="referee-champion-title" id="refereeChampionTitle">🏆 Champion Model</h3>
+    <!-- 🏆 Best Model Winner Bar -->
+    <div class="winner-bar" id="winnerBar">
+      <div class="winner-bar-icon">🏆</div>
+      <div class="winner-bar-content">
+        <div class="winner-bar-header">
+          <span class="winner-bar-title" id="winnerBarTitle">BEST MODEL: Evaluating...</span>
+          <span class="winner-bar-badge" id="winnerBarBadge">Champion Performance</span>
         </div>
-        <span class="referee-score-pill" id="refereeScorePill">Overall Best: 95.0 / 100</span>
+        <div class="winner-bar-metrics" id="winnerBarMetrics"></div>
+        <div class="winner-bar-reason" id="winnerBarReason">
+          Running multi-model RAG evaluation and telemetry analysis...
+        </div>
       </div>
-      <div class="referee-body" id="refereeRationale">
-        Evaluation analysis synthesizing factual grounding precision, latency, and allergen safety...
-      </div>
-      <div class="referee-proscons-grid" id="refereeProsConsGrid"></div>
     </div>
 
-    <!-- 2. Leaderboard & Telemetry Matrix -->
+    <!-- Side-by-Side Model Columns Grid -->
+    <div class="multi-models-grid" id="multiModelsGrid"></div>
+
+    <!-- Leaderboard Table Matrix -->
     <div class="arena-matrix-card">
       <div class="matrix-header">
         <h4 class="matrix-title">📊 Multi-Model Performance &amp; Safety Leaderboard</h4>
-        <span class="status-pill" id="matrixCountPill">3 Models Benchmarked</span>
+        <span class="status-pill" id="matrixCountPill">0 Models Benchmarked</span>
       </div>
       <div class="matrix-table-wrap">
         <table class="arena-table">
@@ -1883,16 +1851,8 @@ canvas#heatmapCanvas {
       </div>
     </div>
 
-    <!-- 3. Side-by-Side Model Output Inspector -->
-    <div class="arena-outputs-card">
-      <div class="arena-tabs-header">
-        <div class="arena-tabs-title">🎴 Model Output Inspector</div>
-        <div class="arena-tabs-list" id="arenaTabsList"></div>
-      </div>
-      <div class="arena-tabs-content" id="arenaTabsContent"></div>
-    </div>
-
   </div>
+
 
   <!-- ════ TRANSPARENCY TABS ════ -->
   <div class="tabs-wrapper">
@@ -1957,7 +1917,6 @@ canvas#heatmapCanvas {
       <div class="heatmap-canvas-wrap">
         <canvas id="heatmapCanvas"></canvas>
       </div>
-      <div class="heatmap-tooltip" id="heatmapTooltip"></div>
     </div>
 
     <!-- Tab 4: Grounding Inspector -->
@@ -1978,9 +1937,9 @@ canvas#heatmapCanvas {
         This application implements a complete end-to-end Retrieval-Augmented Generation system. Food labels are split into constituent ingredients, embedded into 384-dimensional dense vectors using MiniLM, and matched against curated Codex Alimentarius and FDA records via FAISS cosine similarity search.
       </p>
       <div class="architecture-banner" style="font-size:0.85rem;line-height:1.7;">
-        <b>Microservices Overview:</b><br/>
-        • <b>Application Service (Port 8000):</b> Public orchestrator &amp; UI server.<br/>
-        • <b>RAG Service (Port 8001):</b> FAISS vector database queries &amp; context formatting.<br/>
+        <b>Microservices Architecture Overview:</b><br/>
+        • <b>Application Service (Port 8000):</b> Public orchestrator, Multi-Model Arena &amp; UI server.<br/>
+        • <b>RAG Service (Port 8001):</b> FAISS vector database queries, context formatting &amp; AI Referee comparator.<br/>
         • <b>LLM Service (Port 8002):</b> High-performance Ollama gateway with model customization.<br/>
         • <b>Data Service (Port 8003):</b> Ingestion, chunking, and persistent embedding generation.
       </div>
@@ -2001,7 +1960,35 @@ let allChunks = [];
 let vectorMatrix = null;
 let currentIngredientsList = [];
 
-// Health & Model Loading
+// Markdown Typography Parser
+function renderMarkdown(md) {
+  if (!md) return '<span style="color:var(--text-muted);font-style:italic;">No response generated.</span>';
+  let html = md
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/^### (.*$)/gim, '<h4 class="md-h4">$1</h4>')
+    .replace(/^## (.*$)/gim, '<h3 class="md-h3">$1</h3>')
+    .replace(/^# (.*$)/gim, '<h2 class="md-h2">$1</h2>')
+    .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/⚠️/g, '<span class="md-alert">⚠️</span>')
+    .replace(/✅/g, '<span class="md-check">✅</span>')
+    .replace(/^\s*[\-\*\+]\s+(.*$)/gim, '<li class="md-li">$1</li>')
+    .replace(/^\s*\d+\.\s+(.*$)/gim, '<li class="md-oli">$1</li>')
+    .replace(/(<li class="md-li">[\s\S]*?<\/li>)+/gi, '<ul class="md-ul">$&</ul>')
+    .replace(/(<li class="md-oli">[\s\S]*?<\/li>)+/gi, '<ol class="md-ol">$&</ol>')
+    .replace(/\n{2,}/g, '</p><p class="md-p">')
+    .replace(/\n/g, '<br/>');
+
+  return `<div class="md-rendered"><p class="md-p">${html}</p></div>`
+    .replace(/<p class="md-p"><\/p>/g, '')
+    .replace(/<p class="md-p">(<h[234]|<ul|<ol)/g, '$1')
+    .replace(/(<\/h[234]>|<\/ul>|<\/ol>)<\/p>/g, '$1');
+}
+
+// Health & Dynamic Model Loading
 async function initSystem() {
   try {
     const res = await fetch('/api/health');
@@ -2014,32 +2001,37 @@ async function initSystem() {
     const modelSelect = $('modelSelect');
     modelSelect.innerHTML = '';
     
-    // ⚔️ All-Models Comparison Arena Option
+    // ⚡ Evaluate All Models (Side-by-Side) Option
     const arenaOpt = document.createElement('option');
     arenaOpt.value = '__all_compare__';
-    arenaOpt.textContent = '⚡ ⚔️ Multi-Model Comparison Arena (Evaluate All)';
+    arenaOpt.textContent = '⚡ 📊 Evaluate All Models (Side-by-Side)';
     arenaOpt.style.fontWeight = '700';
-    arenaOpt.style.color = 'var(--emerald-400)';
+    arenaOpt.style.color = '#34d399';
     modelSelect.appendChild(arenaOpt);
 
     if (data.available_models && data.available_models.length) {
       availableModels = data.available_models;
-      const preferred = data.available_models.find(m => m.includes('llama3.2')) || data.available_models[0];
       data.available_models.forEach(m => {
         const opt = document.createElement('option');
         opt.value = m;
-        const isFast = m.includes('llama3.2') || m.includes('1b');
-        opt.textContent = m + (isFast ? ' ⚡ (Recommended / Fast)' : '');
-        if (m === preferred) opt.selected = true;
+        const isFast = m.includes('1b') || m.includes('llama3.2');
+        opt.textContent = m + (isFast ? ' ⚡ (Fast / 1B)' : '');
         modelSelect.appendChild(opt);
       });
     } else {
-      modelSelect.innerHTML = '<option value="">codellama (default)</option>';
+      const defOpt = document.createElement('option');
+      defOpt.value = 'codellama:latest';
+      defOpt.textContent = 'codellama:latest (default)';
+      modelSelect.appendChild(defOpt);
     }
+    
     const customOpt = document.createElement('option');
     customOpt.value = '__custom__';
     customOpt.textContent = '✏️ Custom Ollama Model...';
     modelSelect.appendChild(customOpt);
+
+    // Initial check for button text
+    updateButtonForModel();
 
   } catch (err) {
     $('systemStatusDot').classList.remove('ready');
@@ -2047,47 +2039,50 @@ async function initSystem() {
   }
 }
 
+function updateButtonForModel() {
+  const chosen = $('modelSelect').value;
+  const decodeBtn = $('decodeBtn');
+  const customInput = $('customModelInput');
+  const compareToggleLabel = $('compareToggleLabel');
+  
+  if (chosen === '__custom__') {
+    customInput.style.display = 'block';
+  } else {
+    customInput.style.display = 'none';
+  }
+
+  if (chosen === '__all_compare__') {
+    decodeBtn.innerHTML = '<span>⚔️ Evaluate All Models</span>';
+    $('compareToggle').checked = false;
+    $('compareToggle').disabled = true;
+    $('compareToggleText').textContent = 'Evaluating all models in parallel with RAG';
+  } else {
+    decodeBtn.innerHTML = '<span>⚡ Decode Ingredients</span>';
+    $('compareToggle').disabled = false;
+    $('compareToggleText').textContent = 'Compare with Non-RAG Baseline';
+  }
+}
+
+$('modelSelect').addEventListener('change', updateButtonForModel);
+
 // Sliders Live Update
 $('tempSlider').addEventListener('input', e => $('tempVal').textContent = parseFloat(e.target.value).toFixed(2));
 $('tokensSlider').addEventListener('input', e => $('tokensVal').textContent = e.target.value);
 $('thresholdSlider').addEventListener('input', e => $('thresholdVal').textContent = parseFloat(e.target.value).toFixed(2));
 
-// Model select custom toggle
-$('modelSelect').addEventListener('change', e => {
-  const val = e.target.value;
-  if (val === '__custom__') {
-    $('customModelInput').style.display = 'block';
-    $('customModelInput').focus();
-  } else {
-    $('customModelInput').style.display = 'none';
-  }
-
-  if (val === '__all_compare__') {
-    $('decodeBtn').innerHTML = '<span>⚔️ Benchmark All Models</span>';
-    $('compareToggle').parentElement.style.opacity = '0.4';
-    $('compareToggle').disabled = true;
-  } else {
-    $('decodeBtn').innerHTML = '<span>⚡ Decode Ingredients</span>';
-    $('compareToggle').parentElement.style.opacity = '1';
-    $('compareToggle').disabled = false;
-  }
-});
-
-
-// Character & Item Counter
-$('ingredientInput').addEventListener('input', () => {
-  const text = $('ingredientInput').value;
+// Character & Ingredient Counter
+$('ingredientInput').addEventListener('input', e => {
+  const text = e.target.value;
   $('charCounter').textContent = `${text.length} / 4000`;
   const items = text.split(/[,;\n•]+/).map(s => s.trim()).filter(Boolean);
   $('ingredientCount').textContent = `${items.length} item${items.length === 1 ? '' : 's'} detected`;
 });
 
-// Presets Click
+// Presets
 document.querySelectorAll('.preset-chip').forEach(chip => {
   chip.addEventListener('click', () => {
     $('ingredientInput').value = chip.dataset.ex;
     $('ingredientInput').dispatchEvent(new Event('input'));
-    $('ingredientInput').focus();
   });
 });
 
@@ -2095,6 +2090,14 @@ document.querySelectorAll('.preset-chip').forEach(chip => {
 $('clearBtn').addEventListener('click', () => {
   $('ingredientInput').value = '';
   $('ingredientInput').dispatchEvent(new Event('input'));
+  $('resultsGrid').style.display = 'grid';
+  $('arenaSection').style.display = 'none';
+  $('ragOutput').className = 'result-body empty';
+  $('ragOutput').textContent = 'Submit ingredients above to generate a grounded explanation with verified citations.';
+  $('baseOutput').className = 'result-body empty';
+  $('baseOutput').textContent = 'Click "Decode Ingredients" with comparison enabled to see the baseline response.';
+  $('ragSourcesChips').innerHTML = '<span style="font-size:0.75rem;color:var(--text-muted);">No retrieval yet</span>';
+  $('allergenBanner').style.display = 'none';
   resetSteps();
 });
 
@@ -2130,7 +2133,6 @@ function setStepsDone() {
 // Allergen & Dietary Detection Engine
 function checkAndRenderAllergens(ragData, rawInput) {
   const banner = $('allergenBanner');
-  const head = document.querySelector('.allergen-banner-head');
   const tagsRow = $('allergenTagsRow');
   const detailsBox = $('allergenDetailsBox');
   const tableBody = $('allergenTableBody');
@@ -2142,9 +2144,8 @@ function checkAndRenderAllergens(ragData, rawInput) {
   let dietary = (ragData && Array.isArray(ragData.dietary_flags)) ? ragData.dietary_flags : [];
   let breakdown = (ragData && Array.isArray(ragData.allergen_breakdown)) ? ragData.allergen_breakdown : [];
 
-  // Fallback extraction strictly from rawInput
+  // Fallback extraction strictly from rawInput if empty
   if (!allergens.length && !dietary.length && rawInput) {
-    const rawLower = rawInput.toLowerCase();
     const detected = new Set();
     const rules = [
       [/\b(wheat|flour|maida|atta|semolina|sooji|suji|durum|spelt|barley|rye|malt extract|gluten)\b/, 'Gluten / Wheat', 'Critical', 'Contains gluten proteins; unsuitable for celiac disease or wheat allergy.'],
@@ -2183,7 +2184,6 @@ function checkAndRenderAllergens(ragData, rawInput) {
 
   if (allergens.length > 0) {
     banner.className = 'allergen-banner';
-    head.innerHTML = '<span>🚨 CRITICAL ALLERGEN &amp; SENSITIVITY ALERT DETECTED</span>';
     allergens.forEach(a => {
       const tag = document.createElement('span');
       tag.className = 'allergen-tag';
@@ -2201,7 +2201,6 @@ function checkAndRenderAllergens(ragData, rawInput) {
           <td><span class="sev-badge ${sevClass}">${item.severity || 'Alert'}</span></td>
           <td class="allergen-guidance-cell">${item.note || ''}</td>
         `;
-
         tableBody.appendChild(tr);
       });
       detailsBox.style.display = 'block';
@@ -2212,7 +2211,6 @@ function checkAndRenderAllergens(ragData, rawInput) {
     banner.style.display = 'block';
   } else if (dietary.length > 0) {
     banner.className = 'allergen-banner safe';
-    head.innerHTML = '<span>✅ ALLERGEN-SAFE &amp; DIETARY PROFILE (NO MAJOR ALLERGENS DETECTED)</span>';
     dietary.forEach(d => {
       const tag = document.createElement('span');
       tag.className = 'allergen-tag safe-tag';
@@ -2227,188 +2225,96 @@ function checkAndRenderAllergens(ragData, rawInput) {
   }
 }
 
-
-
-
-
-// Main Decode Execution
-$('decodeBtn').addEventListener('click', async () => {
-  const rawInput = $('ingredientInput').value.trim();
-  if (!rawInput) {
-    alert('Please enter or select an ingredient list first.');
-    return;
-  }
-
-  const decodeBtn = $('decodeBtn');
-  decodeBtn.disabled = true;
-  decodeBtn.innerHTML = '<span class="spinner"></span> <span>Decoding...</span>';
-
-  resetSteps();
-  setStepActive(0);
-
-  // Model Selection
-  let chosenModel = $('modelSelect').value;
-  if (chosenModel === '__custom__') {
-    chosenModel = $('customModelInput').value.trim();
-  }
-  const temperature = parseFloat($('tempSlider').value);
-  const maxTokens = parseInt($('tokensSlider').value);
-  const minSimilarity = parseFloat($('thresholdSlider').value);
-  const compare = $('compareToggle').checked;
-
-  $('baseCard').style.display = compare ? 'flex' : 'none';
-  $('ragOutput').className = 'result-body empty';
-  $('ragOutput').textContent = 'Retrieving knowledge base evidence and querying model...';
-  $('baseOutput').className = 'result-body empty';
-  $('baseOutput').textContent = 'Querying baseline LLM...';
-
-  try {
-    setStepActive(1);
-    await new Promise(r => setTimeout(r, 150));
-    setStepActive(2);
-
-    // 1. Run Grounded RAG
-    const ragResp = await fetch('/api/decode', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ingredient_list: rawInput,
-        model: chosenModel || null,
-        temperature: temperature,
-        max_tokens: maxTokens,
-        min_similarity: minSimilarity,
-      }),
-    });
-
-    const ragData = await ragResp.json();
-    if (!ragResp.ok) {
-      throw new Error(ragData.detail || `Server error (HTTP ${ragResp.status})`);
-    }
-
-    setStepActive(3);
-
-    // 2. Run Baseline (if requested)
-    let baseData = null;
-    if (compare) {
-      try {
-        const baseResp = await fetch('/api/decode_no_rag', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ingredient_list: rawInput,
-            model: chosenModel || null,
-            temperature: temperature,
-            max_tokens: maxTokens,
-          }),
-        });
-        if (baseResp.ok) {
-          baseData = await baseResp.json();
-        } else {
-          const errPayload = await baseResp.json();
-          baseData = {
-            explanation: `⚠️ Baseline Model Error: ${errPayload.detail || 'Ollama execution error'}`,
-            processing_time_ms: 0,
-            model_used: chosenModel,
-          };
-        }
-      } catch (baseErr) {
-        baseData = {
-          explanation: `⚠️ Baseline connection failed: ${baseErr.message}`,
-          processing_time_ms: 0,
-          model_used: chosenModel,
-        };
-      }
-    }
-
-    setStepActive(4);
-    await new Promise(r => setTimeout(r, 150));
-    setStepActive(5);
-    setStepsDone();
-
-function renderMarkdown(md) {
-  if (!md) return '<span style="color:var(--text-muted);font-style:italic;">No response generated.</span>';
-  let html = md
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/^### (.*$)/gim, '<h4 class="md-h4">$1</h4>')
-    .replace(/^## (.*$)/gim, '<h3 class="md-h3">$1</h3>')
-    .replace(/^# (.*$)/gim, '<h2 class="md-h2">$1</h2>')
-    .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/⚠️/g, '<span class="md-alert">⚠️</span>')
-    .replace(/✅/g, '<span class="md-check">✅</span>')
-    .replace(/^\s*[\-\*\+]\s+(.*$)/gim, '<li class="md-li">$1</li>')
-    .replace(/^\s*\d+\.\s+(.*$)/gim, '<li class="md-oli">$1</li>')
-    .replace(/(<li class="md-li">[\s\S]*?<\/li>)+/gi, '<ul class="md-ul">$&</ul>')
-    .replace(/(<li class="md-oli">[\s\S]*?<\/li>)+/gi, '<ol class="md-ol">$&</ol>')
-    .replace(/\n{2,}/g, '</p><p class="md-p">')
-    .replace(/\n/g, '<br/>');
-
-  return `<div class="md-rendered"><p class="md-p">${html}</p></div>`
-    .replace(/<p class="md-p"><\/p>/g, '')
-    .replace(/<p class="md-p">(<h[234]|<ul|<ol)/g, '$1')
-    .replace(/(<\/h[234]>|<\/ul>|<\/ol>)<\/p>/g, '$1');
-}
-
 // ══════════════════════════════════════════════════════
-// MULTI-MODEL ARENA RENDERER
+// RENDER ALL-MODELS SIDE-BY-SIDE ARENA
 // ══════════════════════════════════════════════════════
 function renderArena(arenaData, rawInput) {
   $('resultsGrid').style.display = 'none';
   $('arenaSection').style.display = 'flex';
 
-  // 1. AI Referee Verdict
-  $('refereeChampionTitle').innerHTML = `🏆 Champion Model: <span style="color:#fbbf24;">${arenaData.champion_model}</span>`;
-  $('refereeScorePill').textContent = arenaData.verdict_title || 'Champion Evaluated';
-  $('refereeRationale').innerHTML = renderMarkdown(arenaData.referee_rationale);
+  const champ = arenaData.champion_model || 'Best Model';
+  const leaderboard = arenaData.leaderboard || [];
+  const topEntry = leaderboard.find(e => e.model === champ) || leaderboard[0] || {};
 
-  // Pros & Cons Grid
-  const prosConsGrid = $('refereeProsConsGrid');
-  prosConsGrid.innerHTML = '';
-  const prosCons = arenaData.pros_and_cons || {};
-  Object.keys(prosCons).forEach(modelName => {
-    const pc = prosCons[modelName];
-    const isWinner = modelName === arenaData.champion_model;
-    const box = document.createElement('div');
-    box.className = 'model-proscons-box';
-    if (isWinner) {
-      box.style.borderColor = 'rgba(245, 158, 11, 0.4)';
-      box.style.background = 'rgba(245, 158, 11, 0.05)';
-    }
-    const prosHtml = (pc.pros || []).map(p => `<div class="pro-item">✓ ${p}</div>`).join('');
-    const consHtml = (pc.cons || []).map(c => `<div class="con-item">✗ ${c}</div>`).join('');
-    box.innerHTML = `
-      <div class="model-proscons-title">
-        <span>${isWinner ? '🏆' : '🤖'}</span>
-        <b>${modelName}</b>
-        ${isWinner ? '<span class="sev-badge sev-safe" style="margin-left:auto;">WINNER</span>' : ''}
+  // 1. Prominent Winner Bar
+  $('winnerBarTitle').textContent = `🏆 BEST MODEL: ${champ}`;
+  $('winnerBarBadge').textContent = arenaData.verdict_title || 'Champion Evaluated';
+
+  const metricsRow = $('winnerBarMetrics');
+  metricsRow.innerHTML = `
+    <span class="winner-metric-item">⏱ Latency: <span class="winner-metric-val">${topEntry.latency_sec || 0}s</span></span>
+    <span class="winner-metric-item">🎯 Grounding Accuracy: <span class="winner-metric-val">${topEntry.grounding_score || 0}%</span></span>
+    <span class="winner-metric-item">🛡️ Allergen Recall: <span class="winner-metric-val">${topEntry.allergen_recall || 0}%</span></span>
+    <span class="winner-metric-item">⚡ Speed: <span class="winner-metric-val">${topEntry.throughput_tokens_sec || 0} tok/s</span></span>
+    <span class="winner-metric-item">📊 Overall Score: <span class="winner-metric-val">${topEntry.composite_score || 0}/100</span></span>
+  `;
+
+  $('winnerBarReason').innerHTML = `<b>Why this is the best answer:</b><br/>${renderMarkdown(arenaData.referee_rationale)}`;
+
+  // 2. Side-by-Side Model Cards Grid
+  const grid = $('multiModelsGrid');
+  grid.innerHTML = '';
+
+  leaderboard.forEach(entry => {
+    const isWinner = entry.model === champ;
+    const modelRes = (arenaData.results || {})[entry.model] || {};
+    const rankEmoji = entry.rank === 1 ? '🥇' : (entry.rank === 2 ? '🥈' : (entry.rank === 3 ? '🥉' : `#${entry.rank}`));
+
+    const colCard = document.createElement('div');
+    colCard.className = 'model-col-card' + (isWinner ? ' is-winner' : '');
+
+    colCard.innerHTML = `
+      <div class="model-col-card-head">
+        <div class="model-col-title-wrap">
+          <span style="font-size:1.2rem;">${isWinner ? '🏆' : '🤖'}</span>
+          <div>
+            <div class="model-col-name">${entry.model}</div>
+            <span class="model-col-rank">${rankEmoji} Rank ${entry.rank} ${isWinner ? '· 🌟 BEST ANSWER' : ''}</span>
+          </div>
+        </div>
+        <div>
+          <button class="icon-btn copy-model-btn" data-model="${entry.model}">📋 Copy</button>
+        </div>
       </div>
-      <div>${prosHtml}</div>
-      <div>${consHtml}</div>
+
+      <div class="model-col-stats">
+        <span>⏱ <b>${entry.latency_sec}s</b> (${entry.throughput_tokens_sec} tok/s)</span>
+        <span>🎯 Grounding: <b>${entry.grounding_score}%</b></span>
+        <span>🛡️ Allergen Recall: <b>${entry.allergen_recall}%</b></span>
+      </div>
+
+      <div class="model-col-body">
+        ${renderMarkdown(modelRes.explanation || 'No response generated.')}
+      </div>
     `;
-    prosConsGrid.appendChild(box);
+
+    // Copy Handler
+    const copyBtn = colCard.querySelector('.copy-model-btn');
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(modelRes.explanation || '');
+      copyBtn.textContent = '✅ Copied!';
+      setTimeout(() => copyBtn.textContent = '📋 Copy', 2000);
+    });
+
+    grid.appendChild(colCard);
   });
 
-  // 2. Leaderboard Matrix
+  // 3. Leaderboard Matrix Table
   const timeSecTotal = (arenaData.total_evaluation_time_ms / 1000).toFixed(2);
-  $('matrixCountPill').textContent = `${arenaData.models_evaluated?.length || 0} Models Benchmarked (${timeSecTotal}s total)`;
+  $('matrixCountPill').textContent = `${leaderboard.length} Models Benchmarked (${timeSecTotal}s total)`;
   const tbody = $('arenaTableBody');
   tbody.innerHTML = '';
-  
-  (arenaData.leaderboard || []).forEach(entry => {
+
+  leaderboard.forEach(entry => {
     const tr = document.createElement('tr');
-    const isWinner = entry.rank === 1;
+    const isWinner = entry.model === champ;
     if (isWinner) tr.className = 'winner-row';
     const rankEmoji = entry.rank === 1 ? '🥇' : (entry.rank === 2 ? '🥈' : (entry.rank === 3 ? '🥉' : `#${entry.rank}`));
-    
-    // Color-coded latency
     const latColor = entry.latency_sec <= 2.0 ? 'var(--emerald-400)' : (entry.latency_sec <= 6.0 ? '#facc15' : '#fb923c');
-    
+
     tr.innerHTML = `
       <td><span class="rank-badge">${rankEmoji}</span></td>
-      <td><b>${entry.model}</b> ${isWinner ? '<span style="color:#fbbf24;font-size:0.75rem;">⭐</span>' : ''}</td>
+      <td><b>${entry.model}</b> ${isWinner ? '<span style="color:#fbbf24;font-size:0.75rem;">⭐ WINNER</span>' : ''}</td>
       <td style="color:${latColor};font-weight:700;font-family:var(--font-mono);">${entry.latency_sec}s</td>
       <td style="font-family:var(--font-mono);color:#38bdf8;">${entry.throughput_tokens_sec} t/s</td>
       <td>
@@ -2431,63 +2337,20 @@ function renderArena(arenaData, rawInput) {
         <span style="font-size:0.72rem;color:var(--text-muted);">/100</span>
       </td>
       <td>
-        ${isWinner ? '<span class="sev-badge sev-safe">🏆 Winner</span>' : (entry.latency_sec <= 2.0 ? '<span class="sev-badge sev-mod">⚡ Fast</span>' : '<span class="sev-badge" style="background:rgba(255,255,255,0.08);color:var(--text-secondary);">Benchmarked</span>')}
+        ${isWinner ? '<span class="sev-badge sev-safe">🏆 Winner</span>' : '<span class="sev-badge" style="background:rgba(255,255,255,0.08);color:var(--text-secondary);">Benchmarked</span>'}
       </td>
     `;
     tbody.appendChild(tr);
   });
 
-  // 3. Side-by-Side Model Tabs
-  const tabsList = $('arenaTabsList');
-  const tabsContent = $('arenaTabsContent');
-  tabsList.innerHTML = '';
-  tabsContent.innerHTML = '';
-
-  const models = arenaData.models_evaluated || [];
-  models.forEach((m, idx) => {
-    const isChamp = m === arenaData.champion_model;
-    const tabBtn = document.createElement('button');
-    tabBtn.className = 'arena-tab-btn' + (isChamp || (idx === 0 && !models.includes(arenaData.champion_model)) ? ' active' : '');
-    tabBtn.innerHTML = `${isChamp ? '🏆 ' : '🤖 '}<b>${m}</b>`;
-    tabBtn.dataset.model = m;
-
-    const res = (arenaData.results || {})[m] || {};
-    const pane = document.createElement('div');
-    pane.className = 'arena-tab-pane' + (tabBtn.classList.contains('active') ? ' active' : '');
-    pane.id = `arena-pane-${m.replace(/[^a-zA-Z0-9]/g, '_')}`;
-
-    pane.innerHTML = `
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border-subtle);flex-wrap:wrap;gap:8px;">
-        <div>
-          <span style="font-size:0.82rem;font-weight:700;color:${isChamp ? '#fbbf24' : 'var(--text-primary)'};">${isChamp ? '🏆 Champion Model Output' : 'Model Output'}: <b>${m}</b></span>
-        </div>
-        <div style="font-size:0.75rem;font-family:var(--font-mono);color:var(--text-secondary);">
-          ⏱ Latency: <b>${res.latency_sec || 0}s</b> · Speed: <b>${res.throughput_tokens_sec || 0} tokens/s</b> · Tokens: <b>${res.tokens_generated || 0}</b>
-        </div>
-      </div>
-      <div class="result-body">
-        ${renderMarkdown(res.explanation || 'No output generated.')}
-      </div>
-    `;
-
-    tabBtn.addEventListener('click', () => {
-      document.querySelectorAll('.arena-tab-btn').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.arena-tab-pane').forEach(p => p.classList.remove('active'));
-      tabBtn.classList.add('active');
-      pane.classList.add('active');
-    });
-
-    tabsList.appendChild(tabBtn);
-    tabsContent.appendChild(pane);
-  });
-
-  // Allergens & Dietary Profile
+  // Allergens & Inspector
   checkAndRenderAllergens(arenaData, rawInput);
   populateInspectorPills(rawInput);
 }
 
-
-// Main Decode Execution
+// ══════════════════════════════════════════════════════
+// MAIN DECODE & EVALUATION CONTROLLER
+// ══════════════════════════════════════════════════════
 $('decodeBtn').addEventListener('click', async () => {
   const rawInput = $('ingredientInput').value.trim();
   if (!rawInput) {
@@ -2497,12 +2360,10 @@ $('decodeBtn').addEventListener('click', async () => {
 
   const decodeBtn = $('decodeBtn');
   decodeBtn.disabled = true;
-  decodeBtn.innerHTML = '<span class="spinner"></span> <span>Benchmarking...</span>';
 
   resetSteps();
   setStepActive(0);
 
-  // Model Selection
   let chosenModel = $('modelSelect').value;
   if (chosenModel === '__custom__') {
     chosenModel = $('customModelInput').value.trim();
@@ -2512,8 +2373,9 @@ $('decodeBtn').addEventListener('click', async () => {
   const minSimilarity = parseFloat($('thresholdSlider').value);
   const compare = $('compareToggle').checked;
 
-  // ⚔️ MULTI-MODEL ARENA EXECUTION BRANCH
+  // ⚔️ ALL-MODELS SIDE-BY-SIDE EVALUATION
   if (chosenModel === '__all_compare__') {
+    decodeBtn.innerHTML = '<span class="spinner"></span> <span>Evaluating All Models...</span>';
     try {
       setStepActive(1);
       await new Promise(r => setTimeout(r, 120));
@@ -2545,16 +2407,17 @@ $('decodeBtn').addEventListener('click', async () => {
       renderArena(arenaData, rawInput);
 
     } catch (err) {
-      alert(`Multi-model comparison failed: ${err.message}`);
+      alert(`Multi-model evaluation failed: ${err.message}`);
       resetSteps();
     } finally {
       decodeBtn.disabled = false;
-      decodeBtn.innerHTML = '<span>⚔️ Benchmark All Models</span>';
+      decodeBtn.innerHTML = '<span>⚔️ Evaluate All Models</span>';
     }
     return;
   }
 
-  // 🌿 SINGLE-MODEL / BASELINE SPLIT VIEW BRANCH
+  // 🌿 SINGLE-MODEL (GROUNDED VS BASELINE) VIEW
+  decodeBtn.innerHTML = '<span class="spinner"></span> <span>Decoding...</span>';
   $('arenaSection').style.display = 'none';
   $('resultsGrid').style.display = 'grid';
   $('baseCard').style.display = compare ? 'flex' : 'none';
@@ -2607,7 +2470,7 @@ $('decodeBtn').addEventListener('click', async () => {
         } else {
           const errPayload = await baseResp.json();
           baseData = {
-            explanation: `⚠️ Baseline Model Error: ${errPayload.detail || 'Ollama execution error'}`,
+            explanation: `⚠️ Baseline Error: ${errPayload.detail || 'Ollama execution error'}`,
             processing_time_ms: 0,
             model_used: chosenModel,
           };
@@ -2626,27 +2489,27 @@ $('decodeBtn').addEventListener('click', async () => {
     setStepActive(5);
     setStepsDone();
 
-    // Render RAG Result
+    // Render Grounded RAG
     $('ragOutput').className = 'result-body';
     $('ragOutput').innerHTML = renderMarkdown(ragData.explanation);
-    const timeSec = typeof ragData.processing_time_ms === 'number' ? (ragData.processing_time_ms / 1000).toFixed(2) : '0.00';
-    $('ragMetaInfo').textContent = `⏱ ${timeSec}s · Model: ${ragData.model_used || 'default'}`;
+    const ragTimeSec = (ragData.processing_time_ms / 1000).toFixed(2);
+    $('ragMetaInfo').textContent = `⏱ ${ragTimeSec}s · Model: ${ragData.model_used || 'default'} · ${ragData.retrieved_chunks_count} Knowledge Chunks`;
 
-    // Render Sources
+    // Render Sources Chips
     const sourcesContainer = $('ragSourcesChips');
     sourcesContainer.innerHTML = '';
     if (ragData.retrieved_chunks && ragData.retrieved_chunks.length > 0) {
       ragData.retrieved_chunks.forEach(c => {
         const chip = document.createElement('span');
         chip.className = 'source-chip';
-        chip.innerHTML = `📄 <b>${c.name}</b> (${c.score.toFixed(2)})`;
+        chip.textContent = `${c.name} (${(c.score).toFixed(2)})`;
         sourcesContainer.appendChild(chip);
       });
-      $('ragBadge').textContent = `${ragData.retrieved_chunks.length} Sources Grounded`;
+      $('ragBadge').textContent = `${ragData.retrieved_chunks.length} Chunks Grounded`;
       $('ragBadge').className = 'badge badge-rag';
     } else {
-      sourcesContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--rose-400);">⚠️ No knowledge base matches above threshold.</span>';
-      $('ragBadge').textContent = 'No Direct Match';
+      sourcesContainer.innerHTML = '<span style="font-size:0.75rem;color:var(--amber-400);">⚠️ No high-confidence knowledge match</span>';
+      $('ragBadge').textContent = 'Zero Citations';
       $('ragBadge').className = 'badge badge-warn';
     }
 
@@ -2676,7 +2539,6 @@ $('decodeBtn').addEventListener('click', async () => {
     decodeBtn.innerHTML = '<span>⚡ Decode Ingredients</span>';
   }
 });
-
 
 // Inspector Pills Logic
 function populateInspectorPills(rawInput) {
