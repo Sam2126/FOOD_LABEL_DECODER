@@ -159,38 +159,49 @@ Open **[http://localhost:8000](http://localhost:8000)**.
 
 ---
 
-## ⚔️ Multi-Model Arena Example Response
+## 🏆 How We Evaluate & Select the Best Model (Scoring Methodology)
 
-```json
-{
-  "ingredient_list": "Wheat flour, sugar, palm oil, E322, E621, milk solids",
-  "champion_model": "llama3.2:1b",
-  "verdict_title": "🏆 llama3.2:1b — Optimal Production Choice",
-  "referee_rationale": "llama3.2:1b delivered 6.8x faster latency (0.72s) with 94.5% Grounding Accuracy and 100% Allergen Recall.",
-  "leaderboard": [
-    {
-      "rank": 1,
-      "model": "llama3.2:1b",
-      "latency_sec": 0.72,
-      "throughput_tokens_sec": 312.4,
-      "grounding_score": 94.5,
-      "allergen_recall": 100.0,
-      "hallucination_rate": 4.2,
-      "composite_score": 96.2
-    },
-    {
-      "rank": 2,
-      "model": "codellama:latest",
-      "latency_sec": 4.88,
-      "throughput_tokens_sec": 46.2,
-      "grounding_score": 91.0,
-      "allergen_recall": 100.0,
-      "hallucination_rate": 6.8,
-      "composite_score": 88.4
-    }
-  ]
-}
+The platform evaluates all locally installed models using a strict, multi-dimensional quantitative benchmark powered by shared FAISS retrieval:
+
+```mermaid
+graph TD
+    A[Packaged Ingredient List] --> B[MiniLM-L6-v2 Embeddings]
+    B --> C[FAISS Cosine Similarity Search]
+    C --> D[Shared Ground-Truth Context & Allergens]
+    D --> E[Model 1: llama3.2:1b]
+    D --> F[Model 2: codellama:latest]
+    D --> G[Model 3: llama3:latest]
+    E & F & G --> H[Quantitative Telemetry Evaluator]
+    H --> I[Grounding Accuracy: 35%]
+    H --> J[Allergen Recall: 30%]
+    H --> K[Hallucination Inversion: 20%]
+    H --> L[Speed & Throughput: 15%]
+    I & J & K & L --> M[Composite Score & AI Referee Winner Crown]
 ```
+
+### 1. The Multi-Criteria Scoring Formula (100-Point Scale)
+
+$$\text{Composite Score} = (0.35 \times \text{Grounding}) + (0.30 \times \text{Allergen Recall}) + (0.20 \times (100 - \text{Hallucination})) + (0.15 \times \text{Speed Score})$$
+
+| Metric | Weight | Evaluation Criteria |
+| :--- | :---: | :--- |
+| **🎯 Grounding Accuracy** | **35%** | Verifies that the model's explanations strictly adhere to the retrieved Codex Alimentarius / FDA knowledge base records and cite verified additive functions. |
+| **🛡️ Allergen Recall** | **30%** | Measures whether 100% of the true clinical allergens present on the label (e.g. Gluten/Wheat, Milk, Peanuts/Groundnut, Soy, Egg, Sulphites) were explicitly identified in the output. |
+| **🚫 Hallucination Inversion** | **20%** | $(100\% - \text{Hallucination Rate})$. Penalizes models for inventing unverified safety claims or hallucinating functions for items not in the knowledge base. |
+| **⚡ Speed & Throughput** | **15%** | Evaluates response latency and tokens-per-second throughput normalized against interactive UI targets ($\text{Normalized } 3.0 / (\text{Latency}_{\text{sec}} + 0.5)$). |
+
+### 2. AI Referee Decision Synthesis
+- The **AI Referee** inspects the outputs of all evaluated models against the ground-truth FAISS context.
+- The model with the highest composite score is crowned **Champion**, highlighted with a golden card border, and accompanied by an auto-generated rationale explaining its performance trade-offs (e.g. why a model won despite higher latency if it had 0% hallucinations and 100% allergen recall).
+
+---
+
+## 🥜 Food Allergen & Botanical Taxonomy Note: "Groundnut vs Peanut"
+
+When analyzing ingredients like **`hydrolysed groundnut protein`**:
+* **Botanical Fact:** **Groundnut** (*Arachis hypogaea*) is the standard Indian and British English botanical term for **Peanut**.
+* **Clinical Significance:** Hydrolysed groundnut protein contains concentrated legume allergen proteins that can trigger life-threatening anaphylactic reactions in individuals with peanut allergies.
+* **Platform Mapping:** The system automatically flags groundnut under `Peanuts / Groundnut` with a `SEVERE` clinical warning to protect consumers across all regional labeling conventions.
 
 ---
 
@@ -201,3 +212,4 @@ Run the test suite to verify vector retrieval accuracy and similarity thresholds
 ```powershell
 python -m unittest eval/test_retrieval.py
 ```
+

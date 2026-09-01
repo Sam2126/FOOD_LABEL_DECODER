@@ -128,11 +128,12 @@ def detect_allergens_and_dietary(
             "Moderate-High",
         ),
         (
-            r"\b(peanut|peanuts|groundnut|groundnuts|peanut butter|peanut oil)\b",
-            "Peanuts",
-            "High-potency legume allergen known for severe anaphylactic reactions.",
+            r"\b(peanut|peanuts|groundnut|groundnuts|peanut butter|peanut oil|groundnut oil|groundnut protein|peanut protein)\b",
+            "Peanuts / Groundnut",
+            "Contains proteins derived from peanuts/groundnuts (Arachis hypogaea). Major legume allergen capable of triggering severe anaphylaxis.",
             "Severe",
         ),
+
         (
             r"\b(almond|almonds|walnut|walnuts|cashew|cashews|pistachio|pistachios|hazelnut|hazelnuts|pecan|pecans|macadamia)\b",
             "Tree Nuts",

@@ -48,14 +48,14 @@
   --amber-bg: rgba(245, 158, 11, 0.12);
   --amber-border: rgba(245, 158, 11, 0.3);
 
-  --rose-400: #fb7185;
-  --rose-500: #f43f5e;
-  --rose-bg: rgba(244, 63, 94, 0.12);
-  --rose-border: rgba(244, 63, 94, 0.3);
+  --rose-400: #f472b6;
+  --rose-500: #e11d48;
+  --rose-bg: rgba(225, 29, 72, 0.08);
+  --rose-border: rgba(225, 29, 72, 0.25);
 
-  --blue-400: #60a5fa;
-  --blue-500: #3b82f6;
-  --blue-bg: rgba(59, 130, 246, 0.12);
+  --blue-400: #38bdf8;
+  --blue-500: #0284c7;
+  --blue-bg: rgba(2, 132, 199, 0.08);
 
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -63,9 +63,9 @@
   --radius-xl: 22px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.45);
   --shadow-glow: 0 0 30px var(--emerald-glow);
 
   --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -73,27 +73,31 @@
 }
 
 [data-theme="light"] {
-  --bg-base: #f4f7f4;
+  --bg-base: #f8fafc;
   --bg-surface: #ffffff;
-  --bg-surface-elevated: #e8f0eb;
+  --bg-surface-elevated: #f1f5f9;
   --bg-surface-card: rgba(255, 255, 255, 0.95);
   --bg-glass: rgba(255, 255, 255, 0.95);
 
-  --border-subtle: #dbe4dc;
-  --border-medium: #cbd8cd;
+  --border-subtle: #e2e8f0;
+  --border-medium: #cbd5e1;
   --border-focus: #059669;
 
-  --text-primary: #0f241d;
-  --text-secondary: #475569;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
   --text-muted: #94a3b8;
   --text-accent: #059669;
 
-  --emerald-glow: rgba(5, 150, 105, 0.15);
-  --emerald-glow-lg: rgba(5, 150, 105, 0.25);
-  --shadow-sm: 0 2px 8px rgba(15, 36, 29, 0.06);
-  --shadow-md: 0 8px 24px rgba(15, 36, 29, 0.08);
-  --shadow-lg: 0 16px 48px rgba(15, 36, 29, 0.12);
+  --emerald-glow: rgba(5, 150, 105, 0.10);
+  --emerald-glow-lg: rgba(5, 150, 105, 0.18);
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 16px 48px rgba(15, 23, 42, 0.08);
+
+  --rose-bg: #fff1f2;
+  --rose-border: #fecdd3;
 }
+
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -607,11 +611,11 @@ input[type="range"] {
 }
 
 /* ══════════════════════════════════════════════════════
-   ALLERGEN WARNING BANNER & TABLE
+   ALLERGEN WARNING BANNER & TABLE (SOFT PASTEL THEME)
 ══════════════════════════════════════════════════════ */
 .allergen-banner {
   background: var(--rose-bg);
-  border: 1.5px solid var(--rose-500);
+  border: 1.5px solid var(--rose-border);
   border-radius: var(--radius-lg);
   padding: 18px 22px;
   margin-bottom: 24px;
@@ -621,7 +625,12 @@ input[type="range"] {
 
 .allergen-banner.safe {
   background: rgba(16, 185, 129, 0.08);
-  border-color: var(--emerald-500);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+[data-theme="light"] .allergen-banner.safe {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
 }
 
 .allergen-banner-head {
@@ -631,12 +640,20 @@ input[type="range"] {
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
-  color: var(--rose-400);
-  margin-bottom: 10px;
+  color: var(--rose-500);
+  margin-bottom: 12px;
+}
+
+[data-theme="light"] .allergen-banner-head {
+  color: #be123c;
 }
 
 .allergen-banner.safe .allergen-banner-head {
   color: var(--emerald-400);
+}
+
+[data-theme="light"] .allergen-banner.safe .allergen-banner-head {
+  color: #15803d;
 }
 
 .allergen-tags-row {
@@ -646,68 +663,106 @@ input[type="range"] {
 }
 
 .allergen-tag {
-  background: rgba(244, 63, 94, 0.2);
-  border: 1px solid var(--rose-500);
-  color: #ffffff;
+  background: rgba(225, 29, 72, 0.12);
+  border: 1px solid rgba(225, 29, 72, 0.3);
+  color: #fda4af;
   padding: 4px 12px;
   border-radius: var(--radius-full);
   font-size: 0.78rem;
   font-weight: 700;
 }
 
+[data-theme="light"] .allergen-tag {
+  background: #fee2e2;
+  border-color: #fecdd3;
+  color: #991b1b;
+}
+
 .allergen-tag.safe-tag {
-  background: rgba(16, 185, 129, 0.2);
-  border-color: var(--emerald-500);
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.3);
   color: var(--emerald-400);
 }
 
+[data-theme="light"] .allergen-tag.safe-tag {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
 .allergen-details-box {
-  margin-top: 12px;
-  background: rgba(0, 0, 0, 0.3);
+  margin-top: 14px;
+  background: rgba(0, 0, 0, 0.2);
   border-radius: var(--radius-md);
-  padding: 10px;
+  border: 1px solid var(--border-subtle);
+  padding: 8px;
   overflow-x: auto;
+}
+
+[data-theme="light"] .allergen-details-box {
+  background: #ffffff;
+  border-color: #fecdd3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .allergen-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   text-align: left;
 }
 
 .allergen-table th {
-  padding: 8px 10px;
+  padding: 10px 12px;
   color: var(--text-secondary);
   font-weight: 700;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--border-subtle);
   text-transform: uppercase;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+[data-theme="light"] .allergen-table th {
+  color: #64748b;
+  border-bottom-color: #f1f5f9;
 }
 
 .allergen-table td {
-  padding: 8px 10px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  vertical-align: top;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: middle;
+}
+
+[data-theme="light"] .allergen-table td {
+  border-bottom-color: #f8fafc;
 }
 
 .sev-badge {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 3px 9px;
   border-radius: var(--radius-sm);
-  font-size: 0.68rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.sev-critical { background: rgba(244, 63, 94, 0.3); color: #fda4af; border: 1px solid #f43f5e; }
-.sev-severe { background: rgba(245, 158, 11, 0.3); color: #fde047; border: 1px solid #f59e0b; }
-.sev-mod { background: rgba(59, 130, 246, 0.3); color: #93c5fd; border: 1px solid #3b82f6; }
-.sev-safe { background: rgba(16, 185, 129, 0.3); color: #86efac; border: 1px solid #10b981; }
+/* Soft Badges */
+.sev-critical { background: rgba(225, 29, 72, 0.16); color: #fda4af; border: 1px solid rgba(225, 29, 72, 0.35); }
+[data-theme="light"] .sev-critical { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+.sev-severe { background: rgba(245, 158, 11, 0.16); color: #fde047; border: 1px solid rgba(245, 158, 11, 0.35); }
+[data-theme="light"] .sev-severe { background: #fef3c7; color: #92400e; border: 1px solid #fcd34d; }
+
+.sev-mod { background: rgba(2, 132, 199, 0.16); color: #93c5fd; border: 1px solid rgba(2, 132, 199, 0.35); }
+[data-theme="light"] .sev-mod { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+
+.sev-safe { background: rgba(16, 185, 129, 0.16); color: #86efac; border: 1px solid rgba(16, 185, 129, 0.35); }
+[data-theme="light"] .sev-safe { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
 
 .allergen-guidance-cell {
-  color: #f1f5f9;
-  line-height: 1.45;
+  color: var(--text-primary);
+  line-height: 1.5;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -842,7 +897,7 @@ input[type="range"] {
 }
 
 .md-p {
-  color: #e2e8f0;
+  color: var(--text-primary);
   line-height: 1.6;
 }
 
@@ -854,17 +909,17 @@ input[type="range"] {
 }
 
 .md-li, .md-oli {
-  color: #cbd5e1;
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 
 .md-alert {
-  color: #fbbf24;
+  color: #f59e0b;
   font-weight: 700;
 }
 
 .md-check {
-  color: #34d399;
+  color: #10b981;
   font-weight: 700;
 }
 
@@ -944,27 +999,38 @@ input[type="range"] {
   animation: fadeIn var(--transition-fast);
 }
 
-/* 🏆 Best Model Winner Bar */
+/* 🏆 Best Model Winner Bar (Soft Palette) */
 .winner-bar {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(16, 185, 129, 0.08));
-  border: 1.5px solid #f59e0b;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(16, 185, 129, 0.04));
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
   border-radius: var(--radius-lg);
   padding: 20px 24px;
   display: flex;
   gap: 18px;
   align-items: flex-start;
-  box-shadow: 0 8px 32px rgba(245, 158, 11, 0.14);
+  box-shadow: var(--shadow-md);
+}
+
+[data-theme="light"] .winner-bar {
+  background: linear-gradient(135deg, #fffbeb, #f0fdf4);
+  border-color: #fde68a;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.06);
 }
 
 .winner-bar-icon {
   font-size: 2.2rem;
   line-height: 1;
   padding: 10px;
-  background: rgba(245, 158, 11, 0.18);
+  background: rgba(245, 158, 11, 0.14);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(245, 158, 11, 0.35);
+  border: 1px solid rgba(245, 158, 11, 0.25);
   display: grid;
   place-items: center;
+}
+
+[data-theme="light"] .winner-bar-icon {
+  background: #fef3c7;
+  border-color: #fde68a;
 }
 
 .winner-bar-content {
@@ -990,6 +1056,10 @@ input[type="range"] {
   letter-spacing: -0.02em;
 }
 
+[data-theme="light"] .winner-bar-title {
+  color: #92400e;
+}
+
 .winner-bar-badge {
   font-size: 0.75rem;
   font-weight: 700;
@@ -999,6 +1069,12 @@ input[type="range"] {
   color: #000000;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+[data-theme="light"] .winner-bar-badge {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
 }
 
 .winner-bar-metrics {
@@ -1021,15 +1097,27 @@ input[type="range"] {
   font-weight: 700;
 }
 
+[data-theme="light"] .winner-metric-val {
+  color: #059669;
+}
+
 .winner-bar-reason {
   font-size: 0.9rem;
-  color: #f1f5f9;
+  color: var(--text-primary);
   line-height: 1.55;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(0, 0, 0, 0.25);
   padding: 12px 16px;
   border-radius: var(--radius-md);
   border-left: 3px solid #f59e0b;
   margin-top: 4px;
+}
+
+[data-theme="light"] .winner-bar-reason {
+  background: #ffffff;
+  color: #334155;
+  border: 1px solid #f1f5f9;
+  border-left: 3px solid #f59e0b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 /* Side-by-Side Model Columns Grid */
@@ -1054,7 +1142,7 @@ input[type="range"] {
 
 .model-col-card.is-winner {
   border-color: #f59e0b;
-  box-shadow: 0 0 28px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 0 28px rgba(245, 158, 11, 0.15);
 }
 
 .model-col-card-head {
@@ -1069,8 +1157,13 @@ input[type="range"] {
 }
 
 .model-col-card.is-winner .model-col-card-head {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(16, 185, 129, 0.08));
-  border-bottom-color: rgba(245, 158, 11, 0.3);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.10), rgba(16, 185, 129, 0.05));
+  border-bottom-color: rgba(245, 158, 11, 0.25);
+}
+
+[data-theme="light"] .model-col-card.is-winner .model-col-card-head {
+  background: linear-gradient(135deg, #fffbeb, #f0fdf4);
+  border-bottom-color: #fde68a;
 }
 
 .model-col-title-wrap {
@@ -1097,14 +1190,14 @@ input[type="range"] {
 }
 
 .model-col-card.is-winner .model-col-rank {
-  background: #f59e0b;
-  color: #000000;
-  border-color: #f59e0b;
+  background: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
 }
 
 .model-col-stats {
   padding: 8px 20px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.15);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
   justify-content: space-between;
@@ -1114,6 +1207,10 @@ input[type="range"] {
   font-size: 0.75rem;
   font-family: var(--font-mono);
   color: var(--text-secondary);
+}
+
+[data-theme="light"] .model-col-stats {
+  background: #f8fafc;
 }
 
 .model-col-body {
@@ -1175,6 +1272,11 @@ input[type="range"] {
   border-bottom: 1px solid var(--border-subtle);
 }
 
+[data-theme="light"] .arena-table th {
+  background: #f8fafc;
+  color: #64748b;
+}
+
 .arena-table td {
   padding: 12px 14px;
   border-bottom: 1px solid var(--border-subtle);
@@ -1184,6 +1286,11 @@ input[type="range"] {
 .arena-table tr.winner-row {
   background: rgba(245, 158, 11, 0.06);
 }
+
+[data-theme="light"] .arena-table tr.winner-row {
+  background: #fffbeb;
+}
+
 
 .rank-badge {
   font-weight: 800;
@@ -1738,7 +1845,7 @@ function checkAndRenderAllergens(ragData, rawInput) {
       [/\b(wheat|flour|maida|atta|semolina|sooji|suji|durum|spelt|barley|rye|malt extract|gluten)\b/, 'Gluten / Wheat', 'Critical', 'Contains gluten proteins; unsuitable for celiac disease or wheat allergy.'],
       [/\b(milk|dairy|butter|cheese|whey|casein|caseinate|lactose|milk solids|milk powder|cream|ghee|paneer|yogurt|curd)\b/, 'Milk / Dairy', 'Critical', 'Contains dairy proteins and lactose; triggers milk allergy and lactose intolerance.'],
       [/\b(soy|soya|soybean|soy lecithin|soya lecithin|tofu|edamame)\b/, 'Soy', 'Moderate-High', 'Recognized major legume allergen derived from soybeans.'],
-      [/\b(peanut|peanuts|groundnut|groundnuts|peanut butter|peanut oil)\b/, 'Peanuts', 'Severe', 'High-potency legume allergen known for severe anaphylactic reactions.'],
+      [/\b(peanut|peanuts|groundnut|groundnuts|peanut butter|peanut oil|groundnut oil|groundnut protein|peanut protein)\b/, 'Peanuts / Groundnut', 'Severe', 'Contains proteins derived from peanuts/groundnuts (Arachis hypogaea). Major legume allergen capable of triggering severe anaphylaxis.'],
       [/\b(almond|almonds|walnut|walnuts|cashew|cashews|pistachio|pistachios|hazelnut|hazelnuts|pecan|pecans|macadamia)\b/, 'Tree Nuts', 'Severe', 'Tree nut botanical allergen group; distinct from peanut allergies.'],
       [/\b(egg|eggs|egg powder|egg white|egg yolk|albumin|ovalbumin)\b/, 'Egg', 'Critical', 'Contains avian albumin proteins; major pediatric & adult allergen.'],
       [/\b(sulfur dioxide|sulphur dioxide|sulfite|sulphite|e220|e221|e222|e223|e224|ins 220)\b/, 'Sulphites', 'Sensitivity', 'Chemical preservative capable of triggering bronchospasms in sensitive individuals.'],
@@ -1766,7 +1873,8 @@ function checkAndRenderAllergens(ragData, rawInput) {
     if (!allergens.some(a => ['Milk / Dairy', 'Egg', 'Fish / Shellfish'].includes(a))) dietary.push('100% Vegan Friendly');
     else if (!allergens.includes('Fish / Shellfish')) dietary.push('Vegetarian Friendly');
     if (!allergens.includes('Milk / Dairy')) dietary.push('Dairy-Free');
-    if (!allergens.some(a => ['Peanuts', 'Tree Nuts'].includes(a))) dietary.push('Nut-Free');
+    if (!allergens.some(a => ['Peanuts / Groundnut', 'Peanuts', 'Tree Nuts'].includes(a))) dietary.push('Nut-Free');
+
   }
 
   if (allergens.length > 0) {
