@@ -247,12 +247,15 @@ def compare_all_models(
 
     # 1. Determine models to evaluate
     if not models or len(models) == 0:
-        available = list_models()
-        # Prioritize lightweight and benchmark models
-        priority = ["llama3.2:1b", "codellama:latest", "llama3:latest"]
+        # Prioritize lightweight and benchmark models (including StarCoder2)
+        priority = ["llama3.2:1b", "starcoder2:3b", "codellama:latest", "llama3:latest"]
         models = [m for m in priority if m in available]
+        for m in available:
+            if m not in models:
+                models.append(m)
         if not models:
-            models = available if available else ["codellama"]
+            models = available if available else ["llama3.2:1b"]
+
 
     # 2. Shared FAISS Retrieval (Mapped 1:1 for ground truth context)
     mapped_items, retrieved, unmatched = retrieve_mapped_ingredients(

@@ -59,14 +59,15 @@ def run_evaluation(target_models: List[str] = None) -> List[Dict[str, Any]]:
         health_data = client.get("/api/health").json()
         available = health_data.get("available_models", [])
         if available:
-            # Prioritize standard 3 models
-            priority = ["llama3.2:1b", "llama3:latest", "codellama:latest"]
+            # Prioritize models including StarCoder2, Llama 3.2, Llama 3, CodeLlama
+            priority = ["llama3.2:1b", "starcoder2:3b", "llama3:latest", "codellama:latest"]
             target_models = [m for m in priority if m in available]
             for m in available:
-                if len(target_models) < 3 and m not in target_models:
+                if m not in target_models:
                     target_models.append(m)
         else:
-            target_models = ["llama3.2:1b", "llama3:latest", "codellama:latest"]
+            target_models = ["llama3.2:1b", "starcoder2:3b", "llama3:latest", "codellama:latest"]
+
 
     logger.info("Starting Week 4 Unified Evaluation on %d questions across %d models: %s", len(questions), len(target_models), target_models)
 
