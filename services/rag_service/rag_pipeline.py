@@ -13,6 +13,8 @@ from typing import Optional
 
 from app.ollama_client import ask_ollama
 from rag.retriever import retrieve_for_ingredient_list, retrieve_mapped_ingredients
+from rag.guardrails import validate_input_guardrails, apply_output_guardrails
+
 
 
 def format_context(retrieved: list[dict]) -> str:
@@ -243,12 +245,30 @@ def run_rag(
 ) -> dict:
     """
     Executes the full RAG pipeline:
-      1. Retrieve relevant chunks for each ingredient.
-      2. Format context and prompt.
-      3. Call Ollama with model of choice.
-      4. Measure latency, detect allergens, and return response metadata.
+      1. Run input guardrails to sanitize and reject prompt injections.
+      2. Retrieve relevant chunks for each ingredient (1-to-1 mapped).
+      3. Format context and prompt.
+      4. Call Ollama with model of choice.
+      5. Detect allergens, apply output guardrails & clinical disclaimers.
     """
     start_time = time.perf_counter()
+
+    # 1. Input Guardrails
+    is_valid, err_msg = validate_input_guardrails(ingredient_list)
+    if not is_valid:
+        return {
+            "explanation": f"🛡️ **Guardrail Intervention:** {err_msg}",
+            "mode": "guardrail_rejected",
+            "processing_time_ms": int((time.perf_counter() - start_time) * 1000),
+            "model_used": model or "none",
+            "retrieved_chunks": [],
+            "unmatched_ingredients": [],
+            "context_sent_to_llm": "",
+            "detected_allergens": [],
+            "dietary_flags": [],
+            "allergen_breakdown": [],
+            "guardrails": {"applied": True, "status": "rejected", "reason": err_msg},
+        }
 
     mapped_items, retrieved, unmatched = retrieve_mapped_ingredients(
         ingredient_list,
@@ -273,10 +293,7 @@ def run_rag(
         temperature=temperature,
     )
 
-
-    elapsed_ms = int((time.perf_counter() - start_time) * 1000)
-
-    # Detect allergens and dietary flags
+    # Format chunks
     formatted_chunks = [
         {
             "chunk_id": r["chunk"]["chunk_id"],
@@ -288,14 +305,25 @@ def run_rag(
         for r in retrieved
     ]
 
+    # Detect allergens and dietary flags
     detected_allergens, dietary_flags, allergen_breakdown = detect_allergens_and_dietary(
         retrieved_chunks=formatted_chunks,
         ingredient_text=ingredient_list,
         explanation=explanation,
     )
 
+    # 2. Output Guardrails
+    guardrail_audit = apply_output_guardrails(
+        raw_explanation=explanation,
+        detected_allergens=detected_allergens,
+        unmatched_ingredients=unmatched,
+    )
+    final_explanation = guardrail_audit["explanation"]
+
+    elapsed_ms = int((time.perf_counter() - start_time) * 1000)
+
     return {
-        "explanation": explanation,
+        "explanation": final_explanation,
         "mode": mode,
         "processing_time_ms": elapsed_ms,
         "model_used": model or "codellama",
@@ -305,7 +333,9 @@ def run_rag(
         "detected_allergens": detected_allergens,
         "dietary_flags": dietary_flags,
         "allergen_breakdown": allergen_breakdown,
+        "guardrails": guardrail_audit,
     }
+
 
 
 
