@@ -1,135 +1,81 @@
 version: "3.9"
 
-# =============================================================================
-# Food Label Decoder - full architecture
-#
-#   User -> app_service -> rag_service -> vector index (shared_embeddings volume)
-#                        -> llm_service -> ollama (codellama)
-#
-# Every service is its own container. They talk to each other over the
-# default Docker Compose network using their SERVICE NAME as the hostname
-# (Docker's embedded DNS resolves "ollama", "rag_service", etc. automatically
-# - no manual IP configuration needed).
-# =============================================================================
-
 services:
-
-  # ---------------------------------------------------------------------
-  # Ollama: runs Code Llama. This is NOT a lightweight app container -
-  # it needs the full Ollama runtime and persistent storage for the
-  # multi-gigabyte model weights, so it uses the official ollama/ollama
-  # image rather than being built from our own Dockerfile.
-  # ---------------------------------------------------------------------
-  ollama:
-    image: ollama/ollama:latest
-    container_name: fld_ollama
-    ports:
-      - "11434:11434"          # exposed to host too, handy for debugging with `ollama` CLI
-    volumes:
-      - ollama_models:/root/.ollama   # persist downloaded models across restarts
-    # Uncomment to enable GPU acceleration (requires NVIDIA Container Toolkit):
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: 1
-    #           capabilities: [gpu]
-    healthcheck:
-      test: ["CMD-SHELL", "ollama list || exit 1"]
-      interval: 10s
-      timeout: 5s
-      start_period: 20s
-      retries: 5
-    restart: unless-stopped
-
-  # One-shot job: pulls the codellama model into the shared volume the
-  # first time the stack is started. Exits after pulling; llm_service
-  # does not depend on it directly (so the stack still comes up if you
-  # skip it and pull manually), but it's the recommended first-run step.
-  ollama-pull:
-    image: ollama/ollama:latest
-    container_name: fld_ollama_pull
-    depends_on:
-      ollama:
-        condition: service_healthy
-    entrypoint: ["sh", "-c", "OLLAMA_HOST=http://ollama:11434 ollama pull codellama"]
-    restart: "no"
-
-  # ---------------------------------------------------------------------
-  # Data Service - owns the knowledge base, builds the vector index onto
-  # the shared_embeddings volume on first startup.
-  # ---------------------------------------------------------------------
-  data_service:
-    build: ./services/data_service
-    container_name: fld_data_service
-    ports:
-      - "8003:8003"
-    environment:
-      - EMBEDDINGS_DIR=/shared_embeddings
-    volumes:
-      - shared_embeddings:/shared_embeddings
-    restart: unless-stopped
-
-  # ---------------------------------------------------------------------
-  # RAG Service - retrieval only. Reads the SAME shared_embeddings volume
-  # that data_service writes to. Waits for data_service to report the
-  # index as "ready" before starting.
-  # ---------------------------------------------------------------------
-  rag_service:
-    build: ./services/rag_service
-    container_name: fld_rag_service
-    ports:
-      - "8001:8001"
-    environment:
-      - EMBEDDINGS_DIR=/shared_embeddings
-    volumes:
-      - shared_embeddings:/shared_embeddings
-    depends_on:
-      data_service:
-        condition: service_healthy
-    restart: unless-stopped
-
-  # ---------------------------------------------------------------------
-  # LLM Service - only service that talks to Ollama.
-  # ---------------------------------------------------------------------
-  llm_service:
-    build: ./services/llm_service
-    container_name: fld_llm_service
-    ports:
-      - "8002:8002"
-    environment:
-      - OLLAMA_HOST=http://ollama:11434
-      - OLLAMA_MODEL=codellama
-      - OLLAMA_TIMEOUT_SECONDS=180
-      - OLLAMA_MAX_TOKENS=120
-      - OLLAMA_TEMPERATURE=0.2
-      - OLLAMA_KEEP_ALIVE=15m
-    depends_on:
-      ollama:
-        condition: service_healthy
-    restart: unless-stopped
-
-  # ---------------------------------------------------------------------
-  # Application Service - the only container the user's browser talks to.
-  # Orchestrates rag_service + llm_service, and serves the frontend.
-  # ---------------------------------------------------------------------
-  app_service:
-    build: ./services/app_service
-    container_name: fld_app_service
+  orchestrator:
+    build:
+      context: .
+      dockerfile: orchestrator/Dockerfile
     ports:
       - "8000:8000"
     environment:
-      - RAG_SERVICE_URL=http://rag_service:8001
-      - LLM_SERVICE_URL=http://llm_service:8002
-      - SERVICE_TIMEOUT_SECONDS=180
+      - OCR_SERVICE_URL=http://ocr_service:8001
+      - GUARDRAIL_SERVICE_URL=http://guardrail_service:8002
+      - ANALYSIS_SERVICE_URL=http://analysis_service:8003
+      - RETRIEVAL_SERVICE_URL=http://retrieval_service:8004
+      - ALTERNATIVE_SERVICE_URL=http://alternative_service:8005
+      - RECIPE_SERVICE_URL=http://recipe_service:8006
+      - DRIFT_SERVICE_URL=http://drift_service:8007
     depends_on:
-      rag_service:
-        condition: service_healthy
-      llm_service:
-        condition: service_healthy
-    restart: unless-stopped
+      - ocr_service
+      - guardrail_service
+      - analysis_service
 
-volumes:
-  ollama_models:      # persists downloaded LLM weights across `docker compose down`
-  shared_embeddings:  # persists / shares the FAISS vector index between data_service and rag_service
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - ORCHESTRATOR_URL=http://orchestrator:8000
+    depends_on:
+      - orchestrator
+
+  ocr_service:
+    build:
+      context: .
+      dockerfile: services/ocr_service/Dockerfile
+    ports:
+      - "8001:8001"
+
+  guardrail_service:
+    build:
+      context: .
+      dockerfile: services/guardrail_service/Dockerfile
+    ports:
+      - "8002:8002"
+
+  analysis_service:
+    build:
+      context: .
+      dockerfile: services/analysis_service/Dockerfile
+    ports:
+      - "8003:8003"
+
+  retrieval_service:
+    build:
+      context: .
+      dockerfile: services/retrieval_service/Dockerfile
+    ports:
+      - "8004:8004"
+
+  alternative_service:
+    build:
+      context: .
+      dockerfile: services/alternative_service/Dockerfile
+    ports:
+      - "8005:8005"
+
+  recipe_service:
+    build:
+      context: .
+      dockerfile: services/recipe_service/Dockerfile
+    ports:
+      - "8006:8006"
+
+  drift_service:
+    build:
+      context: .
+      dockerfile: services/drift_service/Dockerfile
+    ports:
+      - "8007:8007"
