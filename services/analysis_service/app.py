@@ -38,7 +38,17 @@ async def analyse_endpoint(request: Request, payload: Optional[AnalysisRequest] 
     - Handles timeout (30s), Ollama down -> {"status": "error", "message": "..."}
     """
     text = payload.text if (payload and payload.text) else ""
-    context = payload.context if (payload and payload.context) else ""
+    # Retrieve regulatory context from the retrieval service
+    retrieval_url = os.getenv("RETRIEVAL_URL", "http://localhost:8001/retrieve")
+    try:
+        resp = requests.post(retrieval_url, json={"query": text, "collection": "both"}, timeout=10)
+        if resp.status_code == 200:
+            retrieval_data = resp.json()
+            context = retrieval_data.get("top_context", "")
+        else:
+            context = ""
+    except Exception:
+        context = ""
 
     # Fallback to raw JSON body if not populated via Pydantic model
     if not text or not context:
@@ -128,6 +138,30 @@ Return ONLY valid JSON:
         }
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8003)
+        except requests.exceptions.ConnectionError as conn_err:
+            return {"status": "error", "message": f"Ollama service is unreachable at {OLLAMA_URL}: {str(conn_err)}"}
+        except requests.exceptions.RequestException as req_err:
+            return {"status": "error", "message": f"Ollama request error: {str(req_err)}"}
+        except Exception as e:
+            return {"status": "error", "message": f"Unexpected error while contacting Ollama: {str(e)}"}
+        if response.status_code != 200:
+            return {"status": "error", "message": f"Ollama returned status code {response.status_code}: {response.text}"}
+        try:
+            res_data = response.json()
+            raw_output = res_data.get("response", "")
+        except Exception as e:
+            return {"status": "error", "message": f"Failed to parse response body from Ollama: {str(e)}"}
+        cleaned_output = raw_output.strip()
+        if "```json" in cleaned_output:
+            cleaned_output = cleaned_output.split("```json", 1)[1].split("```", 1)[0].strip()
+        elif "```" in cleaned_output:
+            cleaned_output = cleaned_output.split("```", 1)[1].split("```", 1)[0].strip()
+        try:
+            parsed_json = json.loads(cleaned_output)
+            return parsed_json
+        except json.JSONDecodeError as json_err:
+            return {"status": "error", "message": f"Failed to parse valid JSON from Ollama output: {str(json_err)}"}
+
+    if __name__ == "__main__":
+        import uvicorn
+        uvicorn.run(app, host="0.0.0.0", port=8003)
