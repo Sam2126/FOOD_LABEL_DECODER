@@ -1,81 +1,171 @@
 version: "3.9"
 
+# ── Named volumes ─────────────────────────────────────────────────────────────
+volumes:
+  ollama_data:
+  chroma_data:
+
+# ── Services ──────────────────────────────────────────────────────────────────
 services:
-  orchestrator:
-    build:
-      context: .
-      dockerfile: orchestrator/Dockerfile
-    ports:
-      - "8000:8000"
-    environment:
-      - OCR_SERVICE_URL=http://ocr_service:8001
-      - GUARDRAIL_SERVICE_URL=http://guardrail_service:8002
-      - ANALYSIS_SERVICE_URL=http://analysis_service:8003
-      - RETRIEVAL_SERVICE_URL=http://retrieval_service:8004
-      - ALTERNATIVE_SERVICE_URL=http://alternative_service:8005
-      - RECIPE_SERVICE_URL=http://recipe_service:8006
-      - DRIFT_SERVICE_URL=http://drift_service:8007
-    depends_on:
-      - ocr_service
-      - guardrail_service
-      - analysis_service
 
-  frontend:
-    build:
-      context: .
-      dockerfile: frontend/Dockerfile
+  # ── Infrastructure ───────────────────────────────────────────────────────────
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
     ports:
-      - "8501:8501"
-    environment:
-      - ORCHESTRATOR_URL=http://orchestrator:8000
-    depends_on:
-      - orchestrator
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
 
-  ocr_service:
-    build:
-      context: .
-      dockerfile: services/ocr_service/Dockerfile
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
     ports:
-      - "8001:8001"
+      - "9000:8000"          # host 9000 → container 8000 (avoids clash with orchestrator)
+    volumes:
+      - chroma_data:/chroma/chroma
+    restart: unless-stopped
 
-  guardrail_service:
+  # ── Microservices ─────────────────────────────────────────────────────────────
+  ocr-service:
     build:
-      context: .
-      dockerfile: services/guardrail_service/Dockerfile
+      context: ./services/ocr_service
+      dockerfile: Dockerfile
+    container_name: ocr-service
     ports:
       - "8002:8002"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_URL: http://ollama:11434/api/generate
+    restart: unless-stopped
 
-  analysis_service:
+  guardrail-service:
     build:
-      context: .
-      dockerfile: services/analysis_service/Dockerfile
-    ports:
-      - "8003:8003"
-
-  retrieval_service:
-    build:
-      context: .
-      dockerfile: services/retrieval_service/Dockerfile
-    ports:
-      - "8004:8004"
-
-  alternative_service:
-    build:
-      context: .
-      dockerfile: services/alternative_service/Dockerfile
-    ports:
-      - "8005:8005"
-
-  recipe_service:
-    build:
-      context: .
-      dockerfile: services/recipe_service/Dockerfile
-    ports:
-      - "8006:8006"
-
-  drift_service:
-    build:
-      context: .
-      dockerfile: services/drift_service/Dockerfile
+      context: ./services/guardrail_service
+      dockerfile: Dockerfile
+    container_name: guardrail-service
     ports:
       - "8007:8007"
+    restart: unless-stopped
+
+  drift-service:
+    build:
+      context: ./services/drift_service
+      dockerfile: Dockerfile
+    container_name: drift-service
+    ports:
+      - "8008:8008"
+    volumes:
+      - ./database:/app/database
+    restart: unless-stopped
+
+  retrieval-service:
+    build:
+      context: ./services/retrieval_service
+      dockerfile: Dockerfile
+    container_name: retrieval-service
+    ports:
+      - "8001:8001"
+    depends_on:
+      - chromadb
+    volumes:
+      - ./knowledge_base/chroma_db:/app/chroma_db
+    environment:
+      CHROMA_PATH: /app/chroma_db
+    restart: unless-stopped
+
+  analysis-service:
+    build:
+      context: ./services/analysis_service
+      dockerfile: Dockerfile
+    container_name: analysis-service
+    ports:
+      - "8003:8003"
+    depends_on:
+      ollama:
+        condition: service_healthy
+      retrieval-service:
+        condition: service_started
+    environment:
+      OLLAMA_URL: http://ollama:11434/api/generate
+      OLLAMA_MODEL: codellama
+      RETRIEVAL_URL: http://retrieval-service:8001/retrieve
+    restart: unless-stopped
+
+  alternative-service:
+    build:
+      context: ./services/alternative_service
+      dockerfile: Dockerfile
+    container_name: alternative-service
+    ports:
+      - "8005:8005"
+    depends_on:
+      - retrieval-service
+    volumes:
+      - ./knowledge_base/chroma_db:/app/chroma_db
+    environment:
+      CHROMA_PATH: /app/chroma_db
+    restart: unless-stopped
+
+  recipe-service:
+    build:
+      context: ./services/recipe_service
+      dockerfile: Dockerfile
+    container_name: recipe-service
+    ports:
+      - "8006:8006"
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_URL: http://ollama:11434/api/generate
+      OLLAMA_MODEL: codellama
+    restart: unless-stopped
+
+  # ── Orchestrator ──────────────────────────────────────────────────────────────
+  orchestrator:
+    build:
+      context: ./orchestrator
+      dockerfile: Dockerfile
+    container_name: orchestrator
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ocr-service
+      - guardrail-service
+      - drift-service
+      - retrieval-service
+      - analysis-service
+      - alternative-service
+      - recipe-service
+    environment:
+      OCR_URL: http://ocr-service:8002/ocr
+      GUARDRAIL_URL: http://guardrail-service:8007/guardrail
+      DRIFT_URL: http://drift-service:8008/scan
+      RETRIEVAL_URL: http://retrieval-service:8001/retrieve
+      ANALYSIS_URL: http://analysis-service:8003/analyse
+      ALTERNATIVE_URL: http://alternative-service:8005/alternatives
+      RECIPE_URL: http://recipe-service:8006/recipe
+    restart: unless-stopped
+
+  # ── Frontend ──────────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "8501:8501"
+    depends_on:
+      - orchestrator
+    environment:
+      ORCHESTRATOR_URL: http://orchestrator:8000
+    restart: unless-stopped
