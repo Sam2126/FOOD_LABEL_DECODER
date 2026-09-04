@@ -30,8 +30,10 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 import chromadb
 
-# Import the section‑aware chunker from the same package
-from .chunker import section_chunk
+# Import the section‑aware chunker from the same directory
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+from chunker import section_chunk
 
 # Paths (relative to the repository root)
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -74,8 +76,12 @@ def load_off(csv_path: Path) -> List[Dict]:
     """Load filtered Open Food Facts CSV and produce one chunk per row.
 
     Chunk format: ``"{product_name}: {ingredients_text} | grade:{nutrition_grade_fr}"``
+    Capped at MAX_OFF_ROWS to keep embedding time manageable on CPU.
     """
+    MAX_OFF_ROWS = 50_000
     df = pd.read_csv(csv_path)
+    df = df.head(MAX_OFF_ROWS)  # cap to first 50k rows
+    print(f"  Using {len(df):,} OFF rows (capped at {MAX_OFF_ROWS:,} for CPU embedding).")
     chunks = []
     for idx, row in df.iterrows():
         text = f"{row['product_name']}: {row['ingredients_text']} | grade:{row['nutrition_grade_fr']}"
@@ -106,6 +112,23 @@ def embed_chunks(chunks: List[Dict], model: SentenceTransformer) -> List[Dict]:
     return embedded
 
 
+def _batched_add(collection, embedded: List[Dict], batch_size: int = 5000):
+    """Add embedded chunks to a ChromaDB collection in batches.
+
+    ChromaDB enforces a max batch size of 5 461; we use 5 000 to stay safe.
+    """
+    total = len(embedded)
+    for start in range(0, total, batch_size):
+        batch = embedded[start : start + batch_size]
+        collection.add(
+            ids=[c["id"] for c in batch],
+            documents=[c["text"] for c in batch],
+            embeddings=[c["embedding"] for c in batch],
+            metadatas=[c["metadata"] for c in batch],
+        )
+        print(f"  Stored {min(start + batch_size, total)}/{total} chunks …")
+
+
 def main():
     # Load PDF chunks
     pdf_chunks = load_pdfs(RAW_DIR)
@@ -129,24 +152,16 @@ def main():
     prod_collection = client.get_or_create_collection(name="products")
 
     if embedded_pdfs:
-        reg_collection.add(
-            ids=[c["id"] for c in embedded_pdfs],
-            documents=[c["text"] for c in embedded_pdfs],
-            embeddings=[c["embedding"] for c in embedded_pdfs],
-            metadatas=[c["metadata"] for c in embedded_pdfs],
-        )
+        print("Storing regulations chunks …")
+        _batched_add(reg_collection, embedded_pdfs)
 
     if embedded_off:
-        prod_collection.add(
-            ids=[c["id"] for c in embedded_off],
-            documents=[c["text"] for c in embedded_off],
-            embeddings=[c["embedding"] for c in embedded_off],
-            metadatas=[c["metadata"] for c in embedded_off],
-        )
+        print("Storing products chunks …")
+        _batched_add(prod_collection, embedded_off)
 
     print("Embedding and storage complete.")
     print(f"Regulations collection – {len(embedded_pdfs)} chunks embedded.")
-    print(f"Products collection – {len(embedded_off)} chunks embedded.")
+    print(f"Products collection    – {len(embedded_off)} chunks embedded.")
 
     # Write a short JSON summary
     summary = {
@@ -157,6 +172,7 @@ def main():
     summary_path = REPO_ROOT / "knowledge_base" / "chroma_db" / "embedding_summary.json"
     with open(summary_path, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
+    print(f"Summary written to {summary_path}")
 
 if __name__ == "__main__":
     main()
