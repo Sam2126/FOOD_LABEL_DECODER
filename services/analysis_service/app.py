@@ -1,14 +1,20 @@
 import json
 import os
+import sys
+from pathlib import Path
 from typing import Optional
 
 import requests
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 
+# Make graph module importable when running as standalone
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from graph import detect_combinations, build_graph
+
 app = FastAPI(
     title="Food Label Decoder – Analysis Service",
-    description="LLM-based food ingredient safety analysis with RAG context from retrieval service.",
+    description="LLM-based food ingredient safety analysis with RAG context and combination graph.",
     version="1.0.0",
 )
 
@@ -51,7 +57,7 @@ Return ONLY valid JSON:
 
 
 def _fetch_context(text: str) -> str:
-    """Call the retrieval service to get RAG context for the ingredient text."""
+    """Call the retrieval service to get RAG context."""
     try:
         resp = requests.post(
             RETRIEVAL_URL,
@@ -66,15 +72,15 @@ def _fetch_context(text: str) -> str:
 
 
 def _call_ollama(prompt: str) -> dict:
-    """Send prompt to Ollama and parse JSON response."""
-    ollama_payload = {
+    """Send prompt to Ollama and return parsed JSON."""
+    payload = {
         "model": OLLAMA_MODEL,
         "prompt": prompt,
         "stream": False,
         "format": "json",
     }
     try:
-        response = requests.post(OLLAMA_URL, json=ollama_payload, timeout=60)
+        response = requests.post(OLLAMA_URL, json=payload, timeout=60)
     except requests.exceptions.Timeout:
         return {"status": "error", "message": "Ollama timed out after 60 seconds."}
     except requests.exceptions.ConnectionError as e:
@@ -90,7 +96,6 @@ def _call_ollama(prompt: str) -> dict:
     except Exception as e:
         return {"status": "error", "message": f"Failed to parse Ollama body: {e}"}
 
-    # Strip markdown code fences if present
     cleaned = raw_output.strip()
     if "```json" in cleaned:
         cleaned = cleaned.split("```json", 1)[1].split("```", 1)[0].strip()
@@ -103,6 +108,20 @@ def _call_ollama(prompt: str) -> dict:
         return {"status": "error", "message": f"Invalid JSON from Ollama: {e}", "raw": raw_output}
 
 
+def _enrich_with_graph(result: dict) -> dict:
+    """Append combination_graph to an analysis result dict."""
+    if "status" in result and result.get("status") == "error":
+        return result
+    flagged = [f.get("name", "") for f in result.get("flagged_ingredients", [])]
+    combos = detect_combinations(flagged)
+    # Merge LLM-detected combos with rule-based combos (deduplicate)
+    llm_combos = result.get("combinations", [])
+    all_combos = llm_combos + [c for c in combos if c not in llm_combos]
+    result["combinations"] = all_combos
+    result["combination_graph"] = build_graph(flagged, all_combos)
+    return result
+
+
 # ── Endpoints ─────────────────────────────────────────────────────────────────
 @app.api_route("/health", methods=["GET", "POST"])
 def health():
@@ -112,7 +131,7 @@ def health():
 @app.post("/analyse")
 @app.post("/analyze")
 async def analyse(request: Request, payload: Optional[AnalysisRequest] = None):
-    """Analyse ingredients WITH RAG context fetched from the retrieval service."""
+    """Analyse ingredients WITH RAG context from retrieval service."""
     text = (payload.text if payload else "") or ""
     if not text:
         try:
@@ -123,14 +142,15 @@ async def analyse(request: Request, payload: Optional[AnalysisRequest] = None):
 
     context = _fetch_context(text)
     prompt = _build_prompt(text, context)
-    return _call_ollama(prompt)
+    result = _call_ollama(prompt)
+    return _enrich_with_graph(result)
 
 
 @app.post("/analyse-without-rag")
 @app.post("/analyze-without-rag")
 async def analyse_without_rag(request: Request, payload: Optional[AnalysisRequest] = None):
-    """Analyse ingredients WITHOUT RAG context (empty context string).
-    Used for RAG comparison experiments.
+    """Analyse ingredients WITHOUT RAG context (empty string).
+    Used for RAG A/B comparison demo.
     """
     text = (payload.text if payload else "") or ""
     if not text:
@@ -141,7 +161,8 @@ async def analyse_without_rag(request: Request, payload: Optional[AnalysisReques
             pass
 
     prompt = _build_prompt(text, context="")
-    return _call_ollama(prompt)
+    result = _call_ollama(prompt)
+    return _enrich_with_graph(result)
 
 
 if __name__ == "__main__":
