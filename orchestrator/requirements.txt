@@ -2,3 +2,8 @@ fastapi
 uvicorn
 requests
 python-multipart
+pandas
+pdfplumber
+sentence-transformers
+chromadb
+nltk
