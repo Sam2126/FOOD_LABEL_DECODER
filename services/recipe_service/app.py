@@ -1,38 +1,91 @@
+import json
+import os
+from typing import List, Optional
+
+import requests
 from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import Optional, List, Dict, Any
+
+OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/generate")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "codellama")
 
 app = FastAPI(
-    title="Food Label Decoder - Recipe Service",
-    description="Custom healthy recipe generation service for homemade alternatives.",
-    version="1.0.0"
+    title="Food Label Decoder – Recipe Service",
+    description="Generates healthy constrained recipes via Ollama, avoiding flagged ingredients.",
+    version="1.0.0",
 )
 
+
+# ── Schemas ───────────────────────────────────────────────────────────────────
+class RecipeRequest(BaseModel):
+    flagged_ingredients: List[str]
+    dish_type: Optional[str] = "snack"
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+def _build_prompt(flagged_ingredients: List[str], dish_type: str) -> str:
+    flagged_str = ", ".join(flagged_ingredients)
+    return f"""Generate a simple home recipe for {dish_type}.
+You MUST NOT use any of these ingredients: {flagged_str}
+
+Return ONLY valid JSON with this exact structure:
+{{
+  "recipe_name": "...",
+  "ingredients": ["...", "..."],
+  "steps": ["...", "..."],
+  "why_healthy": "..."
+}}"""
+
+
+def _call_ollama(prompt: str) -> dict:
+    payload = {
+        "model": OLLAMA_MODEL,
+        "prompt": prompt,
+        "stream": False,
+        "format": "json",
+    }
+    try:
+        response = requests.post(OLLAMA_URL, json=payload, timeout=60)
+    except requests.exceptions.Timeout:
+        return {"status": "error", "message": "Ollama timed out after 60 seconds."}
+    except requests.exceptions.ConnectionError as e:
+        return {"status": "error", "message": f"Ollama unreachable at {OLLAMA_URL}: {e}"}
+    except Exception as e:
+        return {"status": "error", "message": f"Unexpected error: {e}"}
+
+    if response.status_code != 200:
+        return {"status": "error", "message": f"Ollama returned {response.status_code}: {response.text}"}
+
+    try:
+        raw_output = response.json().get("response", "")
+    except Exception as e:
+        return {"status": "error", "message": f"Failed to parse Ollama body: {e}"}
+
+    # Strip markdown code fences if present
+    cleaned = raw_output.strip()
+    if "```json" in cleaned:
+        cleaned = cleaned.split("```json", 1)[1].split("```", 1)[0].strip()
+    elif "```" in cleaned:
+        cleaned = cleaned.split("```", 1)[1].split("```", 1)[0].strip()
+
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError as e:
+        return {"status": "error", "message": f"Invalid JSON from Ollama: {e}", "raw": raw_output}
+
+
+# ── Endpoints ─────────────────────────────────────────────────────────────────
 @app.api_route("/health", methods=["GET", "POST"])
 def health():
     return {"status": "ok", "service": "recipe"}
 
-class RecipeRequest(BaseModel):
-    target_dish: Optional[str] = None
-    ingredients: Optional[Any] = None
-    exclude_ingredients: Optional[List[str]] = None
-    nutrition_goals: Optional[Dict[str, Any]] = None
 
 @app.post("/recipe")
-@app.post("/generate")
-async def get_recipe(payload: Optional[RecipeRequest] = None):
-    """Placeholder endpoint for generating recipes."""
-    return {
-        "status": "ok",
-        "service": "recipe",
-        "recipe": {
-            "title": "Homemade Honey-Toasted Granola",
-            "prep_time": "10 mins",
-            "cook_time": "25 mins",
-            "ingredients": ["Rolled oats", "Honey", "Almonds", "Cinnamon", "Flaxseed"],
-            "instructions": "Mix oats, nuts, and honey. Bake at 325F (165C) for 25 minutes, stirring halfway."
-        }
-    }
+async def get_recipe(payload: RecipeRequest):
+    """Generate a healthy recipe that avoids all flagged ingredients."""
+    prompt = _build_prompt(payload.flagged_ingredients, payload.dish_type)
+    return _call_ollama(prompt)
+
 
 if __name__ == "__main__":
     import uvicorn
