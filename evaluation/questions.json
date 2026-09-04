@@ -1,31 +1,179 @@
 [
   {
-    "id": "eval-001",
-    "category": "ocr",
-    "input_type": "text",
-    "input": "Ingredients: Whole grain oats, sugar, corn starch, modified corn starch, salt, tripotassium phosphate.",
-    "expected_output": {
-      "contains_allergens": false,
-      "primary_ingredient": "Whole grain oats"
-    }
+    "id": 1,
+    "category": "service_explanation",
+    "question": "What does the OCR service do in this pipeline?",
+    "expected_keywords": ["image", "text", "tesseract", "extract"],
+    "requires_rag": false
   },
   {
-    "id": "eval-002",
+    "id": 2,
+    "category": "service_explanation",
+    "question": "What is the role of the Guardrail service?",
+    "expected_keywords": ["food", "label", "reject", "validate"],
+    "requires_rag": false
+  },
+  {
+    "id": 3,
+    "category": "service_explanation",
+    "question": "What does the Retrieval service return to the Analysis service?",
+    "expected_keywords": ["context", "chunks", "chromadb", "similarity"],
+    "requires_rag": true
+  },
+  {
+    "id": 4,
+    "category": "dependency_understanding",
+    "question": "Which services are involved when a user uploads an image?",
+    "expected_keywords": ["ocr", "guardrail", "analysis", "orchestrator"],
+    "requires_rag": false
+  },
+  {
+    "id": 5,
+    "category": "dependency_understanding",
+    "question": "Which components use the ChromaDB vector store?",
+    "expected_keywords": ["retrieval", "alternative", "embeddings"],
+    "requires_rag": false
+  },
+  {
+    "id": 6,
+    "category": "dependency_understanding",
+    "question": "What happens if the Retrieval service fails mid-pipeline?",
+    "expected_keywords": ["fallback", "error", "pipeline", "orchestrator"],
+    "requires_rag": false
+  },
+  {
+    "id": 7,
+    "category": "pipeline_tracing",
+    "question": "Trace the full pipeline for a Maggi noodles label input",
+    "expected_keywords": ["ocr", "guardrail", "retrieval", "analysis", "recipe"],
+    "requires_rag": false
+  },
+  {
+    "id": 8,
+    "category": "pipeline_tracing",
+    "question": "Which service produces the confidence score for flagged ingredients?",
+    "expected_keywords": ["analysis", "similarity", "context", "supported"],
+    "requires_rag": false
+  },
+  {
+    "id": 9,
+    "category": "code_generation",
+    "question": "Write a unit test for the guardrail service /guardrail endpoint",
+    "expected_keywords": ["def test", "assert", "response", "status_code"],
+    "requires_rag": false
+  },
+  {
+    "id": 10,
+    "category": "code_generation",
+    "question": "Generate a health check endpoint for the OCR service",
+    "expected_keywords": ["def", "health", "return", "status"],
+    "requires_rag": false
+  },
+  {
+    "id": 11,
+    "category": "code_generation",
+    "question": "Write a retry handler for when Ollama times out after 30 seconds",
+    "expected_keywords": ["retry", "timeout", "exception", "attempts"],
+    "requires_rag": false
+  },
+  {
+    "id": 12,
+    "category": "refactoring",
+    "question": "Suggest an improvement to fixed-size chunking for FSSAI regulatory PDFs",
+    "expected_keywords": ["section", "heading", "overlap", "semantic"],
+    "requires_rag": true
+  },
+  {
+    "id": 13,
+    "category": "refactoring",
+    "question": "How would you improve retrieval if ChromaDB returns irrelevant chunks?",
+    "expected_keywords": ["reranking", "mmr", "threshold", "hybrid"],
+    "requires_rag": true
+  },
+  {
+    "id": 14,
+    "category": "ingredient_explanation",
+    "question": "What is sodium benzoate and why is it flagged?",
+    "expected_keywords": ["preservative", "benzene", "ascorbic", "fssai"],
+    "requires_rag": true
+  },
+  {
+    "id": 15,
+    "category": "ingredient_explanation",
+    "question": "What does TBHQ do in food and what are its known risks?",
+    "expected_keywords": ["antioxidant", "oxidation", "liver", "fssai"],
+    "requires_rag": true
+  },
+  {
+    "id": 16,
+    "category": "safety_flag",
+    "question": "Analyze this label and flag all concerning ingredients: Water, Salt, Sodium Benzoate, Ascorbic Acid, Tartrazine, Refined Wheat Flour, Sugar",
+    "expected_keywords": ["sodium benzoate", "tartrazine", "refined", "flagged"],
+    "requires_rag": true
+  },
+  {
+    "id": 17,
+    "category": "safety_flag",
+    "question": "Do any ingredients in this label form dangerous combinations: Sodium Benzoate, Vitamin C, Tartrazine",
+    "expected_keywords": ["benzene", "combination", "carcinogen", "risk"],
+    "requires_rag": true
+  },
+  {
+    "id": 18,
     "category": "allergen_detection",
-    "input_type": "text",
-    "input": "Contains: Milk, Soy, Wheat, Peanut ingredients.",
-    "expected_output": {
-      "allergens": ["Milk", "Soy", "Wheat", "Peanuts"]
-    }
+    "question": "Does this label contain hidden dairy: Casein, Maltodextrin, Whey Protein, Salt, Sugar",
+    "expected_keywords": ["casein", "whey", "dairy", "milk"],
+    "requires_rag": false
   },
   {
-    "id": "eval-003",
-    "category": "guardrail_safety",
-    "input_type": "text",
-    "input": "This food cures cancer and stops all heart diseases instantly.",
-    "expected_output": {
-      "is_valid": false,
-      "flag": "unsubstantiated_medical_claim"
-    }
+    "id": 19,
+    "category": "allergen_detection",
+    "question": "Is this product safe for someone with a soy allergy: Hydrolyzed Vegetable Protein, Salt, Sugar, Spices",
+    "expected_keywords": ["soy", "hydrolyzed vegetable protein", "unsafe", "allergy"],
+    "requires_rag": false
+  },
+  {
+    "id": 20,
+    "category": "regulatory_check",
+    "question": "Does a product with 2300mg sodium per 100g exceed FSSAI permissible limits?",
+    "expected_keywords": ["fssai", "limit", "exceeds", "sodium"],
+    "requires_rag": true
+  },
+  {
+    "id": 21,
+    "category": "misleading_claim",
+    "question": "A product claims low fat but contains 18g fat per 100g. Is this claim accurate?",
+    "expected_keywords": ["misleading", "fssai", "low fat", "inaccurate"],
+    "requires_rag": true
+  },
+  {
+    "id": 22,
+    "category": "alternative_retrieval",
+    "question": "What is a healthier packaged alternative to Maggi noodles with grade A or B?",
+    "expected_keywords": ["whole wheat", "grade", "alternative", "sodium"],
+    "requires_rag": true
+  },
+  {
+    "id": 23,
+    "category": "recipe_generation",
+    "question": "Give a home recipe for noodles avoiding MSG, refined flour and sodium benzoate",
+    "expected_keywords": ["whole wheat", "ingredients", "steps", "avoid"],
+    "requires_rag": false
+  },
+  {
+    "id": 24,
+    "category": "hallucination_trap",
+    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in noodles?",
+    "expected_keywords": [],
+    "expected_behaviour": "model should say not found or uncertain, not invent a number",
+    "requires_rag": true
+  },
+  {
+    "id": 25,
+    "category": "hallucination_trap",
+    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 amendment?",
+    "expected_keywords": [],
+    "expected_behaviour": "model should express uncertainty, not fabricate a ban",
+    "requires_rag": true
   }
 ]
