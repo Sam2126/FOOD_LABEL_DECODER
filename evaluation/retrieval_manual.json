@@ -1,0 +1,74 @@
+[
+  {
+    "question_id": 3,
+    "question": "What does the Retrieval service return to the Analysis service?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 12,
+    "question": "Suggest an improvement to fixed-size chunking for FSSAI regulatory PDFs",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 13,
+    "question": "How would you improve retrieval if ChromaDB returns irrelevant chunks?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 14,
+    "question": "What is sodium benzoate and why is it flagged?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 15,
+    "question": "What does TBHQ do in food and what are its known risks?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 16,
+    "question": "Analyze this label and flag all concerning ingredients: Water, Salt, Sodium Benzoate, Ascorbic Acid, Tartrazine, Refined Wheat Flour, Sugar",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 17,
+    "question": "Do any ingredients in this label form dangerous combinations: Sodium Benzoate, Vitamin C, Tartrazine",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 20,
+    "question": "Does a product with 2300mg sodium per 100g exceed FSSAI permissible limits?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 21,
+    "question": "A product claims low fat but contains 18g fat per 100g. Is this claim accurate?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 22,
+    "question": "What is a healthier packaged alternative to Maggi noodles with grade A or B?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 24,
+    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in noodles?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  },
+  {
+    "question_id": 25,
+    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 amendment?",
+    "retrieved_chunk": "...",
+    "correct_chunk_retrieved": null
+  }
+]
