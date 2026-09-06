@@ -163,6 +163,32 @@ The services support the following environment variables for configuration:
 
 ---
 
+## Model Evaluation & Annotation Workflow
+
+To benchmark LLM performance across `codellama`, `starcoder2:7b`, and `llama3.2:3b`:
+
+1. **Pull and Verify Models**:
+   ```bash
+   python evaluation/setup_models.py
+   ```
+2. **Run Evaluation Benchmark**:
+   ```bash
+   python evaluation/run_evaluation.py
+   ```
+   This generates `evaluation/raw_results.json` containing latency, token counts, and responses across all 25 questions.
+3. **Annotate Hallucination & Retrieval**:
+   - Run `run_evaluation.py` first.
+   - Copy model responses into `evaluation/hallucination_manual.json`.
+   - Set `"hallucinated": true/false` per model per question.
+   - Set `"correct_chunk_retrieved": true/false` per RAG question in `evaluation/retrieval_manual.json`.
+4. **Calculate Metrics & Summary**:
+   ```bash
+   python evaluation/calculate_metrics.py
+   ```
+   Then run `calculate_metrics.py` to output `evaluation/metrics_summary.json` and print the comparison table to the console.
+
+---
+
 ## Future
 
 `docker compose up` multi-container deployment coming in **Ex5**.

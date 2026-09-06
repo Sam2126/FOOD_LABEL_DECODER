@@ -1,0 +1,38 @@
+[
+  {
+    "question_id": 24,
+    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in noodles?",
+    "model_responses": {
+      "codellama": {
+        "response": "...",
+        "hallucinated": null
+      },
+      "starcoder2:7b": {
+        "response": "...",
+        "hallucinated": null
+      },
+      "llama3.2:3b": {
+        "response": "...",
+        "hallucinated": null
+      }
+    }
+  },
+  {
+    "question_id": 25,
+    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 amendment?",
+    "model_responses": {
+      "codellama": {
+        "response": "...",
+        "hallucinated": null
+      },
+      "starcoder2:7b": {
+        "response": "...",
+        "hallucinated": null
+      },
+      "llama3.2:3b": {
+        "response": "...",
+        "hallucinated": null
+      }
+    }
+  }
+]
