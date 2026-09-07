@@ -20,9 +20,68 @@ RETRIEVAL_URL  = os.environ.get("RETRIEVAL_URL",  "http://localhost:8001/retriev
 ANALYSIS_URL   = os.environ.get("ANALYSIS_URL",   "http://localhost:8003/analyse")
 ALTERNATIVE_URL = os.environ.get("ALTERNATIVE_URL", "http://localhost:8005/alternatives")
 RECIPE_URL     = os.environ.get("RECIPE_URL",     "http://localhost:8006/recipe")
+OLLAMA_URL     = os.environ.get("OLLAMA_URL",     "http://localhost:11434/api/generate")
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+# ── Model routing rules ───────────────────────────────────────────────────────
+ROUTING_RULES: Dict[str, Dict] = {
+    "simple": {
+        "categories": ["allergen_detection", "ingredient_explanation"],
+        "model": "llama3.2:3b",
+        "reason": "fast, sufficient for factual lookup",
+    },
+    "complex": {
+        "categories": [
+            "safety_flag",
+            "regulatory_check",
+            "combination_analysis",
+            "pipeline_tracing",
+        ],
+        "model": "codellama",
+        "reason": "requires structured JSON + regulatory reasoning",
+    },
+    "generative": {
+        "categories": ["recipe_generation", "code_generation", "refactoring"],
+        "model": "codellama",
+        "reason": "code and creative generation",
+    },
+}
+
+_DEFAULT_ROUTE = "complex"   # safest fallback
+
+
+def classify_query(text: str) -> str:
+    """Call llama3.2:3b to classify the query into simple | complex | generative.
+
+    Falls back to 'complex' on any error so the pipeline is never blocked.
+    """
+    prompt = (
+        "Classify this food label query into exactly one category:\n"
+        "  simple | complex | generative\n\n"
+        "simple     = allergen lookup, ingredient explanation\n"
+        "complex    = safety flags, regulatory checks, combination analysis\n"
+        "generative = recipe generation, code generation, refactoring\n\n"
+        f"Query: {text}\n\n"
+        "Return ONLY the single category word with no punctuation or explanation."
+    )
+    try:
+        resp = requests.post(
+            OLLAMA_URL,
+            json={"model": "llama3.2:3b", "prompt": prompt, "stream": False},
+            timeout=20,
+        )
+        if resp.ok:
+            raw = resp.json().get("response", "").strip().lower()
+            # Extract the first recognised word
+            for category in ("simple", "complex", "generative"):
+                if category in raw:
+                    return category
+    except Exception:
+        pass
+    return _DEFAULT_ROUTE
+
+
+# ── General helpers ───────────────────────────────────────────────────────────
 def _trace(name: str, status: str, duration_ms: float, summary: str) -> Dict:
     return {
         "service": name,
@@ -77,6 +136,24 @@ async def _run_pipeline(
                 req_product_name = body.get("product_name", req_product_name)
         except Exception:
             pass
+
+    # ── Step 0: Query Router ──────────────────────────────────────────────────
+    t0 = time.perf_counter()
+    route_category = classify_query(req_text or req_product_name)
+    route_info     = ROUTING_RULES.get(route_category, ROUTING_RULES[_DEFAULT_ROUTE])
+    routed_model   = route_info["model"]
+    route_reason   = route_info["reason"]
+    dur_router     = round((time.perf_counter() - t0) * 1000, 2)
+
+    pipeline_trace.append({
+        "service":        "router",
+        "status":         "ok",
+        "duration_ms":    dur_router,
+        "route":          route_category,
+        "model_selected": routed_model,
+        "reason":         route_reason,
+        "output_summary": f"{route_category} → {routed_model}",
+    })
 
     # ── Step 1: OCR ───────────────────────────────────────────────────────────
     t0 = time.perf_counter()
@@ -189,7 +266,7 @@ async def _run_pipeline(
     try:
         ana_res = requests.post(
             analysis_endpoint,
-            json={"text": extracted_text},
+            json={"text": extracted_text, "model": routed_model},
             timeout=60,
         )
         if ana_res.ok:
@@ -256,6 +333,11 @@ async def _run_pipeline(
 
     return {
         "extracted_text": extracted_text,
+        "routing": {
+            "category":       route_category,
+            "model_selected": routed_model,
+            "reason":         route_reason,
+        },
         "drift": drift_info,
         "flags": flags_info,
         "combination_graph": flags_info.get("combination_graph", {}),

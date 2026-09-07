@@ -27,6 +27,7 @@ RETRIEVAL_URL = os.environ.get("RETRIEVAL_URL", "http://localhost:8001/retrieve"
 class AnalysisRequest(BaseModel):
     text: Optional[str] = ""
     context: Optional[str] = ""
+    model: Optional[str] = None   # overrides OLLAMA_MODEL when set by the router
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -71,10 +72,14 @@ def _fetch_context(text: str) -> str:
     return ""
 
 
-def _call_ollama(prompt: str) -> dict:
-    """Send prompt to Ollama and return parsed JSON."""
+def _call_ollama(prompt: str, model: Optional[str] = None) -> dict:
+    """Send prompt to Ollama and return parsed JSON.
+
+    Uses ``model`` if provided (set by orchestrator router), otherwise falls
+    back to the ``OLLAMA_MODEL`` environment variable.
+    """
     payload = {
-        "model": OLLAMA_MODEL,
+        "model": model or OLLAMA_MODEL,
         "prompt": prompt,
         "stream": False,
         "format": "json",
@@ -132,17 +137,19 @@ def health():
 @app.post("/analyze")
 async def analyse(request: Request, payload: Optional[AnalysisRequest] = None):
     """Analyse ingredients WITH RAG context from retrieval service."""
-    text = (payload.text if payload else "") or ""
+    text  = (payload.text  if payload else "") or ""
+    model = (payload.model if payload else None)
     if not text:
         try:
             body = await request.json()
-            text = body.get("text", "") or body.get("ingredients", "")
+            text  = body.get("text", "") or body.get("ingredients", "")
+            model = model or body.get("model")
         except Exception:
             pass
 
     context = _fetch_context(text)
-    prompt = _build_prompt(text, context)
-    result = _call_ollama(prompt)
+    prompt  = _build_prompt(text, context)
+    result  = _call_ollama(prompt, model=model)
     return _enrich_with_graph(result)
 
 
@@ -152,16 +159,18 @@ async def analyse_without_rag(request: Request, payload: Optional[AnalysisReques
     """Analyse ingredients WITHOUT RAG context (empty string).
     Used for RAG A/B comparison demo.
     """
-    text = (payload.text if payload else "") or ""
+    text  = (payload.text  if payload else "") or ""
+    model = (payload.model if payload else None)
     if not text:
         try:
             body = await request.json()
-            text = body.get("text", "") or body.get("ingredients", "")
+            text  = body.get("text", "") or body.get("ingredients", "")
+            model = model or body.get("model")
         except Exception:
             pass
 
     prompt = _build_prompt(text, context="")
-    result = _call_ollama(prompt)
+    result = _call_ollama(prompt, model=model)
     return _enrich_with_graph(result)
 
 
