@@ -7,7 +7,13 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from sentence_transformers import SentenceTransformer
 
-CHROMA_PATH = Path(__file__).resolve().parents[2] / "knowledge_base" / "chroma_db"
+# ── ChromaDB path ─────────────────────────────────────────────────────────────
+# In Docker: CHROMA_PATH env var is set to /app/chroma_db (mounted volume)
+# Locally:   fall back to ../../knowledge_base/chroma_db relative to this file
+_chroma_env = os.environ.get("CHROMA_PATH", "")
+CHROMA_PATH = Path(_chroma_env) if _chroma_env else (
+    Path(__file__).resolve().parents[2] / "knowledge_base" / "chroma_db"
+)
 
 app = FastAPI(
     title="Food Label Decoder – Alternative Service",
