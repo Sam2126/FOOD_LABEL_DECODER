@@ -175,17 +175,20 @@ To benchmark LLM performance across `codellama`, `starcoder2:7b`, and `llama3.2:
    ```bash
    python evaluation/run_evaluation.py
    ```
-   This generates `evaluation/raw_results.json` containing latency, token counts, and responses across all 25 questions.
+   This generates `evaluation/raw_results.json` containing latency, token counts, and responses across all 28 questions (covering all 7 Software Engineering categories).
 3. **Annotate Hallucination & Retrieval**:
-   - Run `run_evaluation.py` first.
-   - Copy model responses into `evaluation/hallucination_manual.json`.
-   - Set `"hallucinated": true/false` per model per question.
-   - Set `"correct_chunk_retrieved": true/false` per RAG question in `evaluation/retrieval_manual.json`.
-4. **Calculate Metrics & Summary**:
+   - Verify/update annotations in `evaluation/hallucination_manual.json`.
+   - Verify/update annotations in `evaluation/retrieval_manual.json`.
+4. **Calculate Category-Wise Metrics & Summary**:
    ```bash
    python evaluation/calculate_metrics.py
    ```
-   Then run `calculate_metrics.py` to output `evaluation/metrics_summary.json` and print the comparison table to the console.
+   Outputs `evaluation/metrics_summary.json` and prints the 7-category quantitative comparison matrix to the console.
+5. **Generate Evaluation Report**:
+   ```bash
+   python evaluation/generate_report.py
+   ```
+   Generates `evaluation/report.md` answering the 7 model selection questions with category-wise deep-dive analysis.
 
 ---
 

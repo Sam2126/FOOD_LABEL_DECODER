@@ -20,7 +20,7 @@ app = FastAPI(
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/generate")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "codellama")
-RETRIEVAL_URL = os.environ.get("RETRIEVAL_URL", "http://localhost:8001/retrieve")
+RETRIEVAL_URL = os.environ.get("RETRIEVAL_URL", "http://localhost:8004/retrieve")
 
 
 # ── Schemas ───────────────────────────────────────────────────────────────────

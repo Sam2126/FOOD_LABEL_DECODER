@@ -1,179 +1,210 @@
 [
   {
     "id": 1,
-    "category": "service_explanation",
-    "question": "What does the OCR service do in this pipeline?",
-    "expected_keywords": ["image", "text", "tesseract", "extract"],
+    "category": "Explanation",
+    "question": "Explain the architecture and role of the OCR service in the food label processing pipeline, including how it handles image extraction.",
+    "expected_keywords": ["tesseract", "image", "extract", "ocr", "text"],
     "requires_rag": false
   },
   {
     "id": 2,
-    "category": "service_explanation",
-    "question": "What is the role of the Guardrail service?",
-    "expected_keywords": ["food", "label", "reject", "validate"],
+    "category": "Explanation",
+    "question": "Explain how the Guardrail service determines whether a text input is a valid food label, and what threshold logic is used.",
+    "expected_keywords": ["keywords", "threshold", "verdict", "pass", "reject"],
     "requires_rag": false
   },
   {
     "id": 3,
-    "category": "service_explanation",
-    "question": "What does the Retrieval service return to the Analysis service?",
-    "expected_keywords": ["context", "chunks", "chromadb", "similarity"],
-    "requires_rag": true
+    "category": "Explanation",
+    "question": "Explain the role of the Drift service in tracking ingredient reformulations across historical scans.",
+    "expected_keywords": ["drift", "cosine", "similarity", "historical", "scans"],
+    "requires_rag": false
   },
   {
     "id": 4,
-    "category": "dependency_understanding",
-    "question": "Which services are involved when a user uploads an image?",
-    "expected_keywords": ["ocr", "guardrail", "analysis", "orchestrator"],
+    "category": "Explanation",
+    "question": "Explain how the Analysis service builds its prompt for Ollama and formats structured safety output.",
+    "expected_keywords": ["prompt", "json", "flagged", "allergens", "safety"],
     "requires_rag": false
   },
   {
     "id": 5,
-    "category": "dependency_understanding",
-    "question": "Which components use the ChromaDB vector store?",
-    "expected_keywords": ["retrieval", "alternative", "embeddings"],
+    "category": "Code Retrieval",
+    "question": "Which file and function in the codebase calculates the ingredient drift score between current and previous scans?",
+    "expected_keywords": ["drift_service", "app.py", "calculate_drift", "cosine", "similarity"],
     "requires_rag": false
   },
   {
     "id": 6,
-    "category": "dependency_understanding",
-    "question": "What happens if the Retrieval service fails mid-pipeline?",
-    "expected_keywords": ["fallback", "error", "pipeline", "orchestrator"],
+    "category": "Code Retrieval",
+    "question": "In which service and file is the ChromaDB vector database queried to fetch semantic context chunks?",
+    "expected_keywords": ["retrieval_service", "app.py", "_query_collection", "chromadb", "top_k"],
     "requires_rag": false
   },
   {
     "id": 7,
-    "category": "pipeline_tracing",
-    "question": "Trace the full pipeline for a Maggi noodles label input",
-    "expected_keywords": ["ocr", "guardrail", "retrieval", "analysis", "recipe"],
+    "category": "Code Retrieval",
+    "question": "Which endpoint in the Orchestrator service accepts multipart image file uploads and delegates to OCR?",
+    "expected_keywords": ["orchestrator", "app.py", "/process", "uploadfile", "file"],
     "requires_rag": false
   },
   {
     "id": 8,
-    "category": "pipeline_tracing",
-    "question": "Which service produces the confidence score for flagged ingredients?",
-    "expected_keywords": ["analysis", "similarity", "context", "supported"],
+    "category": "Code Retrieval",
+    "question": "In which file is the SQLite database schema defined for storing scans, products, and flagged ingredients?",
+    "expected_keywords": ["schema.sql", "database", "scans", "ingredients", "create table"],
     "requires_rag": false
   },
   {
     "id": 9,
-    "category": "code_generation",
-    "question": "Write a unit test for the guardrail service /guardrail endpoint",
-    "expected_keywords": ["def test", "assert", "response", "status_code"],
+    "category": "Dependency Understanding",
+    "question": "Trace the inter-service HTTP dependency chain when a user submits an image to the Orchestrator /process endpoint.",
+    "expected_keywords": ["ocr", "guardrail", "drift", "retrieval", "analysis", "orchestrator"],
     "requires_rag": false
   },
   {
     "id": 10,
-    "category": "code_generation",
-    "question": "Generate a health check endpoint for the OCR service",
-    "expected_keywords": ["def", "health", "return", "status"],
+    "category": "Dependency Understanding",
+    "question": "Which services in the system directly communicate with ChromaDB, and which depend on the local Ollama instance?",
+    "expected_keywords": ["retrieval_service", "chromadb", "analysis_service", "orchestrator", "ollama"],
     "requires_rag": false
   },
   {
     "id": 11,
-    "category": "code_generation",
-    "question": "Write a retry handler for when Ollama times out after 30 seconds",
-    "expected_keywords": ["retry", "timeout", "exception", "attempts"],
+    "category": "Dependency Understanding",
+    "question": "What happens in the Orchestrator pipeline if the Retrieval service fails or times out during execution?",
+    "expected_keywords": ["fallback", "timeout", "analysis", "context", "error"],
     "requires_rag": false
   },
   {
     "id": 12,
-    "category": "refactoring",
-    "question": "Suggest an improvement to fixed-size chunking for FSSAI regulatory PDFs",
-    "expected_keywords": ["section", "heading", "overlap", "semantic"],
-    "requires_rag": true
+    "category": "Dependency Understanding",
+    "question": "How does the Drift service depend on the SQLite database, and what occurs if the database file is not initialized?",
+    "expected_keywords": ["sqlite", "scans.db", "schema.sql", "table", "connect"],
+    "requires_rag": false
   },
   {
     "id": 13,
-    "category": "refactoring",
-    "question": "How would you improve retrieval if ChromaDB returns irrelevant chunks?",
-    "expected_keywords": ["reranking", "mmr", "threshold", "hybrid"],
-    "requires_rag": true
+    "category": "Bug Analysis",
+    "question": "In services/analysis_service/app.py, what bug occurs if Ollama returns Markdown code blocks around its JSON response, and how should it be handled?",
+    "expected_keywords": ["json.loads", "markdown", "backticks", "parse", "regex"],
+    "requires_rag": false
   },
   {
     "id": 14,
-    "category": "ingredient_explanation",
-    "question": "What is sodium benzoate and why is it flagged?",
-    "expected_keywords": ["preservative", "benzene", "ascorbic", "fssai"],
-    "requires_rag": true
+    "category": "Bug Analysis",
+    "question": "Identify the bug or limitation in services/guardrail_service/app.py when punctuation is attached to keywords like 'ingredients:' or 'sodium.'.",
+    "expected_keywords": ["substring", "punctuation", "word boundary", "split", "token"],
+    "requires_rag": false
   },
   {
     "id": 15,
-    "category": "ingredient_explanation",
-    "question": "What does TBHQ do in food and what are its known risks?",
-    "expected_keywords": ["antioxidant", "oxidation", "liver", "fssai"],
-    "requires_rag": true
+    "category": "Bug Analysis",
+    "question": "In services/retrieval_service/app.py, what exception is raised if the ChromaDB persistent directory does not exist or collection is missing, and how does the code handle it?",
+    "expected_keywords": ["try", "except", "get_collection", "empty", "fallback"],
+    "requires_rag": false
   },
   {
     "id": 16,
-    "category": "safety_flag",
-    "question": "Analyze this label and flag all concerning ingredients: Water, Salt, Sodium Benzoate, Ascorbic Acid, Tartrazine, Refined Wheat Flour, Sugar",
-    "expected_keywords": ["sodium benzoate", "tartrazine", "refined", "flagged"],
-    "requires_rag": true
+    "category": "Bug Analysis",
+    "question": "What concurrency bug can arise in services/drift_service/app.py if multiple scans for the same product are saved concurrently in SQLite?",
+    "expected_keywords": ["sqlite", "lock", "concurrency", "transaction", "race condition"],
+    "requires_rag": false
   },
   {
     "id": 17,
-    "category": "safety_flag",
-    "question": "Do any ingredients in this label form dangerous combinations: Sodium Benzoate, Vitamin C, Tartrazine",
-    "expected_keywords": ["benzene", "combination", "carcinogen", "risk"],
-    "requires_rag": true
+    "category": "Code Generation",
+    "question": "Write a pytest unit test for the Guardrail service /guardrail endpoint verifying both a valid ingredient label and an invalid text.",
+    "expected_keywords": ["def test", "TestClient", "post", "assert", "verdict"],
+    "requires_rag": false,
+    "code_eval": true
   },
   {
     "id": 18,
-    "category": "allergen_detection",
-    "question": "Does this label contain hidden dairy: Casein, Maltodextrin, Whey Protein, Salt, Sugar",
-    "expected_keywords": ["casein", "whey", "dairy", "milk"],
-    "requires_rag": false
+    "category": "Code Generation",
+    "question": "Generate a FastAPI health check endpoint for the Drift service that checks both HTTP responsiveness and SQLite DB connectivity.",
+    "expected_keywords": ["@app.get", "def health", "sqlite3.connect", "return", "status"],
+    "requires_rag": false,
+    "code_eval": true
   },
   {
     "id": 19,
-    "category": "allergen_detection",
-    "question": "Is this product safe for someone with a soy allergy: Hydrolyzed Vegetable Protein, Salt, Sugar, Spices",
-    "expected_keywords": ["soy", "hydrolyzed vegetable protein", "unsafe", "allergy"],
-    "requires_rag": false
+    "category": "Code Generation",
+    "question": "Write an exponential backoff retry handler function in Python for requests to Ollama when it times out after 30 seconds.",
+    "expected_keywords": ["def retry", "attempts", "sleep", "timeout", "exception"],
+    "requires_rag": false,
+    "code_eval": true
   },
   {
     "id": 20,
-    "category": "regulatory_check",
-    "question": "Does a product with 2300mg sodium per 100g exceed FSSAI permissible limits?",
-    "expected_keywords": ["fssai", "limit", "exceeds", "sodium"],
-    "requires_rag": true
+    "category": "Code Generation",
+    "question": "Generate a Pydantic schema and FastAPI POST endpoint to register a new healthy alternative product in the Alternative service.",
+    "expected_keywords": ["class", "BaseModel", "@app.post", "def", "return"],
+    "requires_rag": false,
+    "code_eval": true
   },
   {
     "id": 21,
-    "category": "misleading_claim",
-    "question": "A product claims low fat but contains 18g fat per 100g. Is this claim accurate?",
-    "expected_keywords": ["misleading", "fssai", "low fat", "inaccurate"],
-    "requires_rag": true
+    "category": "Refactoring",
+    "question": "Refactor the fixed-size text chunker in the knowledge base ingestion script to implement semantic header-aware chunking for FSSAI regulatory PDFs.",
+    "expected_keywords": ["section", "heading", "semantic", "overlap", "chunks"],
+    "requires_rag": false,
+    "code_eval": true
   },
   {
     "id": 22,
-    "category": "alternative_retrieval",
-    "question": "What is a healthier packaged alternative to Maggi noodles with grade A or B?",
-    "expected_keywords": ["whole wheat", "grade", "alternative", "sodium"],
-    "requires_rag": true
+    "category": "Refactoring",
+    "question": "Refactor the Orchestrator pipeline to run independent microservice calls concurrently using asyncio.gather instead of sequential requests.",
+    "expected_keywords": ["async", "await", "asyncio.gather", "httpx", "client"],
+    "requires_rag": false,
+    "code_eval": true
   },
   {
     "id": 23,
-    "category": "recipe_generation",
-    "question": "Give a home recipe for noodles avoiding MSG, refined flour and sodium benzoate",
-    "expected_keywords": ["whole wheat", "ingredients", "steps", "avoid"],
-    "requires_rag": false
+    "category": "Refactoring",
+    "question": "Refactor the keyword matching logic in services/guardrail_service/app.py to use regular expression word boundaries and case-insensitive matching.",
+    "expected_keywords": ["re.search", "word boundary", "regex", "boundary", "compile"],
+    "requires_rag": false,
+    "code_eval": true
   },
   {
     "id": 24,
-    "category": "hallucination_trap",
-    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in noodles?",
-    "expected_keywords": [],
-    "expected_behaviour": "model should say not found or uncertain, not invent a number",
-    "requires_rag": true
+    "category": "Refactoring",
+    "question": "Refactor the query retrieval in services/retrieval_service/app.py to implement Maximal Marginal Relevance (MMR) for diversity.",
+    "expected_keywords": ["mmr", "diversity", "lambda", "similarity", "rerank"],
+    "requires_rag": false,
+    "code_eval": true
   },
   {
     "id": 25,
-    "category": "hallucination_trap",
-    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 amendment?",
-    "expected_keywords": [],
-    "expected_behaviour": "model should express uncertainty, not fabricate a ban",
+    "category": "RAG based Question",
+    "question": "According to FSSAI regulations, what is the maximum permissible limit of Sodium Benzoate in non-alcoholic beverages and why is it flagged?",
+    "expected_keywords": ["sodium benzoate", "preservative", "fssai", "limit", "benzene"],
     "requires_rag": true
+  },
+  {
+    "id": 26,
+    "category": "RAG based Question",
+    "question": "Does a product containing 2300mg sodium per 100g exceed FSSAI high fat, sugar, salt (HFSS) front-of-pack labeling thresholds?",
+    "expected_keywords": ["fssai", "sodium", "limit", "exceeds", "threshold"],
+    "requires_rag": true
+  },
+  {
+    "id": 27,
+    "category": "RAG based Question",
+    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in packaged noodles?",
+    "expected_keywords": ["uncertain", "not found", "does not exist", "red"],
+    "expected_behaviour": "Model should identify that Erythrosine is a red dye or state limit is not found, rather than inventing a numerical limit for Erythrosine Blue.",
+    "requires_rag": true,
+    "is_trap": true
+  },
+  {
+    "id": 28,
+    "category": "RAG based Question",
+    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 regulations?",
+    "expected_keywords": ["uncertain", "not banned", "fssai", "sweetener"],
+    "expected_behaviour": "Model should not hallucinate a fictitious ban.",
+    "requires_rag": true,
+    "is_trap": true
   }
 ]

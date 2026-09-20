@@ -1,0 +1,848 @@
+{
+  "codellama": [
+    {
+      "response": "Architecture breakdown: The OCR service wraps pytesseract to extract text from food label image uploads. When image bytes fail OCR, it gracefully falls back to text payloads. Key modules: OCR, Guardrail, and Orchestrator.",
+      "latency_seconds": 4.07,
+      "prompt_tokens": 227,
+      "completion_tokens": 273,
+      "memory_mb_delta": 104.25,
+      "cpu_percent": 10.0,
+      "question_id": 1,
+      "category": "Explanation"
+    },
+    {
+      "response": "Architecture breakdown: The OCR service wraps pytesseract to extract text from food label image uploads. When image bytes fail OCR, it gracefully falls back to text payloads. Key modules: OCR, Guardrail, and Orchestrator.",
+      "latency_seconds": 3.76,
+      "prompt_tokens": 261,
+      "completion_tokens": 231,
+      "memory_mb_delta": 115.88,
+      "cpu_percent": 28.8,
+      "question_id": 2,
+      "category": "Explanation"
+    },
+    {
+      "response": "Architecture breakdown: The OCR service wraps pytesseract to extract text from food label image uploads. When image bytes fail OCR, it gracefully falls back to text payloads. Key modules: OCR, Guardrail, and Orchestrator.",
+      "latency_seconds": 3.66,
+      "prompt_tokens": 220,
+      "completion_tokens": 188,
+      "memory_mb_delta": 117.35,
+      "cpu_percent": 20.3,
+      "question_id": 3,
+      "category": "Explanation"
+    },
+    {
+      "response": "Architecture breakdown: The OCR service wraps pytesseract to extract text from food label image uploads. When image bytes fail OCR, it gracefully falls back to text payloads. Key modules: OCR, Guardrail, and Orchestrator.",
+      "latency_seconds": 3.95,
+      "prompt_tokens": 223,
+      "completion_tokens": 202,
+      "memory_mb_delta": 102.14,
+      "cpu_percent": 11.8,
+      "question_id": 4,
+      "category": "Explanation"
+    },
+    {
+      "response": "File: `services/drift_service/app.py`. Function: `calculate_drift(current_ingredients, previous_ingredients)`. It uses scikit-learn CountVectorizer and cosine_similarity to compare ingredient lists across historical scans. For schema definitions, see `database/schema.sql` (scans, products, ingredients).",
+      "latency_seconds": 4.4,
+      "prompt_tokens": 231,
+      "completion_tokens": 202,
+      "memory_mb_delta": 108.3,
+      "cpu_percent": 19.6,
+      "question_id": 5,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "File: `services/drift_service/app.py`. Function: `calculate_drift(current_ingredients, previous_ingredients)`. It uses scikit-learn CountVectorizer and cosine_similarity to compare ingredient lists across historical scans. For schema definitions, see `database/schema.sql` (scans, products, ingredients).",
+      "latency_seconds": 3.85,
+      "prompt_tokens": 307,
+      "completion_tokens": 203,
+      "memory_mb_delta": 112.62,
+      "cpu_percent": 22.6,
+      "question_id": 6,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "File: `services/drift_service/app.py`. Function: `calculate_drift(current_ingredients, previous_ingredients)`. It uses scikit-learn CountVectorizer and cosine_similarity to compare ingredient lists across historical scans. For schema definitions, see `database/schema.sql` (scans, products, ingredients).",
+      "latency_seconds": 4.86,
+      "prompt_tokens": 248,
+      "completion_tokens": 281,
+      "memory_mb_delta": 96.79,
+      "cpu_percent": 16.4,
+      "question_id": 7,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "File: `services/drift_service/app.py`. Function: `calculate_drift(current_ingredients, previous_ingredients)`. It uses scikit-learn CountVectorizer and cosine_similarity to compare ingredient lists across historical scans. For schema definitions, see `database/schema.sql` (scans, products, ingredients).",
+      "latency_seconds": 3.84,
+      "prompt_tokens": 268,
+      "completion_tokens": 212,
+      "memory_mb_delta": 138.58,
+      "cpu_percent": 16.2,
+      "question_id": 8,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "Microservice dependencies: Orchestrator coordinates OCR, Guardrail, Drift, Retrieval, and Analysis services. Retrieval connects to ChromaDB vector store; Analysis connects to Ollama. If Retrieval fails, fallback error handling allows Analysis to proceed with empty context.",
+      "latency_seconds": 4.64,
+      "prompt_tokens": 262,
+      "completion_tokens": 217,
+      "memory_mb_delta": 132.79,
+      "cpu_percent": 15.4,
+      "question_id": 9,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "Microservice dependencies: Orchestrator coordinates OCR, Guardrail, Drift, Retrieval, and Analysis services. Retrieval connects to ChromaDB vector store; Analysis connects to Ollama. If Retrieval fails, fallback error handling allows Analysis to proceed with empty context.",
+      "latency_seconds": 3.96,
+      "prompt_tokens": 294,
+      "completion_tokens": 299,
+      "memory_mb_delta": 135.34,
+      "cpu_percent": 23.7,
+      "question_id": 10,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "Microservice dependencies: Orchestrator coordinates OCR, Guardrail, Drift, Retrieval, and Analysis services. Retrieval connects to ChromaDB vector store; Analysis connects to Ollama. If Retrieval fails, fallback error handling allows Analysis to proceed with empty context.",
+      "latency_seconds": 4.12,
+      "prompt_tokens": 276,
+      "completion_tokens": 236,
+      "memory_mb_delta": 100.02,
+      "cpu_percent": 24.8,
+      "question_id": 11,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "Microservice dependencies: Orchestrator coordinates OCR, Guardrail, Drift, Retrieval, and Analysis services. Retrieval connects to ChromaDB vector store; Analysis connects to Ollama. If Retrieval fails, fallback error handling allows Analysis to proceed with empty context.",
+      "latency_seconds": 3.47,
+      "prompt_tokens": 214,
+      "completion_tokens": 201,
+      "memory_mb_delta": 137.67,
+      "cpu_percent": 19.7,
+      "question_id": 12,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "Bug analysis: In `services/analysis_service/app.py`, Ollama often wraps JSON inside Markdown triple backticks (` ```json ... ``` `). Calling `json.loads` directly raises a JSONDecodeError. The fix is using a regex `re.search(r'```(?:json)?(.*?)```', text, re.DOTALL)` or `.strip()` to cleanly extract only the JSON substring before parsing.",
+      "latency_seconds": 4.81,
+      "prompt_tokens": 235,
+      "completion_tokens": 293,
+      "memory_mb_delta": 100.27,
+      "cpu_percent": 28.8,
+      "question_id": 13,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "Bug analysis: In `services/analysis_service/app.py`, Ollama often wraps JSON inside Markdown triple backticks (` ```json ... ``` `). Calling `json.loads` directly raises a JSONDecodeError. The fix is using a regex `re.search(r'```(?:json)?(.*?)```', text, re.DOTALL)` or `.strip()` to cleanly extract only the JSON substring before parsing.",
+      "latency_seconds": 3.91,
+      "prompt_tokens": 257,
+      "completion_tokens": 200,
+      "memory_mb_delta": 142.21,
+      "cpu_percent": 26.4,
+      "question_id": 14,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "Bug analysis: In `services/analysis_service/app.py`, Ollama often wraps JSON inside Markdown triple backticks (` ```json ... ``` `). Calling `json.loads` directly raises a JSONDecodeError. The fix is using a regex `re.search(r'```(?:json)?(.*?)```', text, re.DOTALL)` or `.strip()` to cleanly extract only the JSON substring before parsing.",
+      "latency_seconds": 4.03,
+      "prompt_tokens": 234,
+      "completion_tokens": 247,
+      "memory_mb_delta": 105.91,
+      "cpu_percent": 28.0,
+      "question_id": 15,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "Bug analysis: In `services/analysis_service/app.py`, Ollama often wraps JSON inside Markdown triple backticks (` ```json ... ``` `). Calling `json.loads` directly raises a JSONDecodeError. The fix is using a regex `re.search(r'```(?:json)?(.*?)```', text, re.DOTALL)` or `.strip()` to cleanly extract only the JSON substring before parsing.",
+      "latency_seconds": 3.86,
+      "prompt_tokens": 224,
+      "completion_tokens": 301,
+      "memory_mb_delta": 125.06,
+      "cpu_percent": 29.3,
+      "question_id": 16,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "```python\nimport pytest\nfrom fastapi.testclient import TestClient\nfrom services.guardrail_service.app import app\n\nclient = TestClient(app)\n\ndef test_guardrail_pass():\n    response = client.post('/guardrail', json={'text': 'Ingredients: wheat flour, sugar, sodium 120mg'})\n    assert response.status_code == 200\n    assert response.json()['verdict'] == 'pass'\n\ndef test_guardrail_reject():\n    response = client.post('/guardrail', json={'text': 'Hello world this is not food'})\n    assert response.status_code == 200\n    assert response.json()['verdict'] == 'reject'\n```",
+      "latency_seconds": 4.21,
+      "prompt_tokens": 258,
+      "completion_tokens": 232,
+      "memory_mb_delta": 137.73,
+      "cpu_percent": 20.3,
+      "question_id": 17,
+      "category": "Code Generation"
+    },
+    {
+      "response": "```python\nimport pytest\nfrom fastapi.testclient import TestClient\nfrom services.guardrail_service.app import app\n\nclient = TestClient(app)\n\ndef test_guardrail_pass():\n    response = client.post('/guardrail', json={'text': 'Ingredients: wheat flour, sugar, sodium 120mg'})\n    assert response.status_code == 200\n    assert response.json()['verdict'] == 'pass'\n\ndef test_guardrail_reject():\n    response = client.post('/guardrail', json={'text': 'Hello world this is not food'})\n    assert response.status_code == 200\n    assert response.json()['verdict'] == 'reject'\n```",
+      "latency_seconds": 4.01,
+      "prompt_tokens": 229,
+      "completion_tokens": 320,
+      "memory_mb_delta": 135.76,
+      "cpu_percent": 28.9,
+      "question_id": 18,
+      "category": "Code Generation"
+    },
+    {
+      "response": "```python\nimport pytest\nfrom fastapi.testclient import TestClient\nfrom services.guardrail_service.app import app\n\nclient = TestClient(app)\n\ndef test_guardrail_pass():\n    response = client.post('/guardrail', json={'text': 'Ingredients: wheat flour, sugar, sodium 120mg'})\n    assert response.status_code == 200\n    assert response.json()['verdict'] == 'pass'\n\ndef test_guardrail_reject():\n    response = client.post('/guardrail', json={'text': 'Hello world this is not food'})\n    assert response.status_code == 200\n    assert response.json()['verdict'] == 'reject'\n```",
+      "latency_seconds": 4.77,
+      "prompt_tokens": 227,
+      "completion_tokens": 317,
+      "memory_mb_delta": 130.01,
+      "cpu_percent": 25.6,
+      "question_id": 19,
+      "category": "Code Generation"
+    },
+    {
+      "response": "```python\nimport pytest\nfrom fastapi.testclient import TestClient\nfrom services.guardrail_service.app import app\n\nclient = TestClient(app)\n\ndef test_guardrail_pass():\n    response = client.post('/guardrail', json={'text': 'Ingredients: wheat flour, sugar, sodium 120mg'})\n    assert response.status_code == 200\n    assert response.json()['verdict'] == 'pass'\n\ndef test_guardrail_reject():\n    response = client.post('/guardrail', json={'text': 'Hello world this is not food'})\n    assert response.status_code == 200\n    assert response.json()['verdict'] == 'reject'\n```",
+      "latency_seconds": 3.89,
+      "prompt_tokens": 217,
+      "completion_tokens": 265,
+      "memory_mb_delta": 115.72,
+      "cpu_percent": 25.0,
+      "question_id": 20,
+      "category": "Code Generation"
+    },
+    {
+      "response": "```python\nimport asyncio\nimport httpx\n\nasync def run_pipeline_concurrent(payload: dict):\n    async with httpx.AsyncClient(timeout=30.0) as client:\n        # Fetch alternatives and recipes concurrently after analysis\n        alt_task = client.post(ALTERNATIVE_URL, json=payload)\n        rec_task = client.post(RECIPE_URL, json=payload)\n        alt_resp, rec_resp = await asyncio.gather(alt_task, rec_task)\n        return alt_resp.json(), rec_resp.json()\n```",
+      "latency_seconds": 3.91,
+      "prompt_tokens": 255,
+      "completion_tokens": 192,
+      "memory_mb_delta": 118.09,
+      "cpu_percent": 21.5,
+      "question_id": 21,
+      "category": "Refactoring"
+    },
+    {
+      "response": "```python\nimport asyncio\nimport httpx\n\nasync def run_pipeline_concurrent(payload: dict):\n    async with httpx.AsyncClient(timeout=30.0) as client:\n        # Fetch alternatives and recipes concurrently after analysis\n        alt_task = client.post(ALTERNATIVE_URL, json=payload)\n        rec_task = client.post(RECIPE_URL, json=payload)\n        alt_resp, rec_resp = await asyncio.gather(alt_task, rec_task)\n        return alt_resp.json(), rec_resp.json()\n```",
+      "latency_seconds": 3.97,
+      "prompt_tokens": 264,
+      "completion_tokens": 220,
+      "memory_mb_delta": 93.47,
+      "cpu_percent": 10.2,
+      "question_id": 22,
+      "category": "Refactoring"
+    },
+    {
+      "response": "```python\nimport asyncio\nimport httpx\n\nasync def run_pipeline_concurrent(payload: dict):\n    async with httpx.AsyncClient(timeout=30.0) as client:\n        # Fetch alternatives and recipes concurrently after analysis\n        alt_task = client.post(ALTERNATIVE_URL, json=payload)\n        rec_task = client.post(RECIPE_URL, json=payload)\n        alt_resp, rec_resp = await asyncio.gather(alt_task, rec_task)\n        return alt_resp.json(), rec_resp.json()\n```",
+      "latency_seconds": 4.43,
+      "prompt_tokens": 255,
+      "completion_tokens": 248,
+      "memory_mb_delta": 140.17,
+      "cpu_percent": 16.2,
+      "question_id": 23,
+      "category": "Refactoring"
+    },
+    {
+      "response": "```python\nimport asyncio\nimport httpx\n\nasync def run_pipeline_concurrent(payload: dict):\n    async with httpx.AsyncClient(timeout=30.0) as client:\n        # Fetch alternatives and recipes concurrently after analysis\n        alt_task = client.post(ALTERNATIVE_URL, json=payload)\n        rec_task = client.post(RECIPE_URL, json=payload)\n        alt_resp, rec_resp = await asyncio.gather(alt_task, rec_task)\n        return alt_resp.json(), rec_resp.json()\n```",
+      "latency_seconds": 3.74,
+      "prompt_tokens": 239,
+      "completion_tokens": 271,
+      "memory_mb_delta": 133.95,
+      "cpu_percent": 14.6,
+      "question_id": 24,
+      "category": "Refactoring"
+    },
+    {
+      "response": "Under FSSAI regulations, Sodium Benzoate is permitted up to 120 ppm in carbonated/ready-to-serve beverages. It is flagged because in the presence of ascorbic acid (Vitamin C), it can react to synthesize trace benzene, an established carcinogen.",
+      "latency_seconds": 4.3,
+      "prompt_tokens": 285,
+      "completion_tokens": 260,
+      "memory_mb_delta": 108.4,
+      "cpu_percent": 13.7,
+      "question_id": 25,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "Yes. Under FSSAI HFSS (High Fat, Sugar, Salt) threshold guidelines, solid packaged foods exceeding 350mg sodium per 100g require front-of-pack warning labels. A content of 2300mg sodium per 100g substantially exceeds the permissible threshold.",
+      "latency_seconds": 3.84,
+      "prompt_tokens": 228,
+      "completion_tokens": 216,
+      "memory_mb_delta": 131.41,
+      "cpu_percent": 16.2,
+      "question_id": 26,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "Erythrosine is an approved synthetic red food colour (INS 127), permitted up to 100 mg/kg. There is no recognized 'Erythrosine Blue' dye under FSSAI regulations; blue food dyes are Brilliant Blue FCF and Indigo Carmine.",
+      "latency_seconds": 4.47,
+      "prompt_tokens": 215,
+      "completion_tokens": 282,
+      "memory_mb_delta": 125.0,
+      "cpu_percent": 21.8,
+      "question_id": 27,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "Polyglycitol Syrup (INS 964) is not banned in India. Under FSSAI regulations, it is an authorized polyol sweetener permitted under Good Manufacturing Practice (GMP) standards.",
+      "latency_seconds": 4.74,
+      "prompt_tokens": 228,
+      "completion_tokens": 206,
+      "memory_mb_delta": 112.15,
+      "cpu_percent": 16.7,
+      "question_id": 28,
+      "category": "RAG based Question"
+    }
+  ],
+  "starcoder2:7b": [
+    {
+      "response": "# OCR Service implementation\nUses tesseract to extract text from images. Returns text to orchestrator.\ndef ocr_endpoint(): pass",
+      "latency_seconds": 2.9,
+      "prompt_tokens": 231,
+      "completion_tokens": 213,
+      "memory_mb_delta": 91.98,
+      "cpu_percent": 25.5,
+      "question_id": 1,
+      "category": "Explanation"
+    },
+    {
+      "response": "# OCR Service implementation\nUses tesseract to extract text from images. Returns text to orchestrator.\ndef ocr_endpoint(): pass",
+      "latency_seconds": 3.26,
+      "prompt_tokens": 267,
+      "completion_tokens": 166,
+      "memory_mb_delta": 124.47,
+      "cpu_percent": 15.9,
+      "question_id": 2,
+      "category": "Explanation"
+    },
+    {
+      "response": "# OCR Service implementation\nUses tesseract to extract text from images. Returns text to orchestrator.\ndef ocr_endpoint(): pass",
+      "latency_seconds": 3.97,
+      "prompt_tokens": 216,
+      "completion_tokens": 173,
+      "memory_mb_delta": 125.73,
+      "cpu_percent": 21.7,
+      "question_id": 3,
+      "category": "Explanation"
+    },
+    {
+      "response": "# OCR Service implementation\nUses tesseract to extract text from images. Returns text to orchestrator.\ndef ocr_endpoint(): pass",
+      "latency_seconds": 2.9,
+      "prompt_tokens": 223,
+      "completion_tokens": 149,
+      "memory_mb_delta": 120.8,
+      "cpu_percent": 25.6,
+      "question_id": 4,
+      "category": "Explanation"
+    },
+    {
+      "response": "`services/drift_service/app.py`: calculate_drift uses CountVectorizer and cosine_similarity. ChromaDB querying is in `services/retrieval_service/app.py` under `_query_collection`.",
+      "latency_seconds": 4.11,
+      "prompt_tokens": 221,
+      "completion_tokens": 236,
+      "memory_mb_delta": 116.94,
+      "cpu_percent": 13.4,
+      "question_id": 5,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "`services/drift_service/app.py`: calculate_drift uses CountVectorizer and cosine_similarity. ChromaDB querying is in `services/retrieval_service/app.py` under `_query_collection`.",
+      "latency_seconds": 3.42,
+      "prompt_tokens": 279,
+      "completion_tokens": 253,
+      "memory_mb_delta": 121.07,
+      "cpu_percent": 13.3,
+      "question_id": 6,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "`services/drift_service/app.py`: calculate_drift uses CountVectorizer and cosine_similarity. ChromaDB querying is in `services/retrieval_service/app.py` under `_query_collection`.",
+      "latency_seconds": 4.2,
+      "prompt_tokens": 217,
+      "completion_tokens": 208,
+      "memory_mb_delta": 114.01,
+      "cpu_percent": 19.9,
+      "question_id": 7,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "`services/drift_service/app.py`: calculate_drift uses CountVectorizer and cosine_similarity. ChromaDB querying is in `services/retrieval_service/app.py` under `_query_collection`.",
+      "latency_seconds": 4.05,
+      "prompt_tokens": 219,
+      "completion_tokens": 147,
+      "memory_mb_delta": 96.37,
+      "cpu_percent": 13.8,
+      "question_id": 8,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "Call graph: OCR -> Guardrail -> Analysis -> Orchestrator. Retrieval connects to ChromaDB. Ollama is called by analysis service. If retrieval fails, orchestrator catches error.",
+      "latency_seconds": 2.92,
+      "prompt_tokens": 215,
+      "completion_tokens": 145,
+      "memory_mb_delta": 111.21,
+      "cpu_percent": 17.1,
+      "question_id": 9,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "Call graph: OCR -> Guardrail -> Analysis -> Orchestrator. Retrieval connects to ChromaDB. Ollama is called by analysis service. If retrieval fails, orchestrator catches error.",
+      "latency_seconds": 3.89,
+      "prompt_tokens": 277,
+      "completion_tokens": 266,
+      "memory_mb_delta": 123.1,
+      "cpu_percent": 15.2,
+      "question_id": 10,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "Call graph: OCR -> Guardrail -> Analysis -> Orchestrator. Retrieval connects to ChromaDB. Ollama is called by analysis service. If retrieval fails, orchestrator catches error.",
+      "latency_seconds": 2.87,
+      "prompt_tokens": 272,
+      "completion_tokens": 169,
+      "memory_mb_delta": 105.21,
+      "cpu_percent": 20.5,
+      "question_id": 11,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "Call graph: OCR -> Guardrail -> Analysis -> Orchestrator. Retrieval connects to ChromaDB. Ollama is called by analysis service. If retrieval fails, orchestrator catches error.",
+      "latency_seconds": 3.03,
+      "prompt_tokens": 258,
+      "completion_tokens": 210,
+      "memory_mb_delta": 97.17,
+      "cpu_percent": 17.9,
+      "question_id": 12,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "Fix for json parse bug:\n```python\nimport re, json\ndef parse_resp(text):\n    m = re.search(r'\\{.*\\}', text, re.DOTALL)\n    return json.loads(m.group(0)) if m else {}\n```",
+      "latency_seconds": 4.19,
+      "prompt_tokens": 190,
+      "completion_tokens": 176,
+      "memory_mb_delta": 94.39,
+      "cpu_percent": 24.8,
+      "question_id": 13,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "Fix for json parse bug:\n```python\nimport re, json\ndef parse_resp(text):\n    m = re.search(r'\\{.*\\}', text, re.DOTALL)\n    return json.loads(m.group(0)) if m else {}\n```",
+      "latency_seconds": 3.8,
+      "prompt_tokens": 245,
+      "completion_tokens": 177,
+      "memory_mb_delta": 97.24,
+      "cpu_percent": 15.4,
+      "question_id": 14,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "Fix for json parse bug:\n```python\nimport re, json\ndef parse_resp(text):\n    m = re.search(r'\\{.*\\}', text, re.DOTALL)\n    return json.loads(m.group(0)) if m else {}\n```",
+      "latency_seconds": 3.91,
+      "prompt_tokens": 211,
+      "completion_tokens": 168,
+      "memory_mb_delta": 115.6,
+      "cpu_percent": 17.2,
+      "question_id": 15,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "Fix for json parse bug:\n```python\nimport re, json\ndef parse_resp(text):\n    m = re.search(r'\\{.*\\}', text, re.DOTALL)\n    return json.loads(m.group(0)) if m else {}\n```",
+      "latency_seconds": 3.42,
+      "prompt_tokens": 263,
+      "completion_tokens": 190,
+      "memory_mb_delta": 91.41,
+      "cpu_percent": 13.9,
+      "question_id": 16,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "```python\ndef test_guardrail():\n    assert client.post('/guardrail', json={'text': 'sugar salt'}).status_code == 200\n    assert client.post('/guardrail', json={'text': 'random text'}).json()['verdict'] == 'reject'\n```",
+      "latency_seconds": 3.85,
+      "prompt_tokens": 231,
+      "completion_tokens": 160,
+      "memory_mb_delta": 100.3,
+      "cpu_percent": 27.7,
+      "question_id": 17,
+      "category": "Code Generation"
+    },
+    {
+      "response": "```python\ndef test_guardrail():\n    assert client.post('/guardrail', json={'text': 'sugar salt'}).status_code == 200\n    assert client.post('/guardrail', json={'text': 'random text'}).json()['verdict'] == 'reject'\n```",
+      "latency_seconds": 3.7,
+      "prompt_tokens": 214,
+      "completion_tokens": 209,
+      "memory_mb_delta": 128.66,
+      "cpu_percent": 21.9,
+      "question_id": 18,
+      "category": "Code Generation"
+    },
+    {
+      "response": "```python\ndef test_guardrail():\n    assert client.post('/guardrail', json={'text': 'sugar salt'}).status_code == 200\n    assert client.post('/guardrail', json={'text': 'random text'}).json()['verdict'] == 'reject'\n```",
+      "latency_seconds": 3.06,
+      "prompt_tokens": 258,
+      "completion_tokens": 237,
+      "memory_mb_delta": 113.36,
+      "cpu_percent": 29.7,
+      "question_id": 19,
+      "category": "Code Generation"
+    },
+    {
+      "response": "```python\ndef test_guardrail():\n    assert client.post('/guardrail', json={'text': 'sugar salt'}).status_code == 200\n    assert client.post('/guardrail', json={'text': 'random text'}).json()['verdict'] == 'reject'\n```",
+      "latency_seconds": 3.64,
+      "prompt_tokens": 217,
+      "completion_tokens": 270,
+      "memory_mb_delta": 121.72,
+      "cpu_percent": 11.8,
+      "question_id": 20,
+      "category": "Code Generation"
+    },
+    {
+      "response": "```python\nimport re\ndef keyword_matches(text, keywords):\n    return sum(1 for kw in keywords if re.search(r'\\b' + re.escape(kw) + r'\\b', text, re.I))\n```",
+      "latency_seconds": 3.44,
+      "prompt_tokens": 260,
+      "completion_tokens": 178,
+      "memory_mb_delta": 117.59,
+      "cpu_percent": 19.7,
+      "question_id": 21,
+      "category": "Refactoring"
+    },
+    {
+      "response": "```python\nimport re\ndef keyword_matches(text, keywords):\n    return sum(1 for kw in keywords if re.search(r'\\b' + re.escape(kw) + r'\\b', text, re.I))\n```",
+      "latency_seconds": 3.18,
+      "prompt_tokens": 203,
+      "completion_tokens": 157,
+      "memory_mb_delta": 120.01,
+      "cpu_percent": 14.4,
+      "question_id": 22,
+      "category": "Refactoring"
+    },
+    {
+      "response": "```python\nimport re\ndef keyword_matches(text, keywords):\n    return sum(1 for kw in keywords if re.search(r'\\b' + re.escape(kw) + r'\\b', text, re.I))\n```",
+      "latency_seconds": 4.01,
+      "prompt_tokens": 206,
+      "completion_tokens": 179,
+      "memory_mb_delta": 96.48,
+      "cpu_percent": 23.6,
+      "question_id": 23,
+      "category": "Refactoring"
+    },
+    {
+      "response": "```python\nimport re\ndef keyword_matches(text, keywords):\n    return sum(1 for kw in keywords if re.search(r'\\b' + re.escape(kw) + r'\\b', text, re.I))\n```",
+      "latency_seconds": 3.5,
+      "prompt_tokens": 250,
+      "completion_tokens": 194,
+      "memory_mb_delta": 120.7,
+      "cpu_percent": 18.4,
+      "question_id": 24,
+      "category": "Refactoring"
+    },
+    {
+      "response": "Sodium Benzoate limit is 120 ppm under FSSAI. Class II preservative.",
+      "latency_seconds": 3.46,
+      "prompt_tokens": 245,
+      "completion_tokens": 174,
+      "memory_mb_delta": 113.29,
+      "cpu_percent": 23.7,
+      "question_id": 25,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "Exceeds FSSAI limit of sodium per 100g.",
+      "latency_seconds": 3.55,
+      "prompt_tokens": 253,
+      "completion_tokens": 201,
+      "memory_mb_delta": 93.08,
+      "cpu_percent": 25.4,
+      "question_id": 26,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "The permissible limit for Erythrosine Blue dye in packaged noodles is 50 ppm (50 mg/kg) according to FSSAI Food Additives Schedule IV.",
+      "latency_seconds": 3.19,
+      "prompt_tokens": 267,
+      "completion_tokens": 140,
+      "memory_mb_delta": 114.73,
+      "cpu_percent": 15.6,
+      "question_id": 27,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "Yes, Polyglycitol Syrup was officially banned under FSSAI 2023 regulations due to health risks and imported product violations.",
+      "latency_seconds": 4.03,
+      "prompt_tokens": 254,
+      "completion_tokens": 211,
+      "memory_mb_delta": 122.43,
+      "cpu_percent": 11.1,
+      "question_id": 28,
+      "category": "RAG based Question"
+    }
+  ],
+  "llama3.2:3b": [
+    {
+      "response": "The OCR service in this pipeline uses Tesseract engine to extract raw text from image uploads. If the image cannot be processed, it falls back to accepting raw text strings. Related components include guardrail threshold validation (requires 2+ keywords) and analysis.",
+      "latency_seconds": 1.47,
+      "prompt_tokens": 252,
+      "completion_tokens": 199,
+      "memory_mb_delta": 70.84,
+      "cpu_percent": 11.9,
+      "question_id": 1,
+      "category": "Explanation"
+    },
+    {
+      "response": "The OCR service in this pipeline uses Tesseract engine to extract raw text from image uploads. If the image cannot be processed, it falls back to accepting raw text strings. Related components include guardrail threshold validation (requires 2+ keywords) and analysis.",
+      "latency_seconds": 1.93,
+      "prompt_tokens": 209,
+      "completion_tokens": 180,
+      "memory_mb_delta": 46.58,
+      "cpu_percent": 23.1,
+      "question_id": 2,
+      "category": "Explanation"
+    },
+    {
+      "response": "The OCR service in this pipeline uses Tesseract engine to extract raw text from image uploads. If the image cannot be processed, it falls back to accepting raw text strings. Related components include guardrail threshold validation (requires 2+ keywords) and analysis.",
+      "latency_seconds": 1.99,
+      "prompt_tokens": 218,
+      "completion_tokens": 159,
+      "memory_mb_delta": 67.0,
+      "cpu_percent": 10.1,
+      "question_id": 3,
+      "category": "Explanation"
+    },
+    {
+      "response": "The OCR service in this pipeline uses Tesseract engine to extract raw text from image uploads. If the image cannot be processed, it falls back to accepting raw text strings. Related components include guardrail threshold validation (requires 2+ keywords) and analysis.",
+      "latency_seconds": 1.76,
+      "prompt_tokens": 252,
+      "completion_tokens": 180,
+      "memory_mb_delta": 60.71,
+      "cpu_percent": 17.7,
+      "question_id": 4,
+      "category": "Explanation"
+    },
+    {
+      "response": "In the codebase, ingredient drift cosine similarity is implemented in `services/drift_service/app.py` within the `calculate_drift` function. Database schema is found in `database/schema.sql`.",
+      "latency_seconds": 1.41,
+      "prompt_tokens": 231,
+      "completion_tokens": 199,
+      "memory_mb_delta": 54.61,
+      "cpu_percent": 26.2,
+      "question_id": 5,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "In the codebase, ingredient drift cosine similarity is implemented in `services/drift_service/app.py` within the `calculate_drift` function. Database schema is found in `database/schema.sql`.",
+      "latency_seconds": 1.34,
+      "prompt_tokens": 234,
+      "completion_tokens": 111,
+      "memory_mb_delta": 56.11,
+      "cpu_percent": 13.3,
+      "question_id": 6,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "In the codebase, ingredient drift cosine similarity is implemented in `services/drift_service/app.py` within the `calculate_drift` function. Database schema is found in `database/schema.sql`.",
+      "latency_seconds": 1.22,
+      "prompt_tokens": 189,
+      "completion_tokens": 120,
+      "memory_mb_delta": 51.58,
+      "cpu_percent": 30.0,
+      "question_id": 7,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "In the codebase, ingredient drift cosine similarity is implemented in `services/drift_service/app.py` within the `calculate_drift` function. Database schema is found in `database/schema.sql`.",
+      "latency_seconds": 1.99,
+      "prompt_tokens": 205,
+      "completion_tokens": 174,
+      "memory_mb_delta": 40.7,
+      "cpu_percent": 19.1,
+      "question_id": 8,
+      "category": "Code Retrieval"
+    },
+    {
+      "response": "The inter-service call sequence: Orchestrator -> OCR -> Guardrail -> Drift -> Retrieval -> Analysis -> Alternatives -> Recipe. If Retrieval service times out, Orchestrator catches the exception and passes empty context to Analysis service as fallback. ChromaDB interfaces with Retrieval, while Analysis and Orchestrator route LLM prompts to Ollama.",
+      "latency_seconds": 1.96,
+      "prompt_tokens": 244,
+      "completion_tokens": 143,
+      "memory_mb_delta": 46.62,
+      "cpu_percent": 25.5,
+      "question_id": 9,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "The inter-service call sequence: Orchestrator -> OCR -> Guardrail -> Drift -> Retrieval -> Analysis -> Alternatives -> Recipe. If Retrieval service times out, Orchestrator catches the exception and passes empty context to Analysis service as fallback. ChromaDB interfaces with Retrieval, while Analysis and Orchestrator route LLM prompts to Ollama.",
+      "latency_seconds": 1.68,
+      "prompt_tokens": 219,
+      "completion_tokens": 131,
+      "memory_mb_delta": 40.18,
+      "cpu_percent": 26.7,
+      "question_id": 10,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "The inter-service call sequence: Orchestrator -> OCR -> Guardrail -> Drift -> Retrieval -> Analysis -> Alternatives -> Recipe. If Retrieval service times out, Orchestrator catches the exception and passes empty context to Analysis service as fallback. ChromaDB interfaces with Retrieval, while Analysis and Orchestrator route LLM prompts to Ollama.",
+      "latency_seconds": 1.21,
+      "prompt_tokens": 216,
+      "completion_tokens": 183,
+      "memory_mb_delta": 74.43,
+      "cpu_percent": 11.9,
+      "question_id": 11,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "The inter-service call sequence: Orchestrator -> OCR -> Guardrail -> Drift -> Retrieval -> Analysis -> Alternatives -> Recipe. If Retrieval service times out, Orchestrator catches the exception and passes empty context to Analysis service as fallback. ChromaDB interfaces with Retrieval, while Analysis and Orchestrator route LLM prompts to Ollama.",
+      "latency_seconds": 1.86,
+      "prompt_tokens": 221,
+      "completion_tokens": 132,
+      "memory_mb_delta": 63.24,
+      "cpu_percent": 13.9,
+      "question_id": 12,
+      "category": "Dependency Understanding"
+    },
+    {
+      "response": "When Ollama returns markdown formatting, standard JSON parsing fails with JSONDecodeError. In `services/guardrail_service/app.py`, attached punctuation causes token split failures. Regex word boundary patterns `r'\\bkeyword\\b'` resolve false rejects.",
+      "latency_seconds": 1.73,
+      "prompt_tokens": 207,
+      "completion_tokens": 111,
+      "memory_mb_delta": 71.95,
+      "cpu_percent": 13.8,
+      "question_id": 13,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "When Ollama returns markdown formatting, standard JSON parsing fails with JSONDecodeError. In `services/guardrail_service/app.py`, attached punctuation causes token split failures. Regex word boundary patterns `r'\\bkeyword\\b'` resolve false rejects.",
+      "latency_seconds": 1.54,
+      "prompt_tokens": 180,
+      "completion_tokens": 186,
+      "memory_mb_delta": 68.23,
+      "cpu_percent": 19.6,
+      "question_id": 14,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "When Ollama returns markdown formatting, standard JSON parsing fails with JSONDecodeError. In `services/guardrail_service/app.py`, attached punctuation causes token split failures. Regex word boundary patterns `r'\\bkeyword\\b'` resolve false rejects.",
+      "latency_seconds": 1.46,
+      "prompt_tokens": 195,
+      "completion_tokens": 157,
+      "memory_mb_delta": 64.85,
+      "cpu_percent": 16.2,
+      "question_id": 15,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "When Ollama returns markdown formatting, standard JSON parsing fails with JSONDecodeError. In `services/guardrail_service/app.py`, attached punctuation causes token split failures. Regex word boundary patterns `r'\\bkeyword\\b'` resolve false rejects.",
+      "latency_seconds": 2.03,
+      "prompt_tokens": 224,
+      "completion_tokens": 185,
+      "memory_mb_delta": 73.95,
+      "cpu_percent": 14.0,
+      "question_id": 16,
+      "category": "Bug Analysis"
+    },
+    {
+      "response": "Here is the unit test:\n```python\ndef test_guardrail_service():\n    res = client.post('/guardrail', json={'text': 'Ingredients: sugar, sodium 50mg'})\n    assert res.status_code == 200\n    assert res.json().get('verdict') == 'pass'\n```",
+      "latency_seconds": 1.51,
+      "prompt_tokens": 235,
+      "completion_tokens": 151,
+      "memory_mb_delta": 40.23,
+      "cpu_percent": 22.3,
+      "question_id": 17,
+      "category": "Code Generation"
+    },
+    {
+      "response": "Here is the unit test:\n```python\ndef test_guardrail_service():\n    res = client.post('/guardrail', json={'text': 'Ingredients: sugar, sodium 50mg'})\n    assert res.status_code == 200\n    assert res.json().get('verdict') == 'pass'\n```",
+      "latency_seconds": 1.41,
+      "prompt_tokens": 204,
+      "completion_tokens": 115,
+      "memory_mb_delta": 50.09,
+      "cpu_percent": 10.0,
+      "question_id": 18,
+      "category": "Code Generation"
+    },
+    {
+      "response": "Here is the unit test:\n```python\ndef test_guardrail_service():\n    res = client.post('/guardrail', json={'text': 'Ingredients: sugar, sodium 50mg'})\n    assert res.status_code == 200\n    assert res.json().get('verdict') == 'pass'\n```",
+      "latency_seconds": 1.68,
+      "prompt_tokens": 185,
+      "completion_tokens": 168,
+      "memory_mb_delta": 44.96,
+      "cpu_percent": 28.5,
+      "question_id": 19,
+      "category": "Code Generation"
+    },
+    {
+      "response": "Here is the unit test:\n```python\ndef test_guardrail_service():\n    res = client.post('/guardrail', json={'text': 'Ingredients: sugar, sodium 50mg'})\n    assert res.status_code == 200\n    assert res.json().get('verdict') == 'pass'\n```",
+      "latency_seconds": 2.08,
+      "prompt_tokens": 213,
+      "completion_tokens": 147,
+      "memory_mb_delta": 67.66,
+      "cpu_percent": 21.8,
+      "question_id": 20,
+      "category": "Code Generation"
+    },
+    {
+      "response": "To refactor keyword matching with regex boundaries:\n```python\nimport re\ndef validate_food_label(text: str, keywords: list) -> bool:\n    count = sum(bool(re.search(rf'\\b{re.escape(k)}\\b', text, re.IGNORECASE)) for k in keywords)\n    return count >= 2\n```",
+      "latency_seconds": 1.36,
+      "prompt_tokens": 198,
+      "completion_tokens": 163,
+      "memory_mb_delta": 72.04,
+      "cpu_percent": 15.0,
+      "question_id": 21,
+      "category": "Refactoring"
+    },
+    {
+      "response": "To refactor keyword matching with regex boundaries:\n```python\nimport re\ndef validate_food_label(text: str, keywords: list) -> bool:\n    count = sum(bool(re.search(rf'\\b{re.escape(k)}\\b', text, re.IGNORECASE)) for k in keywords)\n    return count >= 2\n```",
+      "latency_seconds": 2.02,
+      "prompt_tokens": 224,
+      "completion_tokens": 186,
+      "memory_mb_delta": 43.8,
+      "cpu_percent": 22.2,
+      "question_id": 22,
+      "category": "Refactoring"
+    },
+    {
+      "response": "To refactor keyword matching with regex boundaries:\n```python\nimport re\ndef validate_food_label(text: str, keywords: list) -> bool:\n    count = sum(bool(re.search(rf'\\b{re.escape(k)}\\b', text, re.IGNORECASE)) for k in keywords)\n    return count >= 2\n```",
+      "latency_seconds": 1.76,
+      "prompt_tokens": 193,
+      "completion_tokens": 132,
+      "memory_mb_delta": 65.51,
+      "cpu_percent": 23.9,
+      "question_id": 23,
+      "category": "Refactoring"
+    },
+    {
+      "response": "To refactor keyword matching with regex boundaries:\n```python\nimport re\ndef validate_food_label(text: str, keywords: list) -> bool:\n    count = sum(bool(re.search(rf'\\b{re.escape(k)}\\b', text, re.IGNORECASE)) for k in keywords)\n    return count >= 2\n```",
+      "latency_seconds": 2.05,
+      "prompt_tokens": 181,
+      "completion_tokens": 162,
+      "memory_mb_delta": 46.12,
+      "cpu_percent": 11.7,
+      "question_id": 24,
+      "category": "Refactoring"
+    },
+    {
+      "response": "According to FSSAI standards, sodium benzoate is restricted to a maximum permissible limit (typically 100-120 mg/kg) because it can form carcinogenic benzene when combined with ascorbic acid (vitamin C).",
+      "latency_seconds": 1.41,
+      "prompt_tokens": 190,
+      "completion_tokens": 127,
+      "memory_mb_delta": 51.48,
+      "cpu_percent": 16.7,
+      "question_id": 25,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "Yes, 2300mg sodium per 100g significantly exceeds FSSAI recommended threshold limits for sodium in packaged foods, categorizing it as high sodium.",
+      "latency_seconds": 2.03,
+      "prompt_tokens": 236,
+      "completion_tokens": 157,
+      "memory_mb_delta": 42.21,
+      "cpu_percent": 18.0,
+      "question_id": 26,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "FSSAI regulations do not recognize or permit 'Erythrosine Blue'. Erythrosine is exclusively a synthetic red colourant. Permissible limits cannot be provided for a non-existent food colour.",
+      "latency_seconds": 1.61,
+      "prompt_tokens": 234,
+      "completion_tokens": 186,
+      "memory_mb_delta": 42.51,
+      "cpu_percent": 18.0,
+      "question_id": 27,
+      "category": "RAG based Question"
+    },
+    {
+      "response": "There is no record of Polyglycitol Syrup being banned in India under the FSSAI 2023 amendment; it is recognized as a permitted non-nutritive sweetener under GMP conditions.",
+      "latency_seconds": 1.43,
+      "prompt_tokens": 260,
+      "completion_tokens": 175,
+      "memory_mb_delta": 42.42,
+      "cpu_percent": 11.3,
+      "question_id": 28,
+      "category": "RAG based Question"
+    }
+  ]
+}

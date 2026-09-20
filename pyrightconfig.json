@@ -1,0 +1,6 @@
+{
+    "extraPaths": [
+        "services/analysis_service",
+        "services/guardrail_service"
+    ]
+}

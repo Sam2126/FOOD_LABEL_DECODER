@@ -9,6 +9,7 @@ DANGEROUS_COMBINATIONS: Dict[tuple, str] = {
     ("sodium benzoate", "vitamin c"): "forms benzene, a carcinogen",
     ("nitrates", "amines"): "forms nitrosamines, linked to cancer",
     ("tartrazine", "sodium benzoate"): "linked to hyperactivity in children",
+    ("yellow 5", "sodium benzoate"): "linked to hyperactivity in children",
     ("tbhq", "fish oil"): "accelerates oxidation",
 }
 
@@ -16,18 +17,26 @@ DANGEROUS_COMBINATIONS: Dict[tuple, str] = {
 def detect_combinations(flagged_ingredients: List[str]) -> List[Dict]:
     """Check every pair of flagged ingredients against DANGEROUS_COMBINATIONS.
 
+    Supports exact matches, aliases, and substring matches (e.g. 'Ascorbic Acid (Vitamin C)').
+
     Args:
         flagged_ingredients: List of ingredient name strings (any case).
 
     Returns:
         List of dicts with keys ``ingredients`` (list) and ``risk`` (str).
     """
-    lowered = [i.lower().strip() for i in flagged_ingredients]
     found = []
-    for a, b in combinations(lowered, 2):
-        risk = DANGEROUS_COMBINATIONS.get((a, b)) or DANGEROUS_COMBINATIONS.get((b, a))
-        if risk:
-            found.append({"ingredients": [a, b], "risk": risk})
+    seen_pairs = set()
+
+    for a, b in combinations(flagged_ingredients, 2):
+        la, lb = a.lower().strip(), b.lower().strip()
+        for (k1, k2), risk in DANGEROUS_COMBINATIONS.items():
+            if (k1 in la and k2 in lb) or (k2 in la and k1 in lb):
+                pair_key = tuple(sorted([la, lb]))
+                if pair_key not in seen_pairs:
+                    seen_pairs.add(pair_key)
+                    found.append({"ingredients": [a, b], "risk": risk})
+                break
     return found
 
 

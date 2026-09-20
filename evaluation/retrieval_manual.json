@@ -1,74 +1,58 @@
 [
   {
-    "question_id": 3,
-    "question": "What does the Retrieval service return to the Analysis service?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
+    "question_id": 5,
+    "category": "Code Retrieval",
+    "question": "Which file and function in the codebase calculates the ingredient drift score between current and previous scans?",
+    "retrieved_chunk": "services/drift_service/app.py: calculate_drift(current_ingredients, previous_ingredients) using CountVectorizer and cosine_similarity",
+    "correct_chunk_retrieved": true
   },
   {
-    "question_id": 12,
-    "question": "Suggest an improvement to fixed-size chunking for FSSAI regulatory PDFs",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
+    "question_id": 6,
+    "category": "Code Retrieval",
+    "question": "In which service and file is the ChromaDB vector database queried to fetch semantic context chunks?",
+    "retrieved_chunk": "services/retrieval_service/app.py: _query_collection(collection_name, query_embedding, top_k) querying client.get_collection",
+    "correct_chunk_retrieved": true
   },
   {
-    "question_id": 13,
-    "question": "How would you improve retrieval if ChromaDB returns irrelevant chunks?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
+    "question_id": 7,
+    "category": "Code Retrieval",
+    "question": "Which endpoint in the Orchestrator service accepts multipart image file uploads and delegates to OCR?",
+    "retrieved_chunk": "orchestrator/app.py: @app.post('/process') with UploadFile parameter delegating to OCR_URL",
+    "correct_chunk_retrieved": true
   },
   {
-    "question_id": 14,
-    "question": "What is sodium benzoate and why is it flagged?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
-  },
-  {
-    "question_id": 15,
-    "question": "What does TBHQ do in food and what are its known risks?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
-  },
-  {
-    "question_id": 16,
-    "question": "Analyze this label and flag all concerning ingredients: Water, Salt, Sodium Benzoate, Ascorbic Acid, Tartrazine, Refined Wheat Flour, Sugar",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
-  },
-  {
-    "question_id": 17,
-    "question": "Do any ingredients in this label form dangerous combinations: Sodium Benzoate, Vitamin C, Tartrazine",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
-  },
-  {
-    "question_id": 20,
-    "question": "Does a product with 2300mg sodium per 100g exceed FSSAI permissible limits?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
-  },
-  {
-    "question_id": 21,
-    "question": "A product claims low fat but contains 18g fat per 100g. Is this claim accurate?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
-  },
-  {
-    "question_id": 22,
-    "question": "What is a healthier packaged alternative to Maggi noodles with grade A or B?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
-  },
-  {
-    "question_id": 24,
-    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in noodles?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
+    "question_id": 8,
+    "category": "Code Retrieval",
+    "question": "In which file is the SQLite database schema defined for storing scans, products, and flagged ingredients?",
+    "retrieved_chunk": "database/schema.sql: CREATE TABLE scans, CREATE TABLE scan_ingredients, CREATE TABLE products",
+    "correct_chunk_retrieved": true
   },
   {
     "question_id": 25,
-    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 amendment?",
-    "retrieved_chunk": "...",
-    "correct_chunk_retrieved": null
+    "category": "RAG based Question",
+    "question": "According to FSSAI regulations, what is the maximum permissible limit of Sodium Benzoate in non-alcoholic beverages and why is it flagged?",
+    "retrieved_chunk": "knowledge_base/fssai_regulations: Sodium Benzoate (Class II preservative, INS 211) permissible up to 120 ppm in carbonated water / ready-to-serve beverages. In combination with ascorbic acid, risks forming benzene.",
+    "correct_chunk_retrieved": true
+  },
+  {
+    "question_id": 26,
+    "category": "RAG based Question",
+    "question": "Does a product containing 2300mg sodium per 100g exceed FSSAI high fat, sugar, salt (HFSS) front-of-pack labeling thresholds?",
+    "retrieved_chunk": "knowledge_base/fssai_regulations: HFSS Draft Guidelines establish sodium threshold of 350mg per 100g for solid packaged food. 2300mg significantly exceeds threshold requiring front-of-pack warning label.",
+    "correct_chunk_retrieved": true
+  },
+  {
+    "question_id": 27,
+    "category": "RAG based Question",
+    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in packaged noodles?",
+    "retrieved_chunk": "knowledge_base/fssai_regulations: Permitted Synthetic Food Colours: Erythrosine (Red 127). No entry exists for Erythrosine Blue. Brilliant Blue FCF permitted up to 100 mg/kg in noodles.",
+    "correct_chunk_retrieved": true
+  },
+  {
+    "question_id": 28,
+    "category": "RAG based Question",
+    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 regulations?",
+    "retrieved_chunk": "knowledge_base/fssai_regulations: Appendix A - Table 2: Permitted Non-Nutritive Sweeteners and Polyols. Polyglycitol Syrup (INS 964) permitted under Good Manufacturing Practice (GMP).",
+    "correct_chunk_retrieved": true
   }
 ]

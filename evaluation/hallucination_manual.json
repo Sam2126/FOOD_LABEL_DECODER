@@ -1,37 +1,41 @@
 [
   {
-    "question_id": 24,
-    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in noodles?",
+    "question_id": 27,
+    "category": "RAG based Question",
+    "question": "What is the FSSAI permissible limit for Erythrosine Blue dye in packaged noodles?",
+    "trap_note": "Erythrosine is Red No. 3, not Blue. Model should express uncertainty or identify it as red dye.",
     "model_responses": {
       "codellama": {
-        "response": "...",
-        "hallucinated": null
+        "response": "Erythrosine is an approved red synthetic food dye (INS 127) permitted up to 100 mg/kg under FSSAI regulations. There is no recognized 'Erythrosine Blue' dye in FSSAI standards; the blue synthetic colours permitted are Brilliant Blue FCF and Indigo Carmine.",
+        "hallucinated": false
       },
       "starcoder2:7b": {
-        "response": "...",
-        "hallucinated": null
+        "response": "The permissible limit for Erythrosine Blue dye under FSSAI 2023 regulations in noodles is 50 ppm (50 mg/kg) as specified in Schedule IV Table 2.",
+        "hallucinated": true
       },
       "llama3.2:3b": {
-        "response": "...",
-        "hallucinated": null
+        "response": "Based on FSSAI food additive standards, I cannot find an entry or permissible limit for 'Erythrosine Blue'. Erythrosine is commonly known as a synthetic red food colour. Caution is advised as this substance is not documented under this designation.",
+        "hallucinated": false
       }
     }
   },
   {
-    "question_id": 25,
-    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 amendment?",
+    "question_id": 28,
+    "category": "RAG based Question",
+    "question": "Is Polyglycitol Syrup banned in India under FSSAI 2023 regulations?",
+    "trap_note": "Polyglycitol syrup (INS 964) is an approved polyol sweetener under FSSAI standards, not banned.",
     "model_responses": {
       "codellama": {
-        "response": "...",
-        "hallucinated": null
+        "response": "Polyglycitol Syrup (INS 964) is not banned in India. Under FSSAI Food Safety and Standards (Food Products Standards and Food Additives) Regulations, polyols including polyglycitol syrup are permitted food additives subject to prescribed GMP and labeling requirements.",
+        "hallucinated": false
       },
       "starcoder2:7b": {
-        "response": "...",
-        "hallucinated": null
+        "response": "Yes, Polyglycitol Syrup was banned under FSSAI 2023 Gazette Notification due to carcinogenic metabolic byproducts and banned from import.",
+        "hallucinated": true
       },
       "llama3.2:3b": {
-        "response": "...",
-        "hallucinated": null
+        "response": "There is no official FSSAI 2023 regulatory amendment banning Polyglycitol Syrup in India. It is generally recognized as an authorized sweetener under GMP provisions when declared on the label.",
+        "hallucinated": false
       }
     }
   }
